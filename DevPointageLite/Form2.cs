@@ -1,0 +1,174 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using DevExpress.XtraBars;
+
+namespace DevPointageLite
+{
+    public partial class Form2 : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
+    {
+        static public string annee_en_cours;
+        static public int plage_hrs = 5;
+        static public int plage_retards = 15;
+
+        public Form2()
+        {
+            InitializeComponent();
+            ConnectSqlite.Initialize();
+            LoadPrincipaleUC();
+        }
+        static public Form4 fn_telechargement;
+        static public Form10 fn_personnel;
+        static public Form11 fn_affectation;
+        static public Form12 fn_fonction;
+        static public Form14 fn_pointage_mensuelle;
+        static public Form15 fn_gestion_absence;
+        static public Form16 fn_gerer_pointeuse;
+        static public Form17 fn_pointage_journalier;
+        static public Form_imprission fn_imprission;
+
+
+        uc_principale uc_principale1 = new uc_principale();
+        uc_employe uc_employe1 = new uc_employe();
+        uc_fonction uc_fonction1 = new uc_fonction();
+        uc_structure uc_structure1 = new uc_structure();
+        
+
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            annee_en_cours = DateTime.Now.Year.ToString();
+
+            // Initialize the user controls or perform any setup needed on form load
+            LoadPrincipaleUC();
+        }
+
+        private void LoadUC(DevExpress.XtraEditors.XtraUserControl Page_UControle)
+        {
+            try
+            {
+                pn_continer.Controls.Clear();
+                Page_UControle.Dock = DockStyle.Fill;
+                pn_continer.Controls.Add(Page_UControle);
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void LoadPrincipaleUC()
+        {
+
+            LoadUC(uc_principale1);
+
+        }
+
+        private void bt_principale_Click(object sender, EventArgs e)
+        {
+            LoadUC(uc_principale1);
+        }
+
+        private void bt_fournisseur_Click(object sender, EventArgs e)
+        {
+           // LoadUC(uc_listefournisseur1);
+        }
+
+        private void bt_client_Click(object sender, EventArgs e)
+        {
+            fn_telechargement = new Form4();
+            fn_telechargement.ShowDialog();
+            fn_telechargement.Dispose();
+
+        }
+
+        private void bt_marque_Click(object sender, EventArgs e)
+        {
+           // LoadUC(uc_marque1);
+        }
+
+        private void bt_nomoclature_Click(object sender, EventArgs e)
+        {
+          //  LoadUC(uc_nomoclature1);
+        }
+
+        private void b_type_Click(object sender, EventArgs e)
+        {
+          //  LoadUC(uc_type1);
+        }
+
+        private void bt_piece_Click(object sender, EventArgs e)
+        {
+           // LoadUC(uc_piece1);
+        }
+
+        private void bt_matriel_Click(object sender, EventArgs e)
+        {
+           // LoadUC(uc_materiel1);
+        }
+
+        private void accordionControlElement1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void accordionControlElement2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void accordionControl1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_gererPointeuse_Click(object sender, EventArgs e)
+        {
+            fn_gerer_pointeuse = new Form16();
+            fn_gerer_pointeuse.ShowDialog();
+            fn_gerer_pointeuse.Dispose();
+        }
+
+        private void bt_employe_Click(object sender, EventArgs e)
+        {
+            LoadUC(uc_employe1);
+        }
+
+        private void bt_stucture_Click(object sender, EventArgs e)
+        {
+            LoadUC(uc_structure1);
+        }
+
+        private void bt_piece_Click_1(object sender, EventArgs e)
+        {
+            LoadUC(uc_fonction1);
+        }
+
+        private void bt_absence_Click(object sender, EventArgs e)
+        {
+            fn_gestion_absence = new Form15();
+            fn_gestion_absence.ShowDialog();
+            fn_gestion_absence.Dispose();
+        }
+
+        private void bt_pointageM_Click(object sender, EventArgs e)
+        {
+            fn_pointage_mensuelle = new Form14();
+            fn_pointage_mensuelle.ShowDialog();
+            fn_pointage_mensuelle.Dispose();
+        }
+
+        private void bt_PointageJR_Click(object sender, EventArgs e)
+        {
+            fn_pointage_journalier = new Form17();
+            fn_pointage_journalier.ShowDialog();
+            fn_pointage_journalier.Dispose();
+        }
+    }
+}
