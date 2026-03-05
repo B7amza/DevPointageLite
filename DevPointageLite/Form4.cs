@@ -61,17 +61,17 @@ namespace DevPointageLite
                 tableau.Columns[5].Visible = false;
 
 
-                // ✅ إخفاء عمود ID إن وجد (اختياري)
-                if (tableau.Columns.Contains("id"))
-                    tableau.Columns["id"].Visible = false;
+                
 
                 // ✅ تعديل عناوين الأعمدة للعرض (اختياري)
                 if (tableau.Columns.Contains("LIB_POINTEUSE"))
                     tableau.Columns["LIB_POINTEUSE"].HeaderText = "Appareil";
-                if (tableau.Columns.Contains("ip"))
-                    tableau.Columns["ip"].HeaderText = "Adresse IP";
-                if (tableau.Columns.Contains("port"))
-                    tableau.Columns["port"].HeaderText = "Port";
+                if (tableau.Columns.Contains("ADRESSE_IP"))
+                    tableau.Columns["ADRESSE_IP"].HeaderText = "Adresse IP";
+                if (tableau.Columns.Contains("N_PORT"))
+                    tableau.Columns["N_PORT"].HeaderText = "Port";
+                if (tableau.Columns.Contains("N_MACHINE"))
+                    tableau.Columns["N_MACHINE"].HeaderText = "N_MACHINE";
                 if (tableau.Columns.Contains("etat"))
                     tableau.Columns["etat"].HeaderText = "État";
             }
@@ -117,11 +117,11 @@ namespace DevPointageLite
             {
                 if (row.IsNewRow) continue;
 
-                string etat = row.Cells["etat"]?.Value?.ToString()?.Trim().ToUpper();
-                if (etat != "O") continue;  // ✅ تخطي الأجهزة غير النشطة
+                string check = row.Cells[0]?.Value?.ToString()?.Trim().ToUpper();
+                if (check != "O") continue;  // ✅ تخطي الأجهزة غير النشطة
 
-                string ip = row.Cells["ip"]?.Value?.ToString()?.Trim();
-                string portStr = row.Cells["port"]?.Value?.ToString()?.Trim();
+                string ip = row.Cells["ADRESSE_IP"]?.Value?.ToString()?.Trim();
+                string portStr = row.Cells["N_PORT"]?.Value?.ToString()?.Trim();
 
                 if (string.IsNullOrEmpty(ip) || !int.TryParse(portStr, out int port))
                 {
@@ -209,7 +209,7 @@ namespace DevPointageLite
 
                     // ✅ SQLite: استخدام INSERT OR IGNORE لمنع التكرار
                     // أو: INSERT ... ON CONFLICT DO NOTHING
-                    string query = @"INSERT OR IGNORE INTO CHARGEMENT_POINTEUSE 
+                    string query = @"INSERT OR IGNORE INTO CHARGEMENT_POITEUSE 
                                     (MATRI, DATE_POINTAGE, HEURS_POINTAGE, DATE_TELECHARGEMENT) 
                                     VALUES (@matri, @dateP, @hourP, datetime('now'))";
 
@@ -317,7 +317,7 @@ namespace DevPointageLite
                             continue;
 
                         // ✅ SQLite: INSERT OR IGNORE لمنع التكرار
-                        string query = @"INSERT OR IGNORE INTO CHARGEMENT_POINTEUSE 
+                        string query = @"INSERT OR IGNORE INTO CHARGEMENT_POITEUSE 
                                         (MATRI, DATE_POINTAGE, HEURS_POINTAGE, DATE_TELECHARGEMENT) 
                                         VALUES (@matri, @dateP, @hourP, datetime('now'))";
 
@@ -355,7 +355,7 @@ namespace DevPointageLite
         // ✅ دالة مساعدة: التحقق من وجود سجل قبل الإدخال (بديل لـ INSERT OR IGNORE)
         private bool RecordExists(string matricule, string dateP, string hourP)
         {
-            string query = "SELECT COUNT(*) FROM CHARGEMENT_POINTEUSE WHERE MATRI = @matri AND DATE_POINTAGE = @dateP AND HEURS_POINTAGE = @hourP";
+            string query = "SELECT COUNT(*) FROM CHARGEMENT_POITEUSE WHERE MATRI = @matri AND DATE_POINTAGE = @dateP AND HEURS_POINTAGE = @hourP";
             var param = new SqliteParameter("@matri", matricule);
             var param2 = new SqliteParameter("@dateP", dateP);
             var param3 = new SqliteParameter("@hourP", hourP);
