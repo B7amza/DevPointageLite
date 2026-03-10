@@ -80,6 +80,11 @@ namespace DevPointageLite
                 XtraMessageBox.Show("Erreur lors du chargement des données : " + ex.Message,
                                   "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            if(tableau.Rows.Count >= 2)
+            {
+                bt_ajouter.Enabled= false;
+            }
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
@@ -378,6 +383,65 @@ namespace DevPointageLite
             fn_ajouterpointeuse.ShowDialog();
             fn_ajouterpointeuse.Dispose();
             Form4_Load(null, null); // إعادة تحميل البيانات بعد الإضافة
+        }
+
+        private void btnSupprimerLogs_Click(object sender, EventArgs e)
+        {
+            // ✅ تأكيد الحذف
+            var result = XtraMessageBox.Show("هل أنت متأكد أنك تريد حذف سجلات الحضور من الجهاز؟",
+                                              "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes) return;
+
+            foreach (DataGridViewRow row in tableau.Rows)
+            {
+                if (row.Cells[0].Value?.ToString().Trim().ToUpper() == "O")
+                {
+                    if (zkDevice.ClearGLog(1)) // رقم الجهاز غالبًا 1
+                    {
+                        zkDevice.RefreshData(1); // لتحديث البيانات داخل الجهاز بعد الحذف
+                        row.Cells[0].ReadOnly = true;
+                        row.DefaultCellStyle.BackColor = Color.Lime;
+
+                        MessageBox.Show("✅ تم حذف سجلات الحضور من الجهاز بنجاح");
+                    }
+                    else
+                    {
+                        row.Cells[0].ReadOnly = true;
+                        row.DefaultCellStyle.BackColor = Color.Lime;
+
+                        MessageBox.Show("❌ فشل في حذف سجلات الحضور");
+                    }
+                }
+            }
+        }
+
+        private void btnSupprimerLogs_MouseHover(object sender, EventArgs e)
+        {
+            // ✅ عرض تلميح عند المرور فوق زر الحذف
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(btnSupprimerLogs, "احذر! هذا سيؤدي إلى حذف جميع سجلات الحضور من الجهاز المحدد.");    
+
+        }
+
+        private void bt_telechargerD_MouseHover(object sender, EventArgs e)
+        {
+            // ✅ عرض تلميح عند المرور فوق زر التحميل
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(bt_telechargerD, "تحميل سجلات الحضور من الأجهزة النشطة وعرضها في الشبكة.");
+        }
+
+        private void bt_ajouter_MouseHover(object sender, EventArgs e)
+        {
+            // ✅ عرض تلميح عند المرور فوق زر الإضافة
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(bt_ajouter, "إضافة جهاز بصمة جديد إلى القائمة.");
+        }
+
+        private void bt_telechargerAttlog_MouseHover(object sender, EventArgs e)
+        {
+            // ✅ عرض تلميح عند المرور فوق زر تحميل ملف attlog
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(bt_telechargerAttlog, "تحميل سجلات الحضور من ملف attlog وعرضها في الشبكة.");
         }
     }
 }

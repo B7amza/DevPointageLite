@@ -37,8 +37,9 @@
             this.accordionControlElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_stucture = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_fonction = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.bt_typeconge = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_gererPointeuse = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlSeparator1 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
+            this.bt_gererUtilisateur = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_employe = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlSeparator3 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             this.bt_absence = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -48,18 +49,24 @@
             this.bt_pointageM = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_PointageJR = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.fluentDesignFormControl1 = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl();
+            this.barEditItem1 = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemHypertextLabel1 = new DevExpress.XtraEditors.Repository.RepositoryItemHypertextLabel();
+            this.lbActive = new DevExpress.XtraBars.BarButtonItem();
+            this.lbDActivation = new DevExpress.XtraBars.BarButtonItem();
+            this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
             this.fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHypertextLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentFormDefaultManager1)).BeginInit();
             this.SuspendLayout();
             // 
             // pn_continer
             // 
             this.pn_continer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pn_continer.Location = new System.Drawing.Point(260, 39);
+            this.pn_continer.Location = new System.Drawing.Point(406, 39);
             this.pn_continer.Name = "pn_continer";
-            this.pn_continer.Size = new System.Drawing.Size(1238, 960);
+            this.pn_continer.Size = new System.Drawing.Size(1092, 942);
             this.pn_continer.TabIndex = 0;
             // 
             // accordionControl1
@@ -69,7 +76,6 @@
             this.bt_principale,
             this.accordionControlSeparator2,
             this.accordionControlElement1,
-            this.accordionControlSeparator1,
             this.bt_employe,
             this.accordionControlSeparator3,
             this.bt_absence,
@@ -81,7 +87,7 @@
             this.accordionControl1.Location = new System.Drawing.Point(0, 39);
             this.accordionControl1.Name = "accordionControl1";
             this.accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Touch;
-            this.accordionControl1.Size = new System.Drawing.Size(260, 960);
+            this.accordionControl1.Size = new System.Drawing.Size(406, 942);
             this.accordionControl1.TabIndex = 1;
             this.accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             this.accordionControl1.Click += new System.EventHandler(this.accordionControl1_Click);
@@ -105,7 +111,9 @@
             this.accordionControlElement1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.bt_stucture,
             this.bt_fonction,
-            this.bt_gererPointeuse});
+            this.bt_typeconge,
+            this.bt_gererPointeuse,
+            this.bt_gererUtilisateur});
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
             this.accordionControlElement1.Text = "Base";
@@ -129,6 +137,15 @@
             this.bt_fonction.Text = "Fonction";
             this.bt_fonction.Click += new System.EventHandler(this.bt_piece_Click_1);
             // 
+            // bt_typeconge
+            // 
+            this.bt_typeconge.Appearance.Default.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_typeconge.Appearance.Default.Options.UseFont = true;
+            this.bt_typeconge.Name = "bt_typeconge";
+            this.bt_typeconge.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_typeconge.Text = "Type Congé";
+            this.bt_typeconge.Click += new System.EventHandler(this.bt_typeconge_Click);
+            // 
             // bt_gererPointeuse
             // 
             this.bt_gererPointeuse.Appearance.Default.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -138,9 +155,14 @@
             this.bt_gererPointeuse.Text = "Gerer Pointeuse";
             this.bt_gererPointeuse.Click += new System.EventHandler(this.bt_gererPointeuse_Click);
             // 
-            // accordionControlSeparator1
+            // bt_gererUtilisateur
             // 
-            this.accordionControlSeparator1.Name = "accordionControlSeparator1";
+            this.bt_gererUtilisateur.Appearance.Default.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_gererUtilisateur.Appearance.Default.Options.UseFont = true;
+            this.bt_gererUtilisateur.Name = "bt_gererUtilisateur";
+            this.bt_gererUtilisateur.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_gererUtilisateur.Text = "Gerer Utilisateurs";
+            this.bt_gererUtilisateur.Click += new System.EventHandler(this.bt_gererUtilisateur_Click);
             // 
             // bt_employe
             // 
@@ -207,22 +229,71 @@
             // fluentDesignFormControl1
             // 
             this.fluentDesignFormControl1.FluentDesignForm = this;
+            this.fluentDesignFormControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.barEditItem1,
+            this.lbActive,
+            this.lbDActivation,
+            this.barHeaderItem1});
             this.fluentDesignFormControl1.Location = new System.Drawing.Point(0, 0);
             this.fluentDesignFormControl1.Manager = this.fluentFormDefaultManager1;
             this.fluentDesignFormControl1.Name = "fluentDesignFormControl1";
+            this.fluentDesignFormControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemHypertextLabel1});
             this.fluentDesignFormControl1.Size = new System.Drawing.Size(1498, 39);
             this.fluentDesignFormControl1.TabIndex = 2;
             this.fluentDesignFormControl1.TabStop = false;
+            this.fluentDesignFormControl1.TitleItemLinks.Add(this.lbActive);
+            this.fluentDesignFormControl1.TitleItemLinks.Add(this.lbDActivation);
+            this.fluentDesignFormControl1.TitleItemLinks.Add(this.barHeaderItem1);
+            // 
+            // barEditItem1
+            // 
+            this.barEditItem1.Caption = "فعل النسخة التجريبية";
+            this.barEditItem1.Edit = this.repositoryItemHypertextLabel1;
+            this.barEditItem1.Id = 0;
+            this.barEditItem1.Name = "barEditItem1";
+            // 
+            // repositoryItemHypertextLabel1
+            // 
+            this.repositoryItemHypertextLabel1.Name = "repositoryItemHypertextLabel1";
+            // 
+            // lbActive
+            // 
+            this.lbActive.Caption = "فعل النسخة التجريبية";
+            this.lbActive.Id = 1;
+            this.lbActive.Name = "lbActive";
+            this.lbActive.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.lbActive_ItemClick);
+            // 
+            // lbDActivation
+            // 
+            this.lbDActivation.Caption = "طلب كود التفعيل";
+            this.lbDActivation.Id = 2;
+            this.lbDActivation.Name = "lbDActivation";
+            this.lbDActivation.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.lbDActivation_ItemClick);
+            // 
+            // barHeaderItem1
+            // 
+            this.barHeaderItem1.Caption = "Created By DevCoreDZ";
+            this.barHeaderItem1.Id = 3;
+            this.barHeaderItem1.Name = "barHeaderItem1";
             // 
             // fluentFormDefaultManager1
             // 
             this.fluentFormDefaultManager1.Form = this;
+            this.fluentFormDefaultManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.barEditItem1,
+            this.lbActive,
+            this.lbDActivation,
+            this.barHeaderItem1});
+            this.fluentFormDefaultManager1.MaxItemId = 4;
+            this.fluentFormDefaultManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemHypertextLabel1});
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1498, 999);
+            this.ClientSize = new System.Drawing.Size(1498, 981);
             this.ControlContainer = this.pn_continer;
             this.Controls.Add(this.pn_continer);
             this.Controls.Add(this.accordionControl1);
@@ -231,10 +302,13 @@
             this.Name = "Form2";
             this.NavigationControl = this.accordionControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestion Pointage Mono ...";
+            this.Text = "Gestion Pointage Mono ...v2601";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHypertextLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentFormDefaultManager1)).EndInit();
             this.ResumeLayout(false);
 
@@ -250,7 +324,6 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_employe;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator3;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_Telecharger;
-        private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_stucture;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_fonction;
@@ -260,6 +333,13 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_absence;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator5;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_PointageJR;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement bt_typeconge;
+        private DevExpress.XtraBars.BarEditItem barEditItem1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHypertextLabel repositoryItemHypertextLabel1;
+        private DevExpress.XtraBars.BarButtonItem lbActive;
+        private DevExpress.XtraBars.BarButtonItem lbDActivation;
+        private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement bt_gererUtilisateur;
     }
 }
 

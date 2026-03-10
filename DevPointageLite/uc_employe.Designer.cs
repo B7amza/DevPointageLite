@@ -113,6 +113,7 @@
             this.bt_exportexcel.Size = new System.Drawing.Size(173, 75);
             this.bt_exportexcel.TabIndex = 4;
             this.bt_exportexcel.Text = "&Export Excel";
+            this.bt_exportexcel.Click += new System.EventHandler(this.bt_exportexcel_Click);
             // 
             // bt_exportpdf
             // 
@@ -127,6 +128,7 @@
             this.bt_exportpdf.Size = new System.Drawing.Size(173, 75);
             this.bt_exportpdf.TabIndex = 3;
             this.bt_exportpdf.Text = "&Export PDF";
+            this.bt_exportpdf.Click += new System.EventHandler(this.bt_exportpdf_Click);
             // 
             // gridControl1
             // 

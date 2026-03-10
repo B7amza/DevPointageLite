@@ -43,6 +43,7 @@
             this.bt_telechargerAttlog = new DevExpress.XtraEditors.SimpleButton();
             this.bt_telechargerD = new DevExpress.XtraEditors.SimpleButton();
             this.bt_fermer = new DevExpress.XtraEditors.SimpleButton();
+            this.btnSupprimerLogs = new DevExpress.XtraEditors.SimpleButton();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -138,6 +139,7 @@
             // 
             // panel_button
             // 
+            this.panel_button.Controls.Add(this.btnSupprimerLogs);
             this.panel_button.Controls.Add(this.bt_ajouter);
             this.panel_button.Controls.Add(this.bt_telechargerAttlog);
             this.panel_button.Controls.Add(this.bt_telechargerD);
@@ -152,33 +154,36 @@
             // 
             this.bt_ajouter.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_ajouter.ImageOptions.Image")));
             this.bt_ajouter.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.bt_ajouter.Location = new System.Drawing.Point(28, 97);
+            this.bt_ajouter.Location = new System.Drawing.Point(30, 101);
             this.bt_ajouter.Name = "bt_ajouter";
             this.bt_ajouter.Size = new System.Drawing.Size(62, 62);
             this.bt_ajouter.TabIndex = 3;
             this.bt_ajouter.Text = "Fermer\r\n";
             this.bt_ajouter.Click += new System.EventHandler(this.bt_ajouter_Click);
+            this.bt_ajouter.MouseHover += new System.EventHandler(this.bt_ajouter_MouseHover);
             // 
             // bt_telechargerAttlog
             // 
             this.bt_telechargerAttlog.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_telechargerAttlog.ImageOptions.Image")));
             this.bt_telechargerAttlog.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.bt_telechargerAttlog.Location = new System.Drawing.Point(28, 222);
+            this.bt_telechargerAttlog.Location = new System.Drawing.Point(30, 279);
             this.bt_telechargerAttlog.Name = "bt_telechargerAttlog";
             this.bt_telechargerAttlog.Size = new System.Drawing.Size(62, 62);
             this.bt_telechargerAttlog.TabIndex = 2;
             this.bt_telechargerAttlog.Click += new System.EventHandler(this.bt_telechargerAttlog_Click);
+            this.bt_telechargerAttlog.MouseHover += new System.EventHandler(this.bt_telechargerAttlog_MouseHover);
             // 
             // bt_telechargerD
             // 
             this.bt_telechargerD.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_telechargerD.ImageOptions.Image")));
             this.bt_telechargerD.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.bt_telechargerD.Location = new System.Drawing.Point(28, 12);
+            this.bt_telechargerD.Location = new System.Drawing.Point(30, 12);
             this.bt_telechargerD.Name = "bt_telechargerD";
             this.bt_telechargerD.Size = new System.Drawing.Size(62, 62);
             this.bt_telechargerD.TabIndex = 1;
             this.bt_telechargerD.Text = "Fermer\r\n";
             this.bt_telechargerD.Click += new System.EventHandler(this.bt_telechargerD_Click);
+            this.bt_telechargerD.MouseHover += new System.EventHandler(this.bt_telechargerD_MouseHover);
             // 
             // bt_fermer
             // 
@@ -190,6 +195,21 @@
             this.bt_fermer.TabIndex = 0;
             this.bt_fermer.Text = "Fermer\r\n";
             this.bt_fermer.Click += new System.EventHandler(this.simpleButton1_Click);
+            // 
+            // btnSupprimerLogs
+            // 
+            this.btnSupprimerLogs.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSupprimerLogs.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSupprimerLogs.Appearance.Options.UseFont = true;
+            this.btnSupprimerLogs.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSupprimerLogs.ImageOptions.Image")));
+            this.btnSupprimerLogs.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            this.btnSupprimerLogs.Location = new System.Drawing.Point(30, 190);
+            this.btnSupprimerLogs.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSupprimerLogs.Name = "btnSupprimerLogs";
+            this.btnSupprimerLogs.Size = new System.Drawing.Size(62, 62);
+            this.btnSupprimerLogs.TabIndex = 12;
+            this.btnSupprimerLogs.Click += new System.EventHandler(this.btnSupprimerLogs_Click);
+            this.btnSupprimerLogs.MouseHover += new System.EventHandler(this.btnSupprimerLogs_MouseHover);
             // 
             // Form4
             // 
@@ -230,5 +250,6 @@
         private DevExpress.XtraEditors.SimpleButton bt_telechargerD;
         private DevExpress.XtraEditors.SimpleButton bt_fermer;
         private DevExpress.XtraEditors.SimpleButton bt_ajouter;
+        private DevExpress.XtraEditors.SimpleButton btnSupprimerLogs;
     }
 }

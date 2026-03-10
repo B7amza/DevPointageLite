@@ -22,10 +22,10 @@ namespace DevPointageLite
             LoadHoraire_travail();
             load_affectation_data();
             cb_structure.SelectedIndex = -1;
-
+            cb_horaire_travail.SelectedIndex = 0;
             // ✅ تهيئة DataGridViews
-           // ConfigureDataGridView(tableau);
-           // ConfigureDataGridView(entet2);
+            ConfigureDataGridView(tableau);
+            ConfigureDataGridView(entet2);
         }
 
         // ✅ دالة مساعدة لتهيئة DataGridView
@@ -35,7 +35,7 @@ namespace DevPointageLite
             dgv.AllowUserToDeleteRows = false;
             dgv.ReadOnly = true;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             foreach (DataGridViewColumn col in dgv.Columns)
             {
@@ -514,6 +514,11 @@ namespace DevPointageLite
                     }
                 }
             }
+        }
+
+        private void date_jour_ValueChanged(object sender, EventArgs e)
+        {
+            cb_horaire_travail_SelectedIndexChanged(sender, e);
         }
 
         // ✅ دالة مساعدة لتحميل جدول العمل لتاريخ معين

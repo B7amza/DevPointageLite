@@ -28,30 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableau = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.entet2 = new System.Windows.Forms.DataGridView();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.bt_imprimer = new System.Windows.Forms.Button();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.cb_horaire_travail = new System.Windows.Forms.ComboBox();
-            this.ch_matricule = new System.Windows.Forms.CheckBox();
-            this.ch_structure = new System.Windows.Forms.CheckBox();
-            this.ch_tous = new System.Windows.Forms.CheckBox();
-            this.date_jour = new System.Windows.Forms.DateTimePicker();
-            this.bt_recherche = new System.Windows.Forms.Button();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.lb_nom_prenom = new DevExpress.XtraEditors.LabelControl();
-            this.txt_matricule = new System.Windows.Forms.TextBox();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.cb_structure = new System.Windows.Forms.ComboBox();
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,7 +51,22 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.bt_imprimer = new System.Windows.Forms.Button();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.cb_horaire_travail = new System.Windows.Forms.ComboBox();
+            this.ch_matricule = new System.Windows.Forms.CheckBox();
+            this.ch_structure = new System.Windows.Forms.CheckBox();
+            this.ch_tous = new System.Windows.Forms.CheckBox();
+            this.date_jour = new System.Windows.Forms.DateTimePicker();
             this.bt_apercu = new System.Windows.Forms.Button();
+            this.bt_recherche = new System.Windows.Forms.Button();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.lb_nom_prenom = new DevExpress.XtraEditors.LabelControl();
+            this.txt_matricule = new System.Windows.Forms.TextBox();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.cb_structure = new System.Windows.Forms.ComboBox();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.tableau)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entet2)).BeginInit();
@@ -94,9 +95,9 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 863);
+            this.panel2.Location = new System.Drawing.Point(0, 850);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1417, 52);
+            this.panel2.Size = new System.Drawing.Size(1633, 33);
             this.panel2.TabIndex = 8;
             // 
             // panel1
@@ -104,21 +105,21 @@
             this.panel1.Controls.Add(this.entet2);
             this.panel1.Location = new System.Drawing.Point(415, 265);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(990, 579);
+            this.panel1.Size = new System.Drawing.Size(1193, 579);
             this.panel1.TabIndex = 7;
             // 
             // entet2
             // 
             this.entet2.AllowUserToAddRows = false;
             this.entet2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 7.8F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.entet2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 7.8F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.entet2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.entet2.ColumnHeadersHeight = 25;
             this.entet2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.entet2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -145,10 +146,130 @@
             this.entet2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.entet2.RowTemplate.Height = 24;
             this.entet2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.entet2.Size = new System.Drawing.Size(990, 579);
+            this.entet2.Size = new System.Drawing.Size(1193, 579);
             this.entet2.TabIndex = 0;
             this.entet2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.entet2_CellClick);
             this.entet2.Scroll += new System.Windows.Forms.ScrollEventHandler(this.entet2_Scroll);
+            // 
+            // Column3
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column3.HeaderText = "Entreé";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 125;
+            // 
+            // Column4
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Column4.HeaderText = "";
+            this.Column4.MinimumWidth = 6;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 125;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Retard (m)";
+            this.Column5.MinimumWidth = 6;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 125;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "";
+            this.Column6.MinimumWidth = 6;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 125;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "";
+            this.Column7.MinimumWidth = 6;
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 125;
+            // 
+            // Column8
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Column8.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Column8.HeaderText = "";
+            this.Column8.MinimumWidth = 6;
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 125;
+            // 
+            // Column9
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Column9.HeaderText = "Sortie";
+            this.Column9.MinimumWidth = 6;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 125;
+            // 
+            // Column10
+            // 
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.Column10.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Column10.HeaderText = "Heurs Supp (H)";
+            this.Column10.MinimumWidth = 6;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 120;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Observation";
+            this.Column11.MinimumWidth = 6;
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            this.Column11.Width = 160;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "12";
+            this.Column12.MinimumWidth = 6;
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Visible = false;
+            this.Column12.Width = 125;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "H.Tr";
+            this.Column13.MinimumWidth = 6;
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
+            this.Column13.Visible = false;
+            this.Column13.Width = 125;
+            // 
+            // Column14
+            // 
+            this.Column14.HeaderText = "Prix.H";
+            this.Column14.MinimumWidth = 6;
+            this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
+            this.Column14.Visible = false;
+            this.Column14.Width = 125;
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "Prix.Trv";
+            this.Column15.MinimumWidth = 6;
+            this.Column15.Name = "Column15";
+            this.Column15.ReadOnly = true;
+            this.Column15.Visible = false;
+            this.Column15.Width = 125;
             // 
             // groupControl1
             // 
@@ -244,6 +365,17 @@
             this.date_jour.Name = "date_jour";
             this.date_jour.Size = new System.Drawing.Size(200, 23);
             this.date_jour.TabIndex = 23;
+            this.date_jour.ValueChanged += new System.EventHandler(this.date_jour_ValueChanged);
+            // 
+            // bt_apercu
+            // 
+            this.bt_apercu.Image = global::DevPointageLite.Properties.Resources.search2;
+            this.bt_apercu.Location = new System.Drawing.Point(637, 147);
+            this.bt_apercu.Name = "bt_apercu";
+            this.bt_apercu.Size = new System.Drawing.Size(75, 72);
+            this.bt_apercu.TabIndex = 22;
+            this.bt_apercu.UseVisualStyleBackColor = true;
+            this.bt_apercu.Click += new System.EventHandler(this.bt_apercu_Click);
             // 
             // bt_recherche
             // 
@@ -335,133 +467,17 @@
             this.labelControl4.TabIndex = 12;
             this.labelControl4.Text = "Date Du :";
             // 
-            // Column3
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Column3.HeaderText = "Entreé";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Column4.HeaderText = "";
-            this.Column4.MinimumWidth = 6;
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Retard (m)";
-            this.Column5.MinimumWidth = 6;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "";
-            this.Column6.MinimumWidth = 6;
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "";
-            this.Column7.MinimumWidth = 6;
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
-            // Column8
-            // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column8.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Column8.HeaderText = "";
-            this.Column8.MinimumWidth = 6;
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Column9
-            // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle10;
-            this.Column9.HeaderText = "Sortie";
-            this.Column9.MinimumWidth = 6;
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Heurs Supp (H)";
-            this.Column10.MinimumWidth = 6;
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "Observation";
-            this.Column11.MinimumWidth = 6;
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Width = 160;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "12";
-            this.Column12.MinimumWidth = 6;
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Visible = false;
-            this.Column12.Width = 125;
-            // 
-            // Column13
-            // 
-            this.Column13.HeaderText = "H.Tr";
-            this.Column13.MinimumWidth = 6;
-            this.Column13.Name = "Column13";
-            this.Column13.ReadOnly = true;
-            this.Column13.Visible = false;
-            this.Column13.Width = 125;
-            // 
-            // Column14
-            // 
-            this.Column14.HeaderText = "Prix.H";
-            this.Column14.MinimumWidth = 6;
-            this.Column14.Name = "Column14";
-            this.Column14.ReadOnly = true;
-            this.Column14.Visible = false;
-            this.Column14.Width = 125;
-            // 
-            // Column15
-            // 
-            this.Column15.HeaderText = "Prix.Trv";
-            this.Column15.MinimumWidth = 6;
-            this.Column15.Name = "Column15";
-            this.Column15.ReadOnly = true;
-            this.Column15.Visible = false;
-            this.Column15.Width = 125;
-            // 
-            // bt_apercu
-            // 
-            this.bt_apercu.Image = global::DevPointageLite.Properties.Resources.search2;
-            this.bt_apercu.Location = new System.Drawing.Point(637, 147);
-            this.bt_apercu.Name = "bt_apercu";
-            this.bt_apercu.Size = new System.Drawing.Size(75, 72);
-            this.bt_apercu.TabIndex = 22;
-            this.bt_apercu.UseVisualStyleBackColor = true;
-            this.bt_apercu.Click += new System.EventHandler(this.bt_apercu_Click);
-            // 
             // Form17
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1417, 915);
+            this.ClientSize = new System.Drawing.Size(1633, 883);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableau);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupControl1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form17";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestion Pointage Journalier ...";

@@ -32,7 +32,7 @@ namespace DevPointageLite
         {
             entet2.AllowUserToAddRows = false;
             entet2.AllowUserToDeleteRows = false;
-            entet2.ReadOnly = false;
+            entet2.ReadOnly = true;
             //entet2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
            // entet2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 

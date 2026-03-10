@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevExpress.XtraBars;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,12 +8,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DevExpress.XtraBars;
 
 namespace DevPointageLite
 {
     public partial class Form2 : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
+        private const string licenseRegistryPath = @"HKEY_CURRENT_USER\Software\DevPointageLiteLicense";
+        private const string licenseKeyName = "LicenseKey";
+
+
+
         static public string annee_en_cours;
         static public int plage_hrs = 5;
         static public int plage_retards = 15;
@@ -30,6 +36,7 @@ namespace DevPointageLite
         static public Form15 fn_gestion_absence;
         static public Form16 fn_gerer_pointeuse;
         static public Form17 fn_pointage_journalier;
+        static public Form20 fn_activation;
         static public Form_imprission fn_imprission;
 
 
@@ -37,7 +44,9 @@ namespace DevPointageLite
         uc_employe uc_employe1 = new uc_employe();
         uc_fonction uc_fonction1 = new uc_fonction();
         uc_structure uc_structure1 = new uc_structure();
-        
+        uc_typeconge uc_typeconge1 = new uc_typeconge();
+        uc_utilisateur uc_utilisateur1 = new uc_utilisateur();
+
 
 
         private void Form2_Load(object sender, EventArgs e)
@@ -169,6 +178,66 @@ namespace DevPointageLite
             fn_pointage_journalier = new Form17();
             fn_pointage_journalier.ShowDialog();
             fn_pointage_journalier.Dispose();
+        }
+
+        private void bt_typeconge_Click(object sender, EventArgs e)
+        {
+            LoadUC(uc_typeconge1);
+
+        }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void lbActive_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            string savedKey = Registry.GetValue(licenseRegistryPath, licenseKeyName, null)?.ToString();
+
+            if (string.IsNullOrEmpty(savedKey) || !LicenseManager.IsLicenseValid(savedKey))
+            {
+                string enteredKey = PromptUserForKey();
+
+                if (!LicenseManager.IsLicenseValid(enteredKey))
+                {
+                    MessageBox.Show("مفتاح التفعيل غير صحيح. سيتم إغلاق البرنامج.", "خطأ في التفعيل");
+                    //this.Alert("مفتاح التفعيل غير صحيح. سيتم إغلاق البرنامج", Form_Alert.enmType.Error);
+
+                    Environment.Exit(0);
+                }
+                MessageBox.Show("License key validated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Registry.SetValue(licenseRegistryPath, licenseKeyName, enteredKey);
+                Application.Restart(); // Restart the application to apply the license key
+                                       // button2_Click(sender, e);
+            }
+        }
+        private string PromptUserForKey()
+        {
+            using (LicenseForm form = new LicenseForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    return form.EnteredKey;
+                }
+                else
+                {
+                    Environment.Exit(0);
+                    return null;
+                }
+            }
+        }
+
+        private void bt_gererUtilisateur_Click(object sender, EventArgs e)
+        {
+            LoadUC(uc_utilisateur1);
+        }
+
+        private void lbDActivation_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            fn_activation = new Form20();
+            fn_activation.ShowDialog();
+            fn_activation.Dispose();
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using DevExpress.XtraEditors;
+using Microsoft.Data.Sqlite;  // ✅ الاستيراد الصحيح لـ SQLite
 using System;
 using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
-using Microsoft.Data.Sqlite;  // ✅ الاستيراد الصحيح لـ SQLite
 
 namespace DevPointageLite
 {
@@ -12,6 +13,7 @@ namespace DevPointageLite
         {
             InitializeComponent();
             ConnectSqlite.Initialize(); // ✅ تهيئة قاعدة البيانات
+            
         }
 
         private void bt_ajouter_Click(object sender, EventArgs e)
@@ -65,13 +67,24 @@ namespace DevPointageLite
             {
                 gridView.OptionsBehavior.Editable = false;
                 gridView.BestFitColumns();
-                gridView.OptionsView.ColumnAutoWidth = false;
+                gridView.OptionsView.ColumnAutoWidth = true;
+
+                gridView1.Columns[0].Width = 80; // Matricule
+
+                
+                gridView1.Columns[8].Visible = false;  // إخفاء type_agent
+                gridView1.Columns[9].Visible = false;  // إخفاء poinatge
+                gridView1.Columns[10].Visible = false; // إخفاء id_fonction
+                gridView1.Columns[11].Visible = false; // إخفاء id_affectation
             }
         }
 
         private void uc_employe_Load(object sender, EventArgs e)
         {
             load_personnel_data();
+            // جعل الشبكة كاملة للقراءة فقط
+          
+           gridView1.OptionsBehavior.Editable = false; // ✅ تعيين خاصية التحرير على مستوى GridView
         }
 
         private void bt_modifier_Click(object sender, EventArgs e)
@@ -130,6 +143,32 @@ namespace DevPointageLite
                 {
                     load_personnel_data();
                 }
+            }
+        }
+
+        private void bt_exportexcel_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sd = new SaveFileDialog();
+            sd.Filter = "xlsx files (*.xlsx)|*.xlsx";
+            sd.FilterIndex = 2;
+            sd.RestoreDirectory = true;
+            if (sd.ShowDialog() == DialogResult.OK)
+            {
+                gridControl1.ExportToXlsx(sd.FileName);
+                Process.Start(sd.FileName);
+            }
+        }
+
+        private void bt_exportpdf_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sd = new SaveFileDialog();
+            sd.Filter = "Pdf files (*.pdf)|*.pdf";
+            sd.FilterIndex = 2;
+            sd.RestoreDirectory = true;
+            if (sd.ShowDialog() == DialogResult.OK)
+            {
+                gridControl1.ExportToPdf(sd.FileName);
+                Process.Start(sd.FileName);
             }
         }
     }

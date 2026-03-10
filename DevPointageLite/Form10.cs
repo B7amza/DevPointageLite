@@ -117,7 +117,7 @@ namespace DevPointageLite
             bool editable = (etat == 0 || etat == 1); // Insertion or Modification
 
             // الحقول النصية
-            txt_matricule.Enabled = false; // الماتريكول دائماً للقراءة
+            txt_matricule.Enabled = (etat == 0); // فقط في الوضع الافتراضي
             txt_nom.Enabled = editable;
             txt_prenom.Enabled = editable;
             txt_adresse.Enabled = editable;
