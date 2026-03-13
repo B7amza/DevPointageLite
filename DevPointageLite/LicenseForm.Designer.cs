@@ -51,7 +51,7 @@
             this.txtKey.Location = new System.Drawing.Point(81, 63);
             this.txtKey.Name = "txtKey";
             this.txtKey.Size = new System.Drawing.Size(429, 53);
-            this.txtKey.TabIndex = 3;
+            this.txtKey.TabIndex = 1;
             // 
             // btnValidate
             // 
@@ -67,7 +67,7 @@
             this.btnValidate.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.btnValidate.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnValidate.Size = new System.Drawing.Size(232, 53);
-            this.btnValidate.TabIndex = 4;
+            this.btnValidate.TabIndex = 2;
             this.btnValidate.Text = "تفعيل البرنامج";
             this.btnValidate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnValidate.UseVisualStyleBackColor = false;

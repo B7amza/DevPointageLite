@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form21));
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.cb_role = new System.Windows.Forms.ComboBox();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.txt_password = new System.Windows.Forms.TextBox();
             this.lb_nbrABS = new DevExpress.XtraEditors.LabelControl();
             this.txt_nom_prenom = new System.Windows.Forms.TextBox();
@@ -41,8 +43,6 @@
             this.bt_fermer = new DevExpress.XtraEditors.SimpleButton();
             this.bt_enregistrer = new DevExpress.XtraEditors.SimpleButton();
             this.bt_ajouter = new DevExpress.XtraEditors.SimpleButton();
-            this.cb_role = new System.Windows.Forms.ComboBox();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -64,13 +64,36 @@
             this.groupControl1.TabIndex = 9;
             this.groupControl1.Text = "User Information ...";
             // 
+            // cb_role
+            // 
+            this.cb_role.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_role.Enabled = false;
+            this.cb_role.FormattingEnabled = true;
+            this.cb_role.Items.AddRange(new object[] {
+            "Utilisateur",
+            "Administrateur"});
+            this.cb_role.Location = new System.Drawing.Point(153, 220);
+            this.cb_role.Name = "cb_role";
+            this.cb_role.Size = new System.Drawing.Size(300, 24);
+            this.cb_role.TabIndex = 4;
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Appearance.Options.UseFont = true;
+            this.labelControl2.Location = new System.Drawing.Point(45, 220);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(52, 24);
+            this.labelControl2.TabIndex = 33;
+            this.labelControl2.Text = "Role :";
+            // 
             // txt_password
             // 
             this.txt_password.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_password.Location = new System.Drawing.Point(153, 160);
             this.txt_password.Name = "txt_password";
             this.txt_password.Size = new System.Drawing.Size(182, 32);
-            this.txt_password.TabIndex = 31;
+            this.txt_password.TabIndex = 3;
             this.txt_password.UseSystemPasswordChar = true;
             // 
             // lb_nbrABS
@@ -90,7 +113,7 @@
             this.txt_nom_prenom.Location = new System.Drawing.Point(153, 110);
             this.txt_nom_prenom.Name = "txt_nom_prenom";
             this.txt_nom_prenom.Size = new System.Drawing.Size(571, 32);
-            this.txt_nom_prenom.TabIndex = 6;
+            this.txt_nom_prenom.TabIndex = 2;
             // 
             // txt_matricule
             // 
@@ -99,7 +122,7 @@
             this.txt_matricule.Location = new System.Drawing.Point(153, 52);
             this.txt_matricule.Name = "txt_matricule";
             this.txt_matricule.Size = new System.Drawing.Size(182, 32);
-            this.txt_matricule.TabIndex = 5;
+            this.txt_matricule.TabIndex = 1;
             // 
             // labelControl3
             // 
@@ -174,7 +197,7 @@
             this.bt_enregistrer.Location = new System.Drawing.Point(349, 21);
             this.bt_enregistrer.Name = "bt_enregistrer";
             this.bt_enregistrer.Size = new System.Drawing.Size(148, 83);
-            this.bt_enregistrer.TabIndex = 11;
+            this.bt_enregistrer.TabIndex = 5;
             this.bt_enregistrer.Text = "Enregistrer";
             this.bt_enregistrer.Click += new System.EventHandler(this.bt_enregistrer_Click);
             // 
@@ -192,29 +215,6 @@
             this.bt_ajouter.TabIndex = 10;
             this.bt_ajouter.Text = "Ajouter";
             this.bt_ajouter.Click += new System.EventHandler(this.bt_ajouter_Click);
-            // 
-            // cb_role
-            // 
-            this.cb_role.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_role.Enabled = false;
-            this.cb_role.FormattingEnabled = true;
-            this.cb_role.Items.AddRange(new object[] {
-            "Utilisateur",
-            "Administrateur"});
-            this.cb_role.Location = new System.Drawing.Point(153, 220);
-            this.cb_role.Name = "cb_role";
-            this.cb_role.Size = new System.Drawing.Size(300, 24);
-            this.cb_role.TabIndex = 34;
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(45, 220);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(52, 24);
-            this.labelControl2.TabIndex = 33;
-            this.labelControl2.Text = "Role :";
             // 
             // Form21
             // 

@@ -63,7 +63,7 @@
             this.txt_lib.Location = new System.Drawing.Point(82, 228);
             this.txt_lib.Name = "txt_lib";
             this.txt_lib.Size = new System.Drawing.Size(571, 32);
-            this.txt_lib.TabIndex = 6;
+            this.txt_lib.TabIndex = 2;
             // 
             // txt_ip
             // 
@@ -72,7 +72,7 @@
             this.txt_ip.Location = new System.Drawing.Point(82, 111);
             this.txt_ip.Name = "txt_ip";
             this.txt_ip.Size = new System.Drawing.Size(571, 32);
-            this.txt_ip.TabIndex = 5;
+            this.txt_ip.TabIndex = 1;
             // 
             // labelControl3
             // 
@@ -146,7 +146,7 @@
             this.bt_enregistrer.Location = new System.Drawing.Point(349, 21);
             this.bt_enregistrer.Name = "bt_enregistrer";
             this.bt_enregistrer.Size = new System.Drawing.Size(148, 83);
-            this.bt_enregistrer.TabIndex = 11;
+            this.bt_enregistrer.TabIndex = 3;
             this.bt_enregistrer.Text = "Enregistrer";
             this.bt_enregistrer.Click += new System.EventHandler(this.bt_enregistrer_Click);
             // 

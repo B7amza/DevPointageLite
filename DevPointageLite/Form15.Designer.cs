@@ -140,7 +140,7 @@
             this.dt_au.Location = new System.Drawing.Point(393, 196);
             this.dt_au.Name = "dt_au";
             this.dt_au.Size = new System.Drawing.Size(200, 23);
-            this.dt_au.TabIndex = 32;
+            this.dt_au.TabIndex = 6;
             this.dt_au.ValueChanged += new System.EventHandler(this.dt_au_ValueChanged);
             // 
             // dt_du
@@ -149,7 +149,7 @@
             this.dt_du.Location = new System.Drawing.Point(157, 48);
             this.dt_du.Name = "dt_du";
             this.dt_du.Size = new System.Drawing.Size(200, 23);
-            this.dt_du.TabIndex = 31;
+            this.dt_du.TabIndex = 2;
             this.dt_du.ValueChanged += new System.EventHandler(this.dt_du_ValueChanged);
             // 
             // chk_periodique
@@ -173,7 +173,7 @@
             this.txt_observation.Location = new System.Drawing.Point(157, 234);
             this.txt_observation.Name = "txt_observation";
             this.txt_observation.Size = new System.Drawing.Size(436, 32);
-            this.txt_observation.TabIndex = 29;
+            this.txt_observation.TabIndex = 7;
             // 
             // txt_nbrABS
             // 
@@ -182,7 +182,7 @@
             this.txt_nbrABS.Location = new System.Drawing.Point(157, 193);
             this.txt_nbrABS.Name = "txt_nbrABS";
             this.txt_nbrABS.Size = new System.Drawing.Size(104, 32);
-            this.txt_nbrABS.TabIndex = 23;
+            this.txt_nbrABS.TabIndex = 5;
             this.txt_nbrABS.Leave += new System.EventHandler(this.txt_nbrABS_Leave);
             // 
             // labelControl8
@@ -223,7 +223,7 @@
             this.cb_type.Location = new System.Drawing.Point(157, 147);
             this.cb_type.Name = "cb_type";
             this.cb_type.Size = new System.Drawing.Size(436, 24);
-            this.cb_type.TabIndex = 25;
+            this.cb_type.TabIndex = 4;
             // 
             // labelControl3
             // 
@@ -243,7 +243,7 @@
             this.cb_horaire.Location = new System.Drawing.Point(157, 99);
             this.cb_horaire.Name = "cb_horaire";
             this.cb_horaire.Size = new System.Drawing.Size(436, 24);
-            this.cb_horaire.TabIndex = 23;
+            this.cb_horaire.TabIndex = 3;
             // 
             // labelControl9
             // 
@@ -303,7 +303,7 @@
             this.txt_matricule.Location = new System.Drawing.Point(130, 51);
             this.txt_matricule.Name = "txt_matricule";
             this.txt_matricule.Size = new System.Drawing.Size(104, 32);
-            this.txt_matricule.TabIndex = 17;
+            this.txt_matricule.TabIndex = 1;
             this.txt_matricule.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_matricule_KeyDown);
             this.txt_matricule.Leave += new System.EventHandler(this.txt_matricule_Leave);
             // 
@@ -409,7 +409,7 @@
             this.bt_enregistrer.Location = new System.Drawing.Point(6, 340);
             this.bt_enregistrer.Name = "bt_enregistrer";
             this.bt_enregistrer.Size = new System.Drawing.Size(148, 83);
-            this.bt_enregistrer.TabIndex = 15;
+            this.bt_enregistrer.TabIndex = 8;
             this.bt_enregistrer.Text = "Enregistrer";
             this.bt_enregistrer.Click += new System.EventHandler(this.bt_enregistrer_Click);
             // 

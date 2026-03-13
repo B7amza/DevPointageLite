@@ -81,7 +81,7 @@ namespace DevPointageLite
                                   "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            if(tableau.Rows.Count >= 2)
+            if(tableau.Rows.Count >= Form2.nbr_machine)
             {
                 bt_ajouter.Enabled= false;
             }

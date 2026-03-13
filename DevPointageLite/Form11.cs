@@ -36,6 +36,7 @@ namespace DevPointageLite
                 this.Text = "Modifier une Affectation";
                 // يمكنك تحميل بيانات الموظف الحالي إلى الحقول هنا
             }
+            ActiveControl= txt_lib_affectation;
         }
 
         private void bt_fermer_Click(object sender, EventArgs e)

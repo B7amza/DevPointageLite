@@ -63,7 +63,7 @@
             this.txt_lib_affectation.Location = new System.Drawing.Point(82, 228);
             this.txt_lib_affectation.Name = "txt_lib_affectation";
             this.txt_lib_affectation.Size = new System.Drawing.Size(571, 32);
-            this.txt_lib_affectation.TabIndex = 6;
+            this.txt_lib_affectation.TabIndex = 1;
             // 
             // txt_c_affectation
             // 
@@ -147,7 +147,7 @@
             this.bt_enregistrer.Location = new System.Drawing.Point(349, 21);
             this.bt_enregistrer.Name = "bt_enregistrer";
             this.bt_enregistrer.Size = new System.Drawing.Size(148, 83);
-            this.bt_enregistrer.TabIndex = 11;
+            this.bt_enregistrer.TabIndex = 2;
             this.bt_enregistrer.Text = "Enregistrer";
             this.bt_enregistrer.Click += new System.EventHandler(this.bt_enregistrer_Click);
             // 

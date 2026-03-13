@@ -63,7 +63,7 @@
             this.txt_lib_fonction.Location = new System.Drawing.Point(93, 256);
             this.txt_lib_fonction.Name = "txt_lib_fonction";
             this.txt_lib_fonction.Size = new System.Drawing.Size(571, 32);
-            this.txt_lib_fonction.TabIndex = 6;
+            this.txt_lib_fonction.TabIndex = 1;
             // 
             // txt_c_fonction
             // 
@@ -147,7 +147,7 @@
             this.bt_enregistrer.Location = new System.Drawing.Point(339, 21);
             this.bt_enregistrer.Name = "bt_enregistrer";
             this.bt_enregistrer.Size = new System.Drawing.Size(148, 83);
-            this.bt_enregistrer.TabIndex = 11;
+            this.bt_enregistrer.TabIndex = 2;
             this.bt_enregistrer.Text = "Enregistrer";
             this.bt_enregistrer.Click += new System.EventHandler(this.bt_enregistrer_Click);
             // 

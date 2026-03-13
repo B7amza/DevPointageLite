@@ -70,7 +70,7 @@
             this.chk_periodique.Location = new System.Drawing.Point(138, 184);
             this.chk_periodique.Name = "chk_periodique";
             this.chk_periodique.Size = new System.Drawing.Size(65, 20);
-            this.chk_periodique.TabIndex = 33;
+            this.chk_periodique.TabIndex = 2;
             this.chk_periodique.Text = "Congé";
             this.chk_periodique.UseVisualStyleBackColor = true;
             this.chk_periodique.CheckedChanged += new System.EventHandler(this.chk_periodique_CheckedChanged);
@@ -81,7 +81,7 @@
             this.txt_nbrABS.Location = new System.Drawing.Point(138, 231);
             this.txt_nbrABS.Name = "txt_nbrABS";
             this.txt_nbrABS.Size = new System.Drawing.Size(104, 32);
-            this.txt_nbrABS.TabIndex = 31;
+            this.txt_nbrABS.TabIndex = 3;
             // 
             // lb_nbrABS
             // 
@@ -100,7 +100,7 @@
             this.txt_lib_conge.Location = new System.Drawing.Point(138, 126);
             this.txt_lib_conge.Name = "txt_lib_conge";
             this.txt_lib_conge.Size = new System.Drawing.Size(571, 32);
-            this.txt_lib_conge.TabIndex = 6;
+            this.txt_lib_conge.TabIndex = 1;
             // 
             // txt_code
             // 
@@ -184,7 +184,7 @@
             this.bt_enregistrer.Location = new System.Drawing.Point(349, 21);
             this.bt_enregistrer.Name = "bt_enregistrer";
             this.bt_enregistrer.Size = new System.Drawing.Size(148, 83);
-            this.bt_enregistrer.TabIndex = 11;
+            this.bt_enregistrer.TabIndex = 4;
             this.bt_enregistrer.Text = "Enregistrer";
             this.bt_enregistrer.Click += new System.EventHandler(this.bt_enregistrer_Click);
             // 

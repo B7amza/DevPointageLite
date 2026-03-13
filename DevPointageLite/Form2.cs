@@ -21,6 +21,7 @@ namespace DevPointageLite
         static public string annee_en_cours;
         static public int plage_hrs = 5;
         static public int plage_retards = 15;
+        static public int nbr_machine = 3;
 
         public Form2()
         {

@@ -134,7 +134,7 @@
             this.cb_horaire_travail.Location = new System.Drawing.Point(186, 61);
             this.cb_horaire_travail.Name = "cb_horaire_travail";
             this.cb_horaire_travail.Size = new System.Drawing.Size(260, 24);
-            this.cb_horaire_travail.TabIndex = 22;
+            this.cb_horaire_travail.TabIndex = 11;
             // 
             // labelControl11
             // 
@@ -173,7 +173,7 @@
             this.cb_pointage.Location = new System.Drawing.Point(147, 153);
             this.cb_pointage.Name = "cb_pointage";
             this.cb_pointage.Size = new System.Drawing.Size(300, 24);
-            this.cb_pointage.TabIndex = 21;
+            this.cb_pointage.TabIndex = 10;
             // 
             // cb_type
             // 
@@ -186,7 +186,7 @@
             this.cb_type.Location = new System.Drawing.Point(534, 57);
             this.cb_type.Name = "cb_type";
             this.cb_type.Size = new System.Drawing.Size(300, 24);
-            this.cb_type.TabIndex = 20;
+            this.cb_type.TabIndex = 8;
             // 
             // cb_affectation
             // 
@@ -196,7 +196,7 @@
             this.cb_affectation.Location = new System.Drawing.Point(147, 104);
             this.cb_affectation.Name = "cb_affectation";
             this.cb_affectation.Size = new System.Drawing.Size(300, 24);
-            this.cb_affectation.TabIndex = 19;
+            this.cb_affectation.TabIndex = 9;
             // 
             // cb_fonction
             // 
@@ -206,7 +206,7 @@
             this.cb_fonction.Location = new System.Drawing.Point(147, 55);
             this.cb_fonction.Name = "cb_fonction";
             this.cb_fonction.Size = new System.Drawing.Size(300, 24);
-            this.cb_fonction.TabIndex = 18;
+            this.cb_fonction.TabIndex = 7;
             // 
             // labelControl2
             // 
@@ -279,7 +279,7 @@
             this.cb_sexe.Location = new System.Drawing.Point(534, 156);
             this.cb_sexe.Name = "cb_sexe";
             this.cb_sexe.Size = new System.Drawing.Size(300, 24);
-            this.cb_sexe.TabIndex = 4;
+            this.cb_sexe.TabIndex = 5;
             // 
             // labelControl7
             // 
@@ -298,7 +298,7 @@
             this.txt_prenom.Location = new System.Drawing.Point(534, 97);
             this.txt_prenom.Name = "txt_prenom";
             this.txt_prenom.Size = new System.Drawing.Size(300, 32);
-            this.txt_prenom.TabIndex = 2;
+            this.txt_prenom.TabIndex = 3;
             // 
             // labelControl6
             // 
@@ -317,16 +317,17 @@
             this.txt_adresse.Location = new System.Drawing.Point(146, 206);
             this.txt_adresse.Name = "txt_adresse";
             this.txt_adresse.Size = new System.Drawing.Size(688, 32);
-            this.txt_adresse.TabIndex = 5;
+            this.txt_adresse.TabIndex = 6;
             // 
             // txt_tel
             // 
             this.txt_tel.Enabled = false;
             this.txt_tel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_tel.Location = new System.Drawing.Point(146, 148);
+            this.txt_tel.MaxLength = 10;
             this.txt_tel.Name = "txt_tel";
             this.txt_tel.Size = new System.Drawing.Size(182, 32);
-            this.txt_tel.TabIndex = 3;
+            this.txt_tel.TabIndex = 4;
             // 
             // txt_nom
             // 
@@ -335,7 +336,7 @@
             this.txt_nom.Location = new System.Drawing.Point(146, 100);
             this.txt_nom.Name = "txt_nom";
             this.txt_nom.Size = new System.Drawing.Size(300, 32);
-            this.txt_nom.TabIndex = 1;
+            this.txt_nom.TabIndex = 2;
             // 
             // txt_matricule
             // 
@@ -344,7 +345,7 @@
             this.txt_matricule.Location = new System.Drawing.Point(146, 45);
             this.txt_matricule.Name = "txt_matricule";
             this.txt_matricule.Size = new System.Drawing.Size(182, 32);
-            this.txt_matricule.TabIndex = 5;
+            this.txt_matricule.TabIndex = 1;
             // 
             // labelControl5
             // 
@@ -424,7 +425,7 @@
             this.bt_fermer.Location = new System.Drawing.Point(680, 21);
             this.bt_fermer.Name = "bt_fermer";
             this.bt_fermer.Size = new System.Drawing.Size(148, 83);
-            this.bt_fermer.TabIndex = 12;
+            this.bt_fermer.TabIndex = 15;
             this.bt_fermer.Text = "Fermer";
             this.bt_fermer.Click += new System.EventHandler(this.bt_fermer_Click);
             // 
@@ -439,7 +440,7 @@
             this.bt_enregistrer.Location = new System.Drawing.Point(433, 21);
             this.bt_enregistrer.Name = "bt_enregistrer";
             this.bt_enregistrer.Size = new System.Drawing.Size(148, 83);
-            this.bt_enregistrer.TabIndex = 11;
+            this.bt_enregistrer.TabIndex = 12;
             this.bt_enregistrer.Text = "Enregistrer";
             this.bt_enregistrer.Click += new System.EventHandler(this.bt_enregistrer_Click);
             // 
@@ -454,7 +455,7 @@
             this.bt_ajouter.Location = new System.Drawing.Point(98, 21);
             this.bt_ajouter.Name = "bt_ajouter";
             this.bt_ajouter.Size = new System.Drawing.Size(148, 83);
-            this.bt_ajouter.TabIndex = 10;
+            this.bt_ajouter.TabIndex = 14;
             this.bt_ajouter.Text = "Ajouter";
             this.bt_ajouter.Click += new System.EventHandler(this.bt_ajouter_Click);
             // 

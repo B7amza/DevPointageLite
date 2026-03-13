@@ -61,7 +61,7 @@
             this.nom_arab.Margin = new System.Windows.Forms.Padding(4);
             this.nom_arab.Name = "nom_arab";
             this.nom_arab.Size = new System.Drawing.Size(511, 35);
-            this.nom_arab.TabIndex = 130;
+            this.nom_arab.TabIndex = 4;
             // 
             // label55
             // 
@@ -97,7 +97,7 @@
             this.email.Margin = new System.Windows.Forms.Padding(4);
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(511, 38);
-            this.email.TabIndex = 127;
+            this.email.TabIndex = 5;
             // 
             // panel1
             // 
@@ -124,7 +124,7 @@
             this.btnDActivation.Name = "btnDActivation";
             this.btnDActivation.Padding = new System.Windows.Forms.Padding(13, 0, 13, 0);
             this.btnDActivation.Size = new System.Drawing.Size(316, 62);
-            this.btnDActivation.TabIndex = 94;
+            this.btnDActivation.TabIndex = 3;
             this.btnDActivation.Text = "إرسال طلب كود التفعيل";
             this.btnDActivation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDActivation.UseVisualStyleBackColor = false;

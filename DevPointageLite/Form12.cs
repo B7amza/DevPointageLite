@@ -20,6 +20,7 @@ namespace DevPointageLite
         {
             // ✅ التركيز على حقل الإدخال عند التحميل
             txt_lib_fonction.Focus();
+            ActiveControl = txt_lib_fonction;
         }
 
         private void bt_fermer_Click(object sender, EventArgs e)

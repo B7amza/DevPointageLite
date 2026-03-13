@@ -191,6 +191,14 @@ namespace DevPointageLite
                                   "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            //تحقق من صحة رقم الهاتف (اختياري)
+            if (!string.IsNullOrWhiteSpace(txt_tel.Text) && !System.Text.RegularExpressions.Regex.IsMatch(txt_tel.Text, @"^\d{10}$"))
+            {
+                XtraMessageBox.Show("Veuillez entrer un numéro de téléphone valide (10 chiffres).",
+                                  "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txt_tel.Focus();
+                return;
+            }
 
             // ✅ 2. تحضير المعاملات (Parameters)
             var parameters = new[]
