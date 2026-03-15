@@ -64,11 +64,11 @@
             this.txt_companytitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt_companytitle.AutoSize = true;
             this.txt_companytitle.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_companytitle.Location = new System.Drawing.Point(313, 366);
+            this.txt_companytitle.Location = new System.Drawing.Point(361, 366);
             this.txt_companytitle.Name = "txt_companytitle";
-            this.txt_companytitle.Size = new System.Drawing.Size(392, 57);
+            this.txt_companytitle.Size = new System.Drawing.Size(301, 57);
             this.txt_companytitle.TabIndex = 6;
-            this.txt_companytitle.Text = "Nom Entreprise";
+            this.txt_companytitle.Text = "Hello World";
             // 
             // timer1
             // 
