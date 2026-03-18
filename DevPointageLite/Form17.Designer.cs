@@ -102,6 +102,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.entet2);
             this.panel1.Location = new System.Drawing.Point(415, 265);
             this.panel1.Name = "panel1";
@@ -489,6 +490,7 @@
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

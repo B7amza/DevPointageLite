@@ -185,6 +185,7 @@
             // 
             // bt_AjousterTime
             // 
+            this.bt_AjousterTime.Enabled = false;
             this.bt_AjousterTime.Location = new System.Drawing.Point(466, 145);
             this.bt_AjousterTime.Name = "bt_AjousterTime";
             this.bt_AjousterTime.Size = new System.Drawing.Size(110, 97);
@@ -195,6 +196,7 @@
             // 
             // bt_privilege
             // 
+            this.bt_privilege.Enabled = false;
             this.bt_privilege.Location = new System.Drawing.Point(604, 145);
             this.bt_privilege.Name = "bt_privilege";
             this.bt_privilege.Size = new System.Drawing.Size(110, 97);

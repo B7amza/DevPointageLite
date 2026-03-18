@@ -377,7 +377,7 @@ namespace DevPointageLite
                     new SqliteParameter("@matri", txt_matricule.Text.Trim()),
                     new SqliteParameter("@c_conge", cb_type.SelectedValue?.ToString() ?? ""),
                     new SqliteParameter("@date1", dt_du.Value.Date),
-                    new SqliteParameter("@date2", chk_periodique.Checked ? (object)DBNull.Value : dt_au.Value.Date),
+                    new SqliteParameter("@date2",/* chk_periodique.Checked ? (object)DBNull.Value :*/ dt_au.Value.Date),
                     new SqliteParameter("@jour", chk_periodique.Checked ? 0 : Convert.ToDecimal(txt_nbrABS.Text)),
                     new SqliteParameter("@heure", chk_periodique.Checked ? Convert.ToDecimal(txt_nbrABS.Text) : 0),
                     new SqliteParameter("@nature", chk_periodique.Checked ? "S" : "C"),

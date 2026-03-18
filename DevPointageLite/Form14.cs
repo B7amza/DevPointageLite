@@ -457,7 +457,7 @@ namespace DevPointageLite
                 string query = @"SELECT A.C_CONGE, T.LIB
                                 FROM [ABS] A
                                 INNER JOIN [type_conge] T ON A.C_CONGE = T.CODE
-                                WHERE DATE(A.DATE1) = @date_jr 
+                                WHERE DATE(A.DATE1) <= @date_jr and DATE(A.DATE2) >= @date_jr 
                                   AND A.MATRI = @matricule";
 
                 var parameters = new SqliteParameter[]

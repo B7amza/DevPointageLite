@@ -31,16 +31,16 @@ namespace DevPointageLite
         // ✅ دالة مساعدة لتهيئة DataGridView
         private void ConfigureDataGridView(DataGridView dgv)
         {
-            dgv.AllowUserToAddRows = false;
-            dgv.AllowUserToDeleteRows = false;
-            dgv.ReadOnly = true;
-            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        //    dgv.AllowUserToAddRows = false;
+        //    dgv.AllowUserToDeleteRows = false;
+        //    dgv.ReadOnly = true;
+        //    dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        //    //dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            foreach (DataGridViewColumn col in dgv.Columns)
-            {
-                col.DefaultCellStyle.NullValue = null;
-            }
+        //    foreach (DataGridViewColumn col in dgv.Columns)
+        //    {
+        //        col.DefaultCellStyle.NullValue = null;
+        //    }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
@@ -309,7 +309,7 @@ namespace DevPointageLite
                 string query = @"SELECT A.C_CONGE, T.LIB
                                 FROM [ABS] A
                                 INNER JOIN [type_conge] T ON A.C_CONGE = T.CODE
-                                WHERE DATE(A.DATE1) = @date_jr 
+                                WHERE DATE(A.DATE1) <= @date_jr and DATE(A.DATE2) >= @date_jr 
                                   AND A.MATRI = @matricule";
 
                 var parameters = new SqliteParameter[]
