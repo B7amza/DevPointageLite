@@ -40,6 +40,7 @@
             this.bt_typeconge = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_gererPointeuse = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_gererUtilisateur = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.bt_impData = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_employe = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlSeparator3 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             this.bt_absence = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -113,7 +114,8 @@
             this.bt_fonction,
             this.bt_typeconge,
             this.bt_gererPointeuse,
-            this.bt_gererUtilisateur});
+            this.bt_gererUtilisateur,
+            this.bt_impData});
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
             this.accordionControlElement1.Text = "Base";
@@ -163,6 +165,15 @@
             this.bt_gererUtilisateur.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.bt_gererUtilisateur.Text = "Gerer Utilisateurs";
             this.bt_gererUtilisateur.Click += new System.EventHandler(this.bt_gererUtilisateur_Click);
+            // 
+            // bt_impData
+            // 
+            this.bt_impData.Appearance.Default.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.bt_impData.Appearance.Default.Options.UseFont = true;
+            this.bt_impData.Name = "bt_impData";
+            this.bt_impData.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_impData.Text = "Importer Donnée";
+            this.bt_impData.Click += new System.EventHandler(this.bt_impData_Click);
             // 
             // bt_employe
             // 
@@ -340,6 +351,7 @@
         private DevExpress.XtraBars.BarButtonItem lbDActivation;
         private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_gererUtilisateur;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement bt_impData;
     }
 }
 

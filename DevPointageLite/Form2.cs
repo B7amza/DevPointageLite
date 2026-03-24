@@ -21,7 +21,7 @@ namespace DevPointageLite
         static public string annee_en_cours;
         static public int plage_hrs = 5;
         static public int plage_retards = 15;
-        static public int nbr_machine = 3;
+        static public int nbr_machine = 8;
 
         public Form2()
         {
@@ -38,6 +38,7 @@ namespace DevPointageLite
         static public Form16 fn_gerer_pointeuse;
         static public Form17 fn_pointage_journalier;
         static public Form20 fn_activation;
+        static public Form22 fn_import_donnee;
         static public Form_imprission fn_imprission;
 
 
@@ -239,6 +240,13 @@ namespace DevPointageLite
             fn_activation = new Form20();
             fn_activation.ShowDialog();
             fn_activation.Dispose();
+        }
+
+        private void bt_impData_Click(object sender, EventArgs e)
+        {
+            fn_import_donnee = new Form22();
+            fn_import_donnee.ShowDialog();
+            fn_import_donnee.Dispose();
         }
     }
 }
