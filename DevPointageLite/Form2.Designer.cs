@@ -38,6 +38,7 @@
             this.bt_stucture = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_fonction = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_typeconge = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.bt_TempsEmployee = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_gererPointeuse = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_gererUtilisateur = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_impData = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -113,9 +114,11 @@
             this.bt_stucture,
             this.bt_fonction,
             this.bt_typeconge,
+            this.bt_TempsEmployee,
             this.bt_gererPointeuse,
             this.bt_gererUtilisateur,
             this.bt_impData});
+            this.accordionControlElement1.Expanded = true;
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
             this.accordionControlElement1.Text = "Base";
@@ -147,6 +150,15 @@
             this.bt_typeconge.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.bt_typeconge.Text = "Type Congé";
             this.bt_typeconge.Click += new System.EventHandler(this.bt_typeconge_Click);
+            // 
+            // bt_TempsEmployee
+            // 
+            this.bt_TempsEmployee.Appearance.Default.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.bt_TempsEmployee.Appearance.Default.Options.UseFont = true;
+            this.bt_TempsEmployee.Name = "bt_TempsEmployee";
+            this.bt_TempsEmployee.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_TempsEmployee.Text = "Temps Employee";
+            this.bt_TempsEmployee.Click += new System.EventHandler(this.bt_TempsEmployee_Click);
             // 
             // bt_gererPointeuse
             // 
@@ -352,6 +364,7 @@
         private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_gererUtilisateur;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_impData;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement bt_TempsEmployee;
     }
 }
 

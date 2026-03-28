@@ -22,7 +22,7 @@ namespace DevPointageLite
         static public int plage_hrs = 5;
         static public int plage_retards = 15;
         static public int nbr_machine = 8;
-
+        
         public Form2()
         {
             InitializeComponent();
@@ -39,6 +39,7 @@ namespace DevPointageLite
         static public Form17 fn_pointage_journalier;
         static public Form20 fn_activation;
         static public Form22 fn_import_donnee;
+        static public Form23 fn_temps_employee;
         static public Form_imprission fn_imprission;
 
 
@@ -57,6 +58,15 @@ namespace DevPointageLite
 
             // Initialize the user controls or perform any setup needed on form load
             LoadPrincipaleUC();
+
+            if ( Form1.role != "Administrateur")
+            {
+                bt_gererUtilisateur.Enabled = false;
+                lbActive.Enabled = false;
+                lbDActivation.Enabled = false;
+                bt_impData.Enabled = false;
+                
+            }
         }
 
         private void LoadUC(DevExpress.XtraEditors.XtraUserControl Page_UControle)
@@ -247,6 +257,13 @@ namespace DevPointageLite
             fn_import_donnee = new Form22();
             fn_import_donnee.ShowDialog();
             fn_import_donnee.Dispose();
+        }
+
+        private void bt_TempsEmployee_Click(object sender, EventArgs e)
+        {
+            fn_temps_employee = new Form23();
+            fn_temps_employee.ShowDialog();
+            fn_temps_employee.Dispose();
         }
     }
 }

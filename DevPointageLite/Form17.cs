@@ -181,7 +181,7 @@ namespace DevPointageLite
 
                 // ✅ SQLite: استخدام || للدمج و IFNULL بدلاً من ISNULL
                 string query = @"SELECT matricule, IFNULL(nom, '') || ' ' || IFNULL(prenom, '') as nom 
-                                FROM Personnel WHERE id_affectation = @c_affect ORDER BY nom";
+                                FROM Personnel WHERE id_affectation = @c_affect and type_agent != 'Bloque' ORDER BY nom";
                 var parameters = new SqliteParameter[] { new SqliteParameter("@c_affect", c_affect) };
                 dtPersonnel = ConnectSqlite.ExecuteSelect(query, parameters);
             }
@@ -201,7 +201,7 @@ namespace DevPointageLite
             else if (ch_tous.Checked)
             {
                 string query = @"SELECT matricule, IFNULL(nom, '') || ' ' || IFNULL(prenom, '') as nom 
-                                FROM Personnel ORDER BY nom";
+                                FROM Personnel where type_agent != 'Bloque' ORDER BY nom";
                 dtPersonnel = ConnectSqlite.ExecuteSelect(query);
             }
 

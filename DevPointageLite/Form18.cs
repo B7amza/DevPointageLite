@@ -88,5 +88,10 @@ namespace DevPointageLite
                 // يمكنك تحميل بيانات العنوان الحالي إلى الحقول هنا إذا لزم الأمر
             }
         }
+
+        private void bt_modifier_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

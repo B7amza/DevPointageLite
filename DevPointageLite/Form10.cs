@@ -259,7 +259,8 @@ namespace DevPointageLite
                 {
                     new SqliteParameter("@matri", txt_matricule.Text.Trim()),
                     new SqliteParameter("@code_horaire", cb_horaire_travail.SelectedValue),
-                    new SqliteParameter("@date_du", DateTime.Now.Date),
+                    //new SqliteParameter("@date_du", DateTime.Now.Date),
+                    new SqliteParameter("@date_du","2015-01-01 00:00:00"),
                     new SqliteParameter("@date_au", lastDayOfYear)
                 };
 

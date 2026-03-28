@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -213,6 +214,7 @@ namespace DevPointageLite
 
                     gridControl1.DataSource = dt;
                     MessageBox.Show("تم تحميل بيانات المستخدمين بنجاح.");
+                    gridView1.OptionsBehavior.Editable = false;
                 }
                 else
                 {

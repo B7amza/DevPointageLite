@@ -443,5 +443,51 @@ namespace DevPointageLite
             ToolTip toolTip = new ToolTip();
             toolTip.SetToolTip(bt_telechargerAttlog, "تحميل سجلات الحضور من ملف attlog وعرضها في الشبكة.");
         }
-    }
+
+        private void tableau_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Form18 fn_ajouterpointeuse = new Form18();
+            Form18.insertion_modification = 1; // وضع التعديل
+            fn_ajouterpointeuse.txt_ip.Text = tableau.Rows[e.RowIndex].Cells["ADRESSE_IP"].Value.ToString();
+            fn_ajouterpointeuse.txt_lib.Text = tableau.Rows[e.RowIndex].Cells["LIB_POINTEUSE"].Value.ToString();
+            fn_ajouterpointeuse.txt_ip.Enabled = false; // منع تعديل IP أثناء التعديل
+            fn_ajouterpointeuse.txt_lib.Enabled = true; // السماح بتعديل الاسم
+            fn_ajouterpointeuse.ShowDialog();
+            fn_ajouterpointeuse.Dispose();
+            Form4_Load(null, null); // إعادة تحميل البيانات بعد الإضافة
+        }
+
+        private void bt_supprimer_Click(object sender, EventArgs e)
+        {
+            supprimerPointeuse(tableau.CurrentRow.Cells["ADRESSE_IP"].Value.ToString());
+            Form4_Load(null, null); // إعادة تحميل البيانات بعد الحذف
+        }
+        private void supprimerPointeuse(string ip)
+        {
+            // ✅ تأكيد الحذف
+            var result = XtraMessageBox.Show($"هل أنت متأكد أنك تريد حذف الجهاز {ip}؟",
+                                              "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes) return;
+            string query = "DELETE FROM POINTEUSE WHERE ADRESSE_IP = @ip";
+            var param = new SqliteParameter("@ip", ip);
+            int rowsAffected = ConnectSqlite.ExecuteNonQuery(query, param);
+            if (rowsAffected > 0)
+            {
+                XtraMessageBox.Show("✅ تم حذف الجهاز بنجاح.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Form4_Load(null, null); // إعادة تحميل البيانات بعد الحذف
+            }
+            else
+            {
+                XtraMessageBox.Show("❌ فشل في حذف الجهاز. قد يكون غير موجود.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void bt_supprimer_MouseHover(object sender, EventArgs e)
+        {
+            // ✅ عرض تلميح عند المرور فوق زر الحذف
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(bt_supprimer, "احذر! هذا سيؤدي إلى حذف الجهاز المحدد من القائمة.");
+
+        }
+    }   
 }

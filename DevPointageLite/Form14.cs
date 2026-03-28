@@ -448,6 +448,11 @@ namespace DevPointageLite
             return value != null && value != DBNull.Value ? value.ToString() : ".";
         }
 
+        private void entet2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void LoadAbsences(string matricule, DateTime date_jr, DataTable dtABS)
         {
             try

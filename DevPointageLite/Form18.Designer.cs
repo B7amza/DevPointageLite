@@ -120,6 +120,7 @@
             this.bt_modifier.Size = new System.Drawing.Size(148, 83);
             this.bt_modifier.TabIndex = 13;
             this.bt_modifier.Text = "Modifier";
+            this.bt_modifier.Click += new System.EventHandler(this.bt_modifier_Click);
             // 
             // bt_fermer
             // 

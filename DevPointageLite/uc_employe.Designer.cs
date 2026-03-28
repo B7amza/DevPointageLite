@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uc_employe));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.bt_historique = new DevExpress.XtraEditors.SimpleButton();
             this.bt_ajouter = new DevExpress.XtraEditors.SimpleButton();
             this.bt_modifier = new DevExpress.XtraEditors.SimpleButton();
             this.bt_exportexcel = new DevExpress.XtraEditors.SimpleButton();
@@ -44,7 +44,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.simpleButton1);
+            this.panel1.Controls.Add(this.bt_historique);
             this.panel1.Controls.Add(this.bt_ajouter);
             this.panel1.Controls.Add(this.bt_modifier);
             this.panel1.Controls.Add(this.bt_exportexcel);
@@ -56,19 +56,20 @@
             this.panel1.Size = new System.Drawing.Size(1325, 156);
             this.panel1.TabIndex = 2;
             // 
-            // simpleButton1
+            // bt_historique
             // 
-            this.simpleButton1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton1.Appearance.Options.UseFont = true;
-            this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            this.simpleButton1.Location = new System.Drawing.Point(577, 37);
-            this.simpleButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(173, 75);
-            this.simpleButton1.TabIndex = 7;
-            this.simpleButton1.Text = "&Vers Historique";
+            this.bt_historique.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bt_historique.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_historique.Appearance.Options.UseFont = true;
+            this.bt_historique.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.bt_historique.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            this.bt_historique.Location = new System.Drawing.Point(577, 37);
+            this.bt_historique.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_historique.Name = "bt_historique";
+            this.bt_historique.Size = new System.Drawing.Size(173, 75);
+            this.bt_historique.TabIndex = 7;
+            this.bt_historique.Text = "&Vers Historique";
+            this.bt_historique.Click += new System.EventHandler(this.bt_historique_Click);
             // 
             // bt_ajouter
             // 
@@ -165,7 +166,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton bt_historique;
         private DevExpress.XtraEditors.SimpleButton bt_ajouter;
         private DevExpress.XtraEditors.SimpleButton bt_modifier;
         private DevExpress.XtraEditors.SimpleButton bt_exportexcel;

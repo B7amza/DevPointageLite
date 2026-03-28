@@ -23,7 +23,7 @@ namespace DevPointageLite
         // Define the registry key where the trial data will be stored
         private const string registryKeyPath = @"HKEY_CURRENT_USER\Software\DevPointageLiteTrial";
         private const string firstLaunchKey = "FirstLaunchTime";
-        private const int trialDurationInMinutes = 20160; // Trial period is now 1 minute---20160=15jours
+        private const int trialDurationInMinutes = 80640; // Trial period is now 1 minute---20160=15jours
         private Timer trialTimer; // Declare timer as a class-level variable
         private bool hasExpiredMessageShown = false; // Flag to ensure expiration message is shown only once
 
@@ -126,7 +126,7 @@ namespace DevPointageLite
 
 
 
-        string matricule, nom, fonction, manager, role, password;
+        static public string matricule, nom, fonction, manager, role, password;
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -134,8 +134,15 @@ namespace DevPointageLite
 
         private void bt_connexion_Click(object sender, EventArgs e)
         {
+            // تحقق من صحة الإدخالات قبل محاولة الاتصال
+            if (string.IsNullOrWhiteSpace(txt_user.Text) || string.IsNullOrWhiteSpace(txt_pass.Text))
+            {
+                XtraMessageBox.Show("Veuillez entrer votre nom d'utilisateur et mot de passe.", "Champs requis", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // check if nom d'utilisateur et mot de passe sont corrects
-                if (txt_user.Text == matricule && txt_pass.Text == password)
+            if (txt_user.Text == matricule && txt_pass.Text == password)
                 {
                     Form_principale = new Form2();
                     Form_principale.ShowDialog();
