@@ -103,7 +103,16 @@ namespace DevPointageLite
             bt_ajouter.Enabled = false;
             bt_modifier.Enabled = false;
 
-            txt_nbrABS.Focus();
+            //txt_nbrABS.Focus();
+            if (chk_periodique.Checked)
+            {
+                txt_nbrABS.Focus();
+            }
+            else
+            {
+                txt_nbrABS.Enabled = false;
+                dt_au.Focus();
+            }
         }
 
         private void Form15_Load(object sender, EventArgs e)
@@ -425,9 +434,10 @@ namespace DevPointageLite
                 // ✅ استخدام || للدمج بدلاً من +
                 string query = @"SELECT A.MATRI, P.NOM || ' ' || P.PRENOM AS [Nom & Prénom], 
                                        A.DATE1, A.DATE2, A.NUM_BON, A.C_CONGE, 
-                                       A.JOUR, A.HEURE, A.NATURE, A.OBS
+                                       A.JOUR, A.HEURE, A.NATURE,T.LIB As 'Conge', A.OBS 
                                 FROM [ABS] A
-                                INNER JOIN [PERSONNEL] P ON A.MATRI = P.MATRICULE
+                                INNER JOIN [PERSONNEL] P ON A.MATRI = P.MATRICULE 
+                                INNER JOIN [TYPE_CONGE] T ON A.C_CONGE = T.CODE
                                 WHERE strftime('%m', A.DATE1) = @month 
                                 AND strftime('%Y', A.DATE1) = @year
                                 ORDER BY A.DATE1 DESC, A.MATRI ASC";

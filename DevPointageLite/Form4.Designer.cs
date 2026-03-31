@@ -39,12 +39,12 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel_button = new System.Windows.Forms.Panel();
+            this.bt_supprimer = new DevExpress.XtraEditors.SimpleButton();
             this.btnSupprimerLogs = new DevExpress.XtraEditors.SimpleButton();
             this.bt_ajouter = new DevExpress.XtraEditors.SimpleButton();
             this.bt_telechargerAttlog = new DevExpress.XtraEditors.SimpleButton();
             this.bt_telechargerD = new DevExpress.XtraEditors.SimpleButton();
             this.bt_fermer = new DevExpress.XtraEditors.SimpleButton();
-            this.bt_supprimer = new DevExpress.XtraEditors.SimpleButton();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -153,6 +153,20 @@
             this.panel_button.Size = new System.Drawing.Size(123, 855);
             this.panel_button.TabIndex = 3;
             // 
+            // bt_supprimer
+            // 
+            this.bt_supprimer.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bt_supprimer.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_supprimer.Appearance.Options.UseFont = true;
+            this.bt_supprimer.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_supprimer.ImageOptions.Image")));
+            this.bt_supprimer.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.bt_supprimer.Location = new System.Drawing.Point(29, 176);
+            this.bt_supprimer.Name = "bt_supprimer";
+            this.bt_supprimer.Size = new System.Drawing.Size(64, 62);
+            this.bt_supprimer.TabIndex = 13;
+            this.bt_supprimer.Click += new System.EventHandler(this.bt_supprimer_Click);
+            this.bt_supprimer.MouseHover += new System.EventHandler(this.bt_supprimer_MouseHover);
+            // 
             // btnSupprimerLogs
             // 
             this.btnSupprimerLogs.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -214,20 +228,6 @@
             this.bt_fermer.Text = "Fermer\r\n";
             this.bt_fermer.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
-            // bt_supprimer
-            // 
-            this.bt_supprimer.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.bt_supprimer.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_supprimer.Appearance.Options.UseFont = true;
-            this.bt_supprimer.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_supprimer.ImageOptions.Image")));
-            this.bt_supprimer.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.bt_supprimer.Location = new System.Drawing.Point(29, 176);
-            this.bt_supprimer.Name = "bt_supprimer";
-            this.bt_supprimer.Size = new System.Drawing.Size(64, 62);
-            this.bt_supprimer.TabIndex = 13;
-            this.bt_supprimer.Click += new System.EventHandler(this.bt_supprimer_Click);
-            this.bt_supprimer.MouseHover += new System.EventHandler(this.bt_supprimer_MouseHover);
-            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -239,6 +239,7 @@
             this.Name = "Form4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Telechargement ...";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form4_FormClosing);
             this.Load += new System.EventHandler(this.Form4_Load);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();

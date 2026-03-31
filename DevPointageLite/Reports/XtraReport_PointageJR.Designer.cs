@@ -86,7 +86,7 @@
             // 
             // xrPictureBox1
             // 
-            this.xrPictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(global::DevPointageLite.Properties.Resources.devcore_logo, true);
+            this.xrPictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(global::DevPointageLite.Properties.Resources.Logo_encc, true);
             this.xrPictureBox1.LocationFloat = new DevExpress.Utils.PointFloat(818.8333F, 31.68325F);
             this.xrPictureBox1.Name = "xrPictureBox1";
             this.xrPictureBox1.SizeF = new System.Drawing.SizeF(100F, 71.66666F);

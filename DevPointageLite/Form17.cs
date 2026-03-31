@@ -288,7 +288,7 @@ namespace DevPointageLite
 
                 if (dtABS.Rows.Count > 0 && dtABS.Rows[0]["lib"] != DBNull.Value)
                 {
-                    string lib_conge = dtABS.Rows[0]["lib"].ToString();
+                    string lib_conge = dtABS.Rows[0]["lib"].ToString() +" "+ dtABS.Rows[0]["OBS"].ToString();
                     if (!string.IsNullOrEmpty(lib_conge))
                     {
                         // ✅ التأكد من وجود العمود قبل التعيين
@@ -306,7 +306,7 @@ namespace DevPointageLite
             {
                 if (string.IsNullOrEmpty(matricule)) return;
 
-                string query = @"SELECT A.C_CONGE, T.LIB
+                string query = @"SELECT A.C_CONGE, T.LIB , A.OBS
                                 FROM [ABS] A
                                 INNER JOIN [type_conge] T ON A.C_CONGE = T.CODE
                                 WHERE DATE(A.DATE1) <= @date_jr and DATE(A.DATE2) >= @date_jr 

@@ -489,5 +489,10 @@ namespace DevPointageLite
             toolTip.SetToolTip(bt_supprimer, "احذر! هذا سيؤدي إلى حذف الجهاز المحدد من القائمة.");
 
         }
+
+        private void Form4_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }   
 }

@@ -29,23 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txt_datetime = new System.Windows.Forms.Label();
             this.txt_companytitle = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = global::DevPointageLite.Properties.Resources.devcore_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(359, 197);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(304, 166);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
             // 
             // txt_datetime
             // 
@@ -64,17 +53,28 @@
             this.txt_companytitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt_companytitle.AutoSize = true;
             this.txt_companytitle.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_companytitle.Location = new System.Drawing.Point(361, 366);
+            this.txt_companytitle.Location = new System.Drawing.Point(124, 366);
             this.txt_companytitle.Name = "txt_companytitle";
-            this.txt_companytitle.Size = new System.Drawing.Size(301, 57);
+            this.txt_companytitle.Size = new System.Drawing.Size(746, 171);
             this.txt_companytitle.TabIndex = 6;
-            this.txt_companytitle.Text = "Hello World";
+            this.txt_companytitle.Text = "       UNITE MONTAGE ET \r\nMAINTEMANCE INDUSTRIELS \r\n                 HAMIZ";
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox1.Image = global::DevPointageLite.Properties.Resources.Logo_encc;
+            this.pictureBox1.Location = new System.Drawing.Point(324, 107);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(304, 256);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
             // 
             // uc_principale
             // 
