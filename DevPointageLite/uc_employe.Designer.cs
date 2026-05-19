@@ -37,6 +37,7 @@
             this.bt_exportpdf = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.bt_bloque = new DevExpress.XtraEditors.SimpleButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -44,6 +45,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bt_bloque);
             this.panel1.Controls.Add(this.bt_historique);
             this.panel1.Controls.Add(this.bt_ajouter);
             this.panel1.Controls.Add(this.bt_modifier);
@@ -61,9 +63,9 @@
             this.bt_historique.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.bt_historique.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_historique.Appearance.Options.UseFont = true;
-            this.bt_historique.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.bt_historique.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_historique.ImageOptions.Image")));
             this.bt_historique.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            this.bt_historique.Location = new System.Drawing.Point(577, 37);
+            this.bt_historique.Location = new System.Drawing.Point(680, 37);
             this.bt_historique.Margin = new System.Windows.Forms.Padding(4);
             this.bt_historique.Name = "bt_historique";
             this.bt_historique.Size = new System.Drawing.Size(173, 75);
@@ -78,7 +80,7 @@
             this.bt_ajouter.Appearance.Options.UseFont = true;
             this.bt_ajouter.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_ajouter.ImageOptions.Image")));
             this.bt_ajouter.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            this.bt_ajouter.Location = new System.Drawing.Point(215, 37);
+            this.bt_ajouter.Location = new System.Drawing.Point(138, 37);
             this.bt_ajouter.Margin = new System.Windows.Forms.Padding(4);
             this.bt_ajouter.Name = "bt_ajouter";
             this.bt_ajouter.Size = new System.Drawing.Size(173, 75);
@@ -93,7 +95,7 @@
             this.bt_modifier.Appearance.Options.UseFont = true;
             this.bt_modifier.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_modifier.ImageOptions.Image")));
             this.bt_modifier.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            this.bt_modifier.Location = new System.Drawing.Point(395, 37);
+            this.bt_modifier.Location = new System.Drawing.Point(318, 37);
             this.bt_modifier.Margin = new System.Windows.Forms.Padding(4);
             this.bt_modifier.Name = "bt_modifier";
             this.bt_modifier.Size = new System.Drawing.Size(173, 75);
@@ -108,7 +110,7 @@
             this.bt_exportexcel.Appearance.Options.UseFont = true;
             this.bt_exportexcel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_exportexcel.ImageOptions.Image")));
             this.bt_exportexcel.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            this.bt_exportexcel.Location = new System.Drawing.Point(758, 37);
+            this.bt_exportexcel.Location = new System.Drawing.Point(861, 37);
             this.bt_exportexcel.Margin = new System.Windows.Forms.Padding(4);
             this.bt_exportexcel.Name = "bt_exportexcel";
             this.bt_exportexcel.Size = new System.Drawing.Size(173, 75);
@@ -123,7 +125,7 @@
             this.bt_exportpdf.Appearance.Options.UseFont = true;
             this.bt_exportpdf.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_exportpdf.ImageOptions.Image")));
             this.bt_exportpdf.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            this.bt_exportpdf.Location = new System.Drawing.Point(936, 37);
+            this.bt_exportpdf.Location = new System.Drawing.Point(1039, 37);
             this.bt_exportpdf.Margin = new System.Windows.Forms.Padding(4);
             this.bt_exportpdf.Name = "bt_exportpdf";
             this.bt_exportpdf.Size = new System.Drawing.Size(173, 75);
@@ -146,6 +148,21 @@
             // 
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            // 
+            // bt_bloque
+            // 
+            this.bt_bloque.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bt_bloque.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_bloque.Appearance.Options.UseFont = true;
+            this.bt_bloque.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.bt_bloque.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            this.bt_bloque.Location = new System.Drawing.Point(499, 37);
+            this.bt_bloque.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_bloque.Name = "bt_bloque";
+            this.bt_bloque.Size = new System.Drawing.Size(173, 75);
+            this.bt_bloque.TabIndex = 8;
+            this.bt_bloque.Text = "&Demission";
+            this.bt_bloque.Click += new System.EventHandler(this.bt_bloque_Click);
             // 
             // uc_employe
             // 
@@ -173,5 +190,6 @@
         private DevExpress.XtraEditors.SimpleButton bt_exportpdf;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraEditors.SimpleButton bt_bloque;
     }
 }

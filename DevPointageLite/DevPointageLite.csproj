@@ -240,6 +240,12 @@
     <Compile Include="Form23.Designer.cs">
       <DependentUpon>Form23.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form24.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form24.Designer.cs">
+      <DependentUpon>Form24.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form4.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -296,6 +302,12 @@
     </Compile>
     <Compile Include="uc_fonction.Designer.cs">
       <DependentUpon>uc_fonction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uc_horairetravail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uc_horairetravail.Designer.cs">
+      <DependentUpon>uc_horairetravail.cs</DependentUpon>
     </Compile>
     <Compile Include="uc_principale.cs">
       <SubType>UserControl</SubType>
@@ -367,6 +379,9 @@
     <EmbeddedResource Include="Form23.resx">
       <DependentUpon>Form23.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form24.resx">
+      <DependentUpon>Form24.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form4.resx">
       <DependentUpon>Form4.cs</DependentUpon>
     </EmbeddedResource>
@@ -404,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uc_fonction.resx">
       <DependentUpon>uc_fonction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uc_horairetravail.resx">
+      <DependentUpon>uc_horairetravail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uc_principale.resx">
       <DependentUpon>uc_principale.cs</DependentUpon>

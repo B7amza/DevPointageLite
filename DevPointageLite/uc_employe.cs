@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Xpo.DB.Helpers;
+using DevExpress.XtraEditors;
 using Microsoft.Data.Sqlite;  // ✅ الاستيراد الصحيح لـ SQLite
 using System;
 using System.Data;
@@ -232,6 +233,17 @@ namespace DevPointageLite
                 gridView1.Columns[10].Visible = false; // إخفاء id_fonction
                 gridView1.Columns[11].Visible = false; // إخفاء id_affectation
             }
+        }
+
+        private void bt_bloque_Click(object sender, EventArgs e)
+        {
+            string query;
+
+            query = @"UPDATE Personnel 
+                         SET  
+                             type_agent = @type_agent
+                         WHERE matricule = @matricule";
+
         }
     }
 }

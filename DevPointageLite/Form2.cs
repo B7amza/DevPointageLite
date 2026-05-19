@@ -40,6 +40,7 @@ namespace DevPointageLite
         static public Form20 fn_activation;
         static public Form22 fn_import_donnee;
         static public Form23 fn_temps_employee;
+        static public Form24 fn_horairetravail;
         static public Form_imprission fn_imprission;
 
 
@@ -49,6 +50,7 @@ namespace DevPointageLite
         uc_structure uc_structure1 = new uc_structure();
         uc_typeconge uc_typeconge1 = new uc_typeconge();
         uc_utilisateur uc_utilisateur1 = new uc_utilisateur();
+        uc_horairetravail uc_horairetravail1 = new uc_horairetravail(); 
 
 
 
@@ -65,7 +67,7 @@ namespace DevPointageLite
                 lbActive.Enabled = false;
                 lbDActivation.Enabled = false;
                 bt_impData.Enabled = false;
-                
+                bt_HoraireTravail.Enabled = false;
             }
         }
 
@@ -264,6 +266,11 @@ namespace DevPointageLite
             fn_temps_employee = new Form23();
             fn_temps_employee.ShowDialog();
             fn_temps_employee.Dispose();
+        }
+
+        private void bt_HoraireTravail_Click(object sender, EventArgs e)
+        {
+                        LoadUC(uc_horairetravail1);
         }
     }
 }

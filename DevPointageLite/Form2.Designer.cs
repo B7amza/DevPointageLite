@@ -57,6 +57,7 @@
             this.lbDActivation = new DevExpress.XtraBars.BarButtonItem();
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
             this.fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(this.components);
+            this.bt_HoraireTravail = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHypertextLabel1)).BeginInit();
@@ -115,9 +116,11 @@
             this.bt_fonction,
             this.bt_typeconge,
             this.bt_TempsEmployee,
+            this.bt_HoraireTravail,
             this.bt_gererPointeuse,
             this.bt_gererUtilisateur,
             this.bt_impData});
+            this.accordionControlElement1.Expanded = true;
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
             this.accordionControlElement1.Text = "Base";
@@ -311,6 +314,15 @@
             this.fluentFormDefaultManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemHypertextLabel1});
             // 
+            // bt_HoraireTravail
+            // 
+            this.bt_HoraireTravail.Appearance.Default.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.bt_HoraireTravail.Appearance.Default.Options.UseFont = true;
+            this.bt_HoraireTravail.Name = "bt_HoraireTravail";
+            this.bt_HoraireTravail.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_HoraireTravail.Text = "Horaire Travail";
+            this.bt_HoraireTravail.Click += new System.EventHandler(this.bt_HoraireTravail_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -364,6 +376,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_gererUtilisateur;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_impData;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_TempsEmployee;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement bt_HoraireTravail;
     }
 }
 
