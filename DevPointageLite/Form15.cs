@@ -2,7 +2,6 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
-using Microsoft.Data.Sqlite;  // ✅ الاستيراد الصحيح لـ SQLite
 
 namespace DevPointageLite
 {
