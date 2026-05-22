@@ -57,10 +57,55 @@ namespace DevPointageLite
 
 
                 frmHoraireTravail.ShowDialog();
-                if (frmHoraireTravail.DialogResult == DialogResult.OK)
-                {
-                    load_HoraireTravail_data(); // ✅ إعادة تحميل البيانات بعد الإضافة
-                }
+                
+                load_HoraireTravail_data(); // ✅ إعادة تحميل البيانات بعد الإضافة
+                
+            }
+        }
+
+        private void bt_modifier_Click(object sender, EventArgs e)
+        {
+            // التحقق مما إذا كان هناك صف محدد في GridView الخاص بـ DevExpress
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                // الحصول على مؤشر الصف المحدد
+                int rowHandle = gridView1.GetSelectedRows()[0];
+
+                // استخراج البيانات من الصف المحدد
+                string code = gridView1.GetRowCellValue(rowHandle, "Code")?.ToString();
+                string designation = gridView1.GetRowCellValue(rowHandle, "Désignation")?.ToString();
+                string sam = gridView1.GetRowCellValue(rowHandle, "Samedi")?.ToString();
+                string dim = gridView1.GetRowCellValue(rowHandle, "Dimanche")?.ToString();
+                string lun = gridView1.GetRowCellValue(rowHandle, "Lundi")?.ToString();
+                string mar = gridView1.GetRowCellValue(rowHandle, "Mardi")?.ToString();
+                string mer = gridView1.GetRowCellValue(rowHandle, "Mercredi")?.ToString();
+                string jeu = gridView1.GetRowCellValue(rowHandle, "Jeudi")?.ToString();
+                string ven = gridView1.GetRowCellValue(rowHandle, "Vendredi")?.ToString();
+
+                // فتح form24 وتمرير البيانات إليه
+                Form24 frm = new Form24();
+                Form24.insertion_modification = 1; // تعيين الوضع للتعديل
+               frm.Text = "Modifier l'horaire de travail"; // تعيين عنوان النموذج
+                frm.bt_ajouter.Enabled = false; // تعطيل زر الإضافة (لأنه غير ضروري في وضع التعديل)
+                frm.bt_enregistrer.Enabled = true; // تمكين زر الحفظ (لأنه ضروري في وضع التعديل)
+                frm.bt_modifier.Enabled = false; // تعطيل زر التعديل (لأنه غير ضروري في وضع التعديل)
+                frm.bt_fermer.Enabled = true; // تمكين زر الإغلاق
+
+                frm.reset_champs(true); // إعادة تعيين الحقول وتمكينها
+
+                // استدعاء الدالة التي أنشأناها لتمرير وتفكيك البيانات
+                frm.ChargerDonnees(code, designation, sam, dim, lun, mar, mer, jeu, ven);
+                
+                // إظهار الفورم
+                frm.ShowDialog();
+
+                // بعد إغلاق form24، نقوم بتحديث الـ GridControl ليعرض البيانات الجديدة
+                load_HoraireTravail_data();
+            }
+            else
+            {
+                // تنبيه في حال لم يقم المستخدم بتحديد أي صف
+                MessageBox.Show("الرجاء تحديد صف من الجدول أولاً لتعديله.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
