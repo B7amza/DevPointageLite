@@ -285,6 +285,12 @@
     <Compile Include="Reports\XtraReport_PointageM.Designer.cs">
       <DependentUpon>XtraReport_PointageM.cs</DependentUpon>
     </Compile>
+    <Compile Include="RibbonForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RibbonForm1.Designer.cs">
+      <DependentUpon>RibbonForm1.cs</DependentUpon>
+    </Compile>
     <Compile Include="TrialMessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -410,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\XtraReport_PointageM.resx">
       <DependentUpon>XtraReport_PointageM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RibbonForm1.resx">
+      <DependentUpon>RibbonForm1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TrialMessageForm.resx">
       <DependentUpon>TrialMessageForm.cs</DependentUpon>
