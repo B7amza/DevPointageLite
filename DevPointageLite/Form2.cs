@@ -42,6 +42,7 @@ namespace DevPointageLite
         static public Form23 fn_temps_employee;
         static public Form24 fn_horairetravail;
         static public Form_imprission fn_imprission;
+        static public RibbonForm1 fn_ribbonform1;
 
 
         uc_principale uc_principale1 = new uc_principale();
@@ -69,6 +70,8 @@ namespace DevPointageLite
                 bt_impData.Enabled = false;
                 bt_HoraireTravail.Enabled = false;
             }
+
+            pass_new_ribbon();
         }
 
         private void LoadUC(DevExpress.XtraEditors.XtraUserControl Page_UControle)
@@ -271,6 +274,17 @@ namespace DevPointageLite
         private void bt_HoraireTravail_Click(object sender, EventArgs e)
         {
                         LoadUC(uc_horairetravail1);
+        }
+
+        private void pn_continer_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void pass_new_ribbon()
+        {
+            RibbonForm1 fn_ribbonform1 = new RibbonForm1();
+            fn_ribbonform1.ShowDialog();
+            fn_ribbonform1.Dispose();
         }
     }
 }

@@ -71,6 +71,7 @@
             this.pn_continer.Name = "pn_continer";
             this.pn_continer.Size = new System.Drawing.Size(1092, 942);
             this.pn_continer.TabIndex = 0;
+            this.pn_continer.Click += new System.EventHandler(this.pn_continer_Click);
             // 
             // accordionControl1
             // 
@@ -120,6 +121,7 @@
             this.bt_gererPointeuse,
             this.bt_gererUtilisateur,
             this.bt_impData});
+            this.accordionControlElement1.Expanded = true;
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
             this.accordionControlElement1.Text = "Base";
