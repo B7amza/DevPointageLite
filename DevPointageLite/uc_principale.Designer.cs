@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.txt_datetime = new System.Windows.Forms.Label();
-            this.txt_companytitle = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -48,17 +47,6 @@
             this.txt_datetime.TabIndex = 7;
             this.txt_datetime.Text = "Home Page";
             // 
-            // txt_companytitle
-            // 
-            this.txt_companytitle.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_companytitle.AutoSize = true;
-            this.txt_companytitle.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_companytitle.Location = new System.Drawing.Point(124, 366);
-            this.txt_companytitle.Name = "txt_companytitle";
-            this.txt_companytitle.Size = new System.Drawing.Size(746, 171);
-            this.txt_companytitle.TabIndex = 6;
-            this.txt_companytitle.Text = "       UNITE MONTAGE ET \r\nMAINTEMANCE INDUSTRIELS \r\n                 HAMIZ";
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -68,10 +56,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = global::DevPointageLite.Properties.Resources.Logo_encc;
-            this.pictureBox1.Location = new System.Drawing.Point(324, 107);
+            this.pictureBox1.Image = global::DevPointageLite.Properties.Resources.banner_DevcoreDZ;
+            this.pictureBox1.Location = new System.Drawing.Point(43, 107);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(304, 256);
+            this.pictureBox1.Size = new System.Drawing.Size(926, 256);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
@@ -82,7 +70,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txt_datetime);
-            this.Controls.Add(this.txt_companytitle);
             this.Name = "uc_principale";
             this.Size = new System.Drawing.Size(995, 690);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -95,7 +82,6 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label txt_datetime;
-        private System.Windows.Forms.Label txt_companytitle;
         private System.Windows.Forms.Timer timer1;
     }
 }

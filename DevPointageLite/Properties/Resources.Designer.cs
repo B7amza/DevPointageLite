@@ -63,6 +63,16 @@ namespace DevPointageLite.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap banner_DevcoreDZ {
+            get {
+                object obj = ResourceManager.GetObject("banner_DevcoreDZ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap devcore_logo {
             get {
                 object obj = ResourceManager.GetObject("devcore-logo", resourceCulture);

@@ -508,6 +508,9 @@
   <ItemGroup>
     <None Include="Resources\Logo_encc.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\banner_DevcoreDZ.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
