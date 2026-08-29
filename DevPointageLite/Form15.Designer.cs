@@ -61,6 +61,8 @@
             this.bt_enregistrer = new DevExpress.XtraEditors.SimpleButton();
             this.bt_modifier = new DevExpress.XtraEditors.SimpleButton();
             this.bt_ajouter = new DevExpress.XtraEditors.SimpleButton();
+            this.bt_exportexcel = new DevExpress.XtraEditors.SimpleButton();
+            this.bt_exportpdf = new DevExpress.XtraEditors.SimpleButton();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -374,6 +376,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bt_exportpdf);
+            this.panel1.Controls.Add(this.bt_exportexcel);
             this.panel1.Controls.Add(this.bt_fermer);
             this.panel1.Controls.Add(this.bt_enregistrer);
             this.panel1.Controls.Add(this.bt_modifier);
@@ -442,6 +446,36 @@
             this.bt_ajouter.Text = "Ajouter";
             this.bt_ajouter.Click += new System.EventHandler(this.bt_ajouter_Click);
             // 
+            // bt_exportexcel
+            // 
+            this.bt_exportexcel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bt_exportexcel.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_exportexcel.Appearance.Options.UseFont = true;
+            this.bt_exportexcel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_exportexcel.ImageOptions.Image")));
+            this.bt_exportexcel.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            this.bt_exportexcel.Location = new System.Drawing.Point(7, 557);
+            this.bt_exportexcel.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_exportexcel.Name = "bt_exportexcel";
+            this.bt_exportexcel.Size = new System.Drawing.Size(147, 81);
+            this.bt_exportexcel.TabIndex = 6;
+            this.bt_exportexcel.Text = "&Export Excel";
+            this.bt_exportexcel.Click += new System.EventHandler(this.bt_exportexcel_Click);
+            // 
+            // bt_exportpdf
+            // 
+            this.bt_exportpdf.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bt_exportpdf.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_exportpdf.Appearance.Options.UseFont = true;
+            this.bt_exportpdf.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bt_exportpdf.ImageOptions.Image")));
+            this.bt_exportpdf.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            this.bt_exportpdf.Location = new System.Drawing.Point(6, 646);
+            this.bt_exportpdf.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_exportpdf.Name = "bt_exportpdf";
+            this.bt_exportpdf.Size = new System.Drawing.Size(148, 77);
+            this.bt_exportpdf.TabIndex = 17;
+            this.bt_exportpdf.Text = "&Export PDF";
+            this.bt_exportpdf.Click += new System.EventHandler(this.bt_exportpdf_Click);
+            // 
             // Form15
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -504,5 +538,7 @@
         public DevExpress.XtraEditors.SimpleButton bt_enregistrer;
         public DevExpress.XtraEditors.SimpleButton bt_modifier;
         public DevExpress.XtraEditors.SimpleButton bt_ajouter;
+        private DevExpress.XtraEditors.SimpleButton bt_exportexcel;
+        private DevExpress.XtraEditors.SimpleButton bt_exportpdf;
     }
 }

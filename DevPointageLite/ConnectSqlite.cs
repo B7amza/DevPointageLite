@@ -11,9 +11,11 @@ namespace DevPointageLite
         private static string dbFileName = "DEVCORE_PN.db";
         // جعل نص الاتصال للقراءة فقط بعد تعيينه أول مرة
         public static string ConString { get; private set; }
-
+        // خاصية جديدة لترجيع المسار الكامل لملف قاعدة البيانات
+        public static string DbFilePath { get; private set; }
         public static void Initialize()
         {
+            DbFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName);
             // الحصول على مسار قاعدة البيانات
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName);
             ConString = $"Data Source={dbPath};";

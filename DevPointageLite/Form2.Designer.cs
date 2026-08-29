@@ -58,6 +58,7 @@
             this.lbDActivation = new DevExpress.XtraBars.BarButtonItem();
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
             this.fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(this.components);
+            this.bt_saveBDD = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHypertextLabel1)).BeginInit();
@@ -120,6 +121,7 @@
             this.bt_HoraireTravail,
             this.bt_gererPointeuse,
             this.bt_gererUtilisateur,
+            this.bt_saveBDD,
             this.bt_impData});
             this.accordionControlElement1.Expanded = true;
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
@@ -324,6 +326,13 @@
             this.fluentFormDefaultManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemHypertextLabel1});
             // 
+            // bt_saveBDD
+            // 
+            this.bt_saveBDD.Name = "bt_saveBDD";
+            this.bt_saveBDD.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_saveBDD.Text = "Save BDD";
+            this.bt_saveBDD.Click += new System.EventHandler(this.bt_saveBDD_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -378,6 +387,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_impData;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_TempsEmployee;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_HoraireTravail;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement bt_saveBDD;
     }
 }
 

@@ -57,6 +57,8 @@
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.pn_continer = new System.Windows.Forms.Panel();
+            this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.bt_backup = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,9 +83,10 @@
             this.bt_impData,
             this.lbActive,
             this.lbDActivation,
-            this.barStaticItem1});
+            this.barStaticItem1,
+            this.bt_backup});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 19;
+            this.ribbon.MaxItemId = 20;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -242,28 +245,29 @@
             this.ribbonPageGroup1.ItemLinks.Add(this.bt_principale);
             this.ribbonPageGroup1.ItemLinks.Add(this.bt_employe);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
+            this.ribbonPageGroup1.Text = "Personnel";
             // 
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.bt_Telecharger);
             this.ribbonPageGroup2.ItemLinks.Add(this.bt_absence);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "Telechargement";
             // 
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.bt_pointageM);
             this.ribbonPageGroup3.ItemLinks.Add(this.bt_PointageJR);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "Report";
             // 
             // ribbonPage2
             // 
             this.ribbonPage2.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup4,
             this.ribbonPageGroup5,
-            this.ribbonPageGroup6});
+            this.ribbonPageGroup6,
+            this.ribbonPageGroup7});
             this.ribbonPage2.Name = "ribbonPage2";
             this.ribbonPage2.Text = "Base";
             // 
@@ -272,7 +276,7 @@
             this.ribbonPageGroup4.ItemLinks.Add(this.bt_stucture);
             this.ribbonPageGroup4.ItemLinks.Add(this.bt_fonction);
             this.ribbonPageGroup4.Name = "ribbonPageGroup4";
-            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "Structure";
             // 
             // ribbonPageGroup5
             // 
@@ -280,7 +284,7 @@
             this.ribbonPageGroup5.ItemLinks.Add(this.bt_TempsEmployee);
             this.ribbonPageGroup5.ItemLinks.Add(this.bt_HoraireTravail);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
-            this.ribbonPageGroup5.Text = "ribbonPageGroup5";
+            this.ribbonPageGroup5.Text = "Horaire";
             // 
             // ribbonPageGroup6
             // 
@@ -288,7 +292,7 @@
             this.ribbonPageGroup6.ItemLinks.Add(this.bt_gererUtilisateur);
             this.ribbonPageGroup6.ItemLinks.Add(this.bt_impData);
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
-            this.ribbonPageGroup6.Text = "ribbonPageGroup6";
+            this.ribbonPageGroup6.Text = "Administration";
             // 
             // ribbonStatusBar
             // 
@@ -304,6 +308,20 @@
             this.pn_continer.Name = "pn_continer";
             this.pn_continer.Size = new System.Drawing.Size(1355, 524);
             this.pn_continer.TabIndex = 2;
+            // 
+            // ribbonPageGroup7
+            // 
+            this.ribbonPageGroup7.ItemLinks.Add(this.bt_backup);
+            this.ribbonPageGroup7.Name = "ribbonPageGroup7";
+            this.ribbonPageGroup7.Text = "ribbonPageGroup7";
+            // 
+            // bt_backup
+            // 
+            this.bt_backup.Caption = "BackUp BDD";
+            this.bt_backup.Id = 19;
+            this.bt_backup.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.LargeImage")));
+            this.bt_backup.Name = "bt_backup";
+            this.bt_backup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bt_backup_ItemClick);
             // 
             // RibbonForm1
             // 
@@ -357,5 +375,7 @@
         private DevExpress.XtraBars.BarButtonItem lbActive;
         private DevExpress.XtraBars.BarButtonItem lbDActivation;
         private DevExpress.XtraBars.BarStaticItem barStaticItem1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
+        private DevExpress.XtraBars.BarButtonItem bt_backup;
     }
 }

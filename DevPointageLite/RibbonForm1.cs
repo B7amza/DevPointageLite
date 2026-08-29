@@ -44,6 +44,7 @@ namespace DevPointageLite
         static public Form22 fn_import_donnee;
         static public Form23 fn_temps_employee;
         static public Form24 fn_horairetravail;
+        static public Form25 fn_backup;
         static public Form_imprission fn_imprission;
 
 
@@ -214,6 +215,7 @@ namespace DevPointageLite
                 }
             }
         }
+        //s
 
         private void lbDActivation_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -230,6 +232,13 @@ namespace DevPointageLite
         private void RibbonForm1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void bt_backup_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Form25 fn_backup = new Form25();
+            fn_backup.ShowDialog();
+            fn_backup.Dispose();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Data.Sqlite;  // ✅ الاستيراد الصحيح لـ SQLite
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace DevPointageLite
@@ -655,6 +656,32 @@ namespace DevPointageLite
             {
                 XtraMessageBox.Show("خطأ في فحص التداخل: " + ex.Message);
                 return false;
+            }
+        }
+
+        private void bt_exportexcel_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sd = new SaveFileDialog();
+            sd.Filter = "xlsx files (*.xlsx)|*.xlsx";
+            sd.FilterIndex = 2;
+            sd.RestoreDirectory = true;
+            if (sd.ShowDialog() == DialogResult.OK)
+            {
+                gridControl1.ExportToXlsx(sd.FileName);
+                Process.Start(sd.FileName);
+            }
+        }
+
+        private void bt_exportpdf_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sd = new SaveFileDialog();
+            sd.Filter = "Pdf files (*.pdf)|*.pdf";
+            sd.FilterIndex = 2;
+            sd.RestoreDirectory = true;
+            if (sd.ShowDialog() == DialogResult.OK)
+            {
+                gridControl1.ExportToPdf(sd.FileName);
+                Process.Start(sd.FileName);
             }
         }
     }
