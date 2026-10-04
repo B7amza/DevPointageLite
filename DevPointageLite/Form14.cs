@@ -435,7 +435,9 @@ namespace DevPointageLite
             if (Form2.fn_imprission?.documentViewer1 != null)
             {
                 Form2.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageM1;
+
                 Form2.fn_imprission.ShowDialog();
+               
             }
         }
 

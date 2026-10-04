@@ -313,7 +313,7 @@
             // 
             this.ribbonPageGroup7.ItemLinks.Add(this.bt_backup);
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
-            this.ribbonPageGroup7.Text = "ribbonPageGroup7";
+            this.ribbonPageGroup7.Text = "Sauvgarde ";
             // 
             // bt_backup
             // 
