@@ -56,7 +56,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = global::DevPointageLite.Properties.Resources.banner_DevcoreDZ;
+            this.pictureBox1.Image = global::DevPointageLite.Properties.Resources.Logo_encc;
             this.pictureBox1.Location = new System.Drawing.Point(43, 107);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(926, 256);
