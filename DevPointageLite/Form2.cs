@@ -43,7 +43,7 @@ namespace DevPointageLite
         static public Form24 fn_horairetravail;
         static public Form25 fn_backup;
         static public Form_imprission fn_imprission;
-        static public RibbonForm1 fn_ribbonform1;
+       // static public RibbonForm1 fn_ribbonform1;
 
 
         uc_principale uc_principale1 = new uc_principale();
@@ -283,9 +283,9 @@ namespace DevPointageLite
         }
         private void pass_new_ribbon()
         {
-            RibbonForm1 fn_ribbonform1 = new RibbonForm1();
-            fn_ribbonform1.ShowDialog();
-            fn_ribbonform1.Dispose();
+            //RibbonForm1 fn_ribbonform1 = new RibbonForm1();
+            //fn_ribbonform1.ShowDialog();
+            //fn_ribbonform1.Dispose();
         }
 
         private void bt_saveBDD_Click(object sender, EventArgs e)

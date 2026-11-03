@@ -34,8 +34,14 @@ namespace DevPointageLite
             CheckLicenseAndTrial(); // Check license and trial status on startup
         }
         static public Form2 Form_principale;
+        static public RibbonForm1 fn_ribbonform1;
 
-
+        private void pass_new_ribbon()
+        {
+            RibbonForm1 fn_ribbonform1 = new RibbonForm1();
+            fn_ribbonform1.ShowDialog();
+            fn_ribbonform1.Dispose();
+        }
         private void CheckLicenseAndTrial()
         {
             string savedKey = Registry.GetValue(licenseRegistryPath, licenseKeyName, null)?.ToString();
@@ -144,9 +150,10 @@ namespace DevPointageLite
             // check if nom d'utilisateur et mot de passe sont corrects
             if (txt_user.Text == matricule && txt_pass.Text == password)
                 {
-                    Form_principale = new Form2();
-                    Form_principale.ShowDialog();
-                    Form_principale.Dispose();
+                //Form_principale = new Form2();
+                //Form_principale.ShowDialog();
+                //Form_principale.Dispose();
+                pass_new_ribbon();
                 }
                 else
                 {

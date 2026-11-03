@@ -119,7 +119,7 @@ namespace DevPointageLite
 
         private void Form15_Load(object sender, EventArgs e)
         {
-            txt_annee.Text = Form2.annee_en_cours;
+            txt_annee.Text = RibbonForm1.annee_en_cours;
             liste_mois.SelectedIndex = DateTime.Now.Month - 1;
             load_horaire();
             load_type_conge("N");

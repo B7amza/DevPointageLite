@@ -256,7 +256,7 @@ namespace DevPointageLite
                         else if (hr_pointage >= hr_sortie && hr_sortie > TimeSpan.Zero)
                         {
                             entetRow.Cells[6].Value = hr_pointage.ToString();
-                            if ((hr_pointage - hr_sortie).Minutes >= Form2.plage_hrs)
+                            if ((hr_pointage - hr_sortie).Minutes >= RibbonForm1.plage_hrs)
                             {
                                 double heuresSupp = hr_pointage.TotalMinutes - hr_sortie.TotalMinutes;
                                 entetRow.Cells[7].Value = TimeSpan.FromMinutes(heuresSupp).ToString();
@@ -265,7 +265,7 @@ namespace DevPointageLite
                         else if (hr_entree > TimeSpan.Zero && hr_pointage >= hr_entree && hr_pointage <= hr_sortie)
                         {
                             double retardMinutes = (hr_pointage - hr_entree).TotalMinutes;
-                            if (retardMinutes <= Form2.plage_retards)
+                            if (retardMinutes <=    RibbonForm1.plage_retards)
                             {
                                 entetRow.Cells[0].Value = hr_pointage.ToString();
                                 entetRow.Cells[2].Value = retardMinutes.ToString("0");
@@ -425,7 +425,7 @@ namespace DevPointageLite
 
         private void bt_imprimer_Click(object sender, EventArgs e)
         {
-            Form2.fn_imprission = new Form_imprission();
+            RibbonForm1.fn_imprission = new Form_imprission();
             ds = new DataSet1();
             ds.Tables["dts_pointage"]?.Clear();
 
@@ -445,10 +445,10 @@ namespace DevPointageLite
             XtraReport_PointageJR1.DataSource = ds;
             XtraReport_PointageJR1.RequestParameters = false;
 
-            if (Form2.fn_imprission?.documentViewer1 != null)
+            if (RibbonForm1.fn_imprission?.documentViewer1 != null)
             {
-                Form2.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageJR1;
-                Form2.fn_imprission.ShowDialog();
+                RibbonForm1.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageJR1;
+                RibbonForm1.fn_imprission.ShowDialog();
             }
         }
 

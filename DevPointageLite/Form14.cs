@@ -19,7 +19,8 @@ namespace DevPointageLite
 
         private void Form14_Load(object sender, EventArgs e)
         {
-            txt_annee.Text = Form2.annee_en_cours;
+           // txt_annee.Text = Form2.annee_en_cours;
+           txt_annee.Text = RibbonForm1.annee_en_cours; // Use the static property from RibbonForm1
             ActiveControl = txt_matricule;
             liste_mois.SelectedIndex = DateTime.Now.Month - 1;
 
@@ -266,7 +267,7 @@ namespace DevPointageLite
                         else if (hr_pointage >= hr_sortie && hr_sortie > TimeSpan.Zero)
                         {
                             row.Cells[8].Value = hr_pointage.ToString();
-                            if ((hr_pointage - hr_sortie).Minutes >= Form2.plage_hrs)
+                            if ((hr_pointage - hr_sortie).Minutes >= RibbonForm1.plage_hrs)
                             {
                                 double heuresSupp = hr_pointage.TotalMinutes - hr_sortie.TotalMinutes;
                                 row.Cells[9].Value = TimeSpan.FromMinutes(heuresSupp).ToString();
@@ -275,7 +276,7 @@ namespace DevPointageLite
                         else if (hr_entree > TimeSpan.Zero && hr_pointage >= hr_entree && hr_pointage <= hr_sortie)
                         {
                             double retardMinutes = (hr_pointage - hr_entree).TotalMinutes;
-                            if (retardMinutes <= Form2.plage_retards)
+                            if (retardMinutes <= RibbonForm1.plage_retards)
                             {
                                 row.Cells[2].Value = hr_pointage.ToString();
                                 row.Cells[4].Value = retardMinutes.ToString("0");
@@ -414,7 +415,7 @@ namespace DevPointageLite
 
         private void bt_imprimer_Click(object sender, EventArgs e)
         {
-            Form2.fn_imprission = new Form_imprission();
+            RibbonForm1.fn_imprission = new Form_imprission();
             ds = new DataSet1();
             ds.Tables["dts_pointage"]?.Clear();
 
@@ -432,11 +433,11 @@ namespace DevPointageLite
             XtraReport_PointageM1.DataSource = ds;
             XtraReport_PointageM1.RequestParameters = false;
 
-            if (Form2.fn_imprission?.documentViewer1 != null)
+            if (RibbonForm1.fn_imprission?.documentViewer1 != null)
             {
-                Form2.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageM1;
+                RibbonForm1.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageM1;
 
-                Form2.fn_imprission.ShowDialog();
+                RibbonForm1.fn_imprission.ShowDialog();
                
             }
         }
