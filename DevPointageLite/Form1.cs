@@ -23,7 +23,7 @@ namespace DevPointageLite
         // Define the registry key where the trial data will be stored
         private const string registryKeyPath = @"HKEY_CURRENT_USER\Software\DevPointageLiteTrial";
         private const string firstLaunchKey = "FirstLaunchTime";
-        private const int trialDurationInMinutes = 80640; // Trial period is now 1 minute---20160=15jours
+        private const int trialDurationInMinutes = 15 * 24 * 60;//يوم*ساعة*دقيقة // Trial period is now 15 days
         private Timer trialTimer; // Declare timer as a class-level variable
         private bool hasExpiredMessageShown = false; // Flag to ensure expiration message is shown only once
 
@@ -36,11 +36,25 @@ namespace DevPointageLite
         static public Form2 Form_principale;
         static public RibbonForm1 fn_ribbonform1;
 
+        //private void pass_new_ribbon()
+        //{
+        //    RibbonForm1 fn_ribbonform1 = new RibbonForm1();
+        //    fn_ribbonform1.ShowDialog();
+        //    fn_ribbonform1.Dispose();
+        //}
+        // ---- النقطة 3 ----
         private void pass_new_ribbon()
         {
-            RibbonForm1 fn_ribbonform1 = new RibbonForm1();
-            fn_ribbonform1.ShowDialog();
-            fn_ribbonform1.Dispose();
+            fn_ribbonform1 = new RibbonForm1(); // on utilise le champ statique
+            try
+            {
+                fn_ribbonform1.ShowDialog(this);
+            }
+            finally
+            {
+                fn_ribbonform1.Dispose();
+                fn_ribbonform1 = null;
+            }
         }
         private void CheckLicenseAndTrial()
         {
@@ -132,53 +146,68 @@ namespace DevPointageLite
 
 
 
-        static public string matricule, nom, fonction, manager, role, password;
+        //static public string matricule, nom, fonction, manager, role, password;
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
+        static public string matricule, nom, fonction, manager, role, password;
+
+        private void ResetUserDetails()
+        {
+            matricule = nom = fonction = manager = role = password = null;
+            lb_nom_prenom.Text = string.Empty;
+            lb_nom_prenom.Visible = false;
+        }
+
+        private bool load_user_details()
+        {
+            ResetUserDetails();
+
+            string query = "SELECT matricule, nom, fonction, manager, role, password " +
+                           "FROM utilisateur WHERE matricule = @matricule";
+
+            DataTable dt = ConnectSqlite.ExecuteSelect(
+                query, new SqliteParameter("@matricule", txt_user.Text.Trim()));
+
+            if (dt == null || dt.Rows.Count == 0)
+                return false;
+
+            DataRow r = dt.Rows[0];
+            matricule = Convert.ToString(r["matricule"]);
+            nom = Convert.ToString(r["nom"]);
+            fonction = Convert.ToString(r["fonction"]);
+            manager = Convert.ToString(r["manager"]);
+            role = Convert.ToString(r["role"]);
+            password = Convert.ToString(r["password"]);
+
+            lb_nom_prenom.Text = nom;
+            lb_nom_prenom.Visible = true;
+            return true;
+        }
+
         private void bt_connexion_Click(object sender, EventArgs e)
         {
-            // تحقق من صحة الإدخالات قبل محاولة الاتصال
             if (string.IsNullOrWhiteSpace(txt_user.Text) || string.IsNullOrWhiteSpace(txt_pass.Text))
             {
-                XtraMessageBox.Show("Veuillez entrer votre nom d'utilisateur et mot de passe.", "Champs requis", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XtraMessageBox.Show("Veuillez entrer votre nom d'utilisateur et mot de passe.",
+                    "Champs requis", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // check if nom d'utilisateur et mot de passe sont corrects
-            if (txt_user.Text == matricule && txt_pass.Text == password)
-                {
-                //Form_principale = new Form2();
-                //Form_principale.ShowDialog();
-                //Form_principale.Dispose();
-                pass_new_ribbon();
-                }
-                else
-                {
-                    XtraMessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Erreur de connexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            if (!load_user_details() || txt_pass.Text != password)
+            {
+                ResetUserDetails();
+                XtraMessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.",
+                    "Erreur de connexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txt_pass.Clear();
+                ActiveControl = txt_user;
+                return;
+            }
 
-            //if(DateTime.Now<new DateTime(2026, 6, 30))
-            //{
-            //    if (txt_user.Text == "admin" && txt_pass.Text == "admin")
-            //    {
-            //        Form_principale = new Form2();
-            //        Form_principale.ShowDialog();
-            //        Form_principale.Dispose();
-            //    }
-            //    else
-            //    {
-            //        XtraMessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Erreur de connexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
-            //else
-            //{
-            //    XtraMessageBox.Show("La période d'essai est expirée. Veuillez contacter le support pour obtenir une licence valide.", "Période d'essai expirée", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
-
-
+            txt_pass.Clear();
+            pass_new_ribbon();
         }
 
         private void bt_fermer_Click(object sender, EventArgs e)
@@ -188,55 +217,29 @@ namespace DevPointageLite
 
         private void txt_user_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13)
+            if (e.KeyCode == Keys.Enter)
             {
-                txt_user_Leave(sender, e);
+                e.SuppressKeyPress = true;
+                ActiveControl = txt_pass;
             }
-        }
-
-        private void txt_user_Leave(object sender, EventArgs e)
-        {
-            load_user_details();
-            
         }
 
         private void txt_pass_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13)
+            if (e.KeyCode == Keys.Enter)
             {
-                txt_pass_Leave(sender, e);
+                e.SuppressKeyPress = true;
+                bt_connexion_Click(sender, EventArgs.Empty);
             }
         }
+       
 
-        private void txt_pass_Leave(object sender, EventArgs e)
-        {
-            bt_connexion_Click(sender, e);
-        }
-        private void load_user_details()
-        {
-            // This method can be used to load user details from the database if needed
-            string query = "SELECT matricule,nom,fonction,manager,role,password FROM utilisateur WHERE matricule = @matricule";
 
-           DataTable dt = ConnectSqlite.ExecuteSelect(query, new SqliteParameter("@matricule", txt_user.Text));
-            if (dt.Rows.Count > 0)
-            {
-                matricule = dt.Rows[0]["matricule"].ToString();
-                nom = dt.Rows[0]["nom"].ToString();
-                fonction = dt.Rows[0]["fonction"].ToString();
-                manager = dt.Rows[0]["manager"].ToString();
-                role = dt.Rows[0]["role"].ToString();
-                password = dt.Rows[0]["password"].ToString();
 
-                lb_nom_prenom.Text = nom;
-                lb_nom_prenom.Visible = true;
-                ActiveControl = txt_pass;
-            }
-            else
-            {
-                XtraMessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Erreur de connexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ActiveControl = txt_user;
-            }
 
-        }
+
+
+
+
     }
 }

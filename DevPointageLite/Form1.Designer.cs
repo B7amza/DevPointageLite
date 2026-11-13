@@ -63,7 +63,6 @@
             this.txt_user.TabIndex = 1;
             this.txt_user.ValidatingType = typeof(int);
             this.txt_user.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_user_KeyDown);
-            this.txt_user.Leave += new System.EventHandler(this.txt_user_Leave);
             // 
             // bt_fermer
             // 
@@ -90,7 +89,6 @@
             this.txt_pass.Size = new System.Drawing.Size(225, 35);
             this.txt_pass.TabIndex = 2;
             this.txt_pass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_pass_KeyDown);
-            this.txt_pass.Leave += new System.EventHandler(this.txt_pass_Leave);
             // 
             // bt_connexion
             // 

@@ -411,7 +411,7 @@ namespace DevPointageLite
 
 
         public DataSet ds;
-        public Reports.XtraReport_PointageM XtraReport_PointageM1 = new Reports.XtraReport_PointageM();
+        //public Reports.XtraReport_PointageM XtraReport_PointageM1 = new Reports.XtraReport_PointageM();
 
         private void bt_imprimer_Click(object sender, EventArgs e)
         {
@@ -430,16 +430,31 @@ namespace DevPointageLite
                 );
             }
 
-            XtraReport_PointageM1.DataSource = ds;
-            XtraReport_PointageM1.RequestParameters = false;
+            //XtraReport_PointageM1.DataSource = ds;
+            //XtraReport_PointageM1.RequestParameters = false;
 
-            if (RibbonForm1.fn_imprission?.documentViewer1 != null)
+            //if (RibbonForm1.fn_imprission?.documentViewer1 != null)
+            //{
+            //    RibbonForm1.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageM1;
+
+            //    RibbonForm1.fn_imprission.ShowDialog();
+
+            //}
+
+            // ✅ تقرير جديد في كل مرة
+            var report = new Reports.XtraReport_PointageM();
+            report.DataSource = ds;
+            report.RequestParameters = false;
+
+            // ✅ نافذة طباعة جديدة أيضًا
+            using (var frm = new Form_imprission())
             {
-                RibbonForm1.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageM1;
-
-                RibbonForm1.fn_imprission.ShowDialog();
-               
+                RibbonForm1.fn_imprission = frm;   // إذا كان مستعملاً في أماكن أخرى
+                frm.documentViewer1.DocumentSource = report;
+                report.CreateDocument();           // يفرض إعادة بناء المستند بالبيانات الحالية
+                frm.ShowDialog();
             }
+
         }
 
         private string GetCellValue(DataGridView dgv, int rowIndex, int colIndex)

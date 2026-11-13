@@ -3,6 +3,7 @@ using Microsoft.Data.Sqlite;  // ✅ الاستيراد الصحيح لـ SQLite
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -21,6 +22,9 @@ namespace DevPointageLite
             InitializeComponent();
             ConnectSqlite.Initialize(); // ✅ تهيئة قاعدة البيانات
         }
+        private static bool TryParseNbr(string s, out decimal v) =>
+        decimal.TryParse((s ?? "").Trim().Replace(',', '.'),
+                     NumberStyles.Number, CultureInfo.InvariantCulture, out v);
 
         private void bt_ajouter_Click(object sender, EventArgs e)
         {
@@ -49,6 +53,7 @@ namespace DevPointageLite
             // ✅ إعداد الأزرار
             bt_ajouter.Enabled = false;
             bt_modifier.Enabled = false;
+            bt_supprimer.Enabled = false;
             bt_enregistrer.Enabled = true;
 
             // ✅ تحميل البيانات المساعدة
@@ -66,10 +71,7 @@ namespace DevPointageLite
             this.Close();
         }
 
-        private void bt_apercu_Click(object sender, EventArgs e)
-        {
-            // يمكن إضافة كود المعاينة لاحقاً
-        }
+        
 
         private void dt_au_ValueChanged(object sender, EventArgs e)
         {
@@ -88,6 +90,14 @@ namespace DevPointageLite
 
         private void bt_modifier_Click(object sender, EventArgs e)
         {
+            DataRow selectedRow = gridView1.GetDataRow(gridView1.FocusedRowHandle);
+            if (absence_cloturee(selectedRow))
+            {
+                XtraMessageBox.Show("Cette absence est clôturée : modification impossible.", "Information",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             insertion_modification = 1; // Modification mode
 
             // ✅ تفعيل الحقول للتعديل
@@ -104,6 +114,7 @@ namespace DevPointageLite
             bt_enregistrer.Enabled = true;
             bt_ajouter.Enabled = false;
             bt_modifier.Enabled = false;
+            bt_supprimer.Enabled = false;
 
             //txt_nbrABS.Focus();
             if (chk_periodique.Checked)
@@ -128,10 +139,10 @@ namespace DevPointageLite
         }
 
         // ✅ تحميل بيانات الموظف باستخدام SQLite
-        private void load_personnel_details()
+        private bool load_personnel_details(bool showMessage = true)
         {
             string matricule = txt_matricule.Text.Trim();
-            if (string.IsNullOrEmpty(matricule)) return;
+            if (string.IsNullOrEmpty(matricule)) return false;
 
             // ✅ SQLite: استخدام || للدمج بدلاً من +
             string query = @"SELECT nom, prenom, fonction.lib_fonction, affectation.lib_affect 
@@ -148,13 +159,18 @@ namespace DevPointageLite
                 DataRow row = dt.Rows[0];
                 lb_nom_prenom.Text = $"{row["nom"]} {row["prenom"]}";
                 lb_nom_prenom.Visible = true;
+                return true;
             }
             else
             {
                 lb_nom_prenom.Text = "";
                 lb_nom_prenom.Visible = false;
-                XtraMessageBox.Show("المستخدم غير موجود", "تنبيه",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (showMessage)
+                {
+                    XtraMessageBox.Show("المستخدم غير موجود", "تنبيه",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                return false;
             }
         }
 
@@ -162,7 +178,8 @@ namespace DevPointageLite
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txt_matricule_Leave(sender, e);
+                e.SuppressKeyPress = true; // يمنع صوت "ding"
+                SelectNextControl((Control)sender, true, true, true, true);
             }
         }
 
@@ -208,7 +225,7 @@ namespace DevPointageLite
             {
                 load_type_conge("N");
                 chk_periodique.Text = "Bon Sortie";
-                lb_nbrABS.Text = "Nbr Heurs :";
+                lb_nbrABS.Text = "Nbr Heures :";
                 dt_au.Enabled = false;
                 txt_nbrABS.Enabled = true;
             }
@@ -216,7 +233,7 @@ namespace DevPointageLite
             {
                 load_type_conge("O");
                 chk_periodique.Text = "Conge";
-                lb_nbrABS.Text = "Nbr Jours";
+                lb_nbrABS.Text = "Nbr Jours :";
                 dt_au.Enabled = true;
                 txt_nbrABS.Enabled = false;
             }
@@ -226,9 +243,9 @@ namespace DevPointageLite
 
         private void txt_nbrABS_Leave(object sender, EventArgs e)
         {
-            if (decimal.TryParse(txt_nbrABS.Text, out decimal val))
+            if (TryParseNbr(txt_nbrABS.Text, out decimal val))
             {
-                if (val < 0 || val > 8)
+                if (val < 0 || val > MAX_HEURES_JOUR)
                 {
                     XtraMessageBox.Show("Veuillez vérifier vos données?", "DevPointage",
                                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -391,7 +408,7 @@ namespace DevPointageLite
         {
             string matricule = txt_matricule.Text.Trim();
             DateTime du = dt_du.Value.Date;
-            DateTime au = dt_au.Value.Date;
+            DateTime au = chk_periodique.Checked ? du : dt_au.Value.Date;
             string currentNumBon = "";
 
             // إذا كنا في وضع التعديل (1) نجلب الرقم الحالي
@@ -399,16 +416,53 @@ namespace DevPointageLite
             {
                 currentNumBon = gridView1.GetFocusedRowCellValue("NUM_BON")?.ToString() ?? "";
             }
-            if (!chk_periodique.Checked)
+            //if (!chk_periodique.Checked)
+            //{
+            //    // الفحص
+            //    if (existe_absence(matricule, du, au, currentNumBon))
+            //    {
+            //        XtraMessageBox.Show("عذراً، يوجد تداخل مع غياب آخر مسجل لهذا الموظف!", "تنبيه",
+            //                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return;
+            //    }
+            //}
+           
+
+            string nature = chk_periodique.Checked ? "S" : "C";
+
+            if (au < du)
             {
-                // الفحص
-                if (existe_absence(matricule, du, au, currentNumBon))
+                XtraMessageBox.Show("تاريخ النهاية لا يمكن أن يسبق تاريخ البداية.", "تنبيه",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (existe_absence(matricule, du, au, nature, currentNumBon))
+            {
+                XtraMessageBox.Show("عذراً، يوجد تداخل مع غياب آخر مسجل لهذا الموظف!", "تنبيه",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            
+
+            if (chk_periodique.Checked && TryParseNbr(txt_nbrABS.Text, out decimal nbrHeures))
+            {
+                decimal deja = heures_deja_prises(matricule, du, currentNumBon);
+
+                if (deja + nbrHeures > MAX_HEURES_JOUR)
                 {
-                    XtraMessageBox.Show("عذراً، يوجد تداخل مع غياب آخر مسجل لهذا الموظف!", "تنبيه",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    decimal reste = Math.Max(0m, MAX_HEURES_JOUR - deja);
+                    XtraMessageBox.Show(
+                        $"Dépassement du maximum journalier ({MAX_HEURES_JOUR} h).\n\n" +
+                        $"Déjà enregistré ce jour : {deja} h\n" +
+                        $"Reste disponible : {reste} h",
+                        "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txt_nbrABS.Focus();
                     return;
                 }
             }
+
             SaveAbsence();
         }
         private void SaveAbsence()
@@ -418,6 +472,23 @@ namespace DevPointageLite
             {
                 XtraMessageBox.Show("Veuillez remplir les champs obligatoires", "Erreur",
                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if(!load_personnel_details(false))
+            {
+                XtraMessageBox.Show("Matricule invalide. Veuillez vérifier.", "Erreur",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txt_matricule.Focus();
+                return;
+            }
+
+            if (!TryParseNbr(txt_nbrABS.Text, out decimal nbr) || nbr <= 0)
+            {
+                XtraMessageBox.Show(chk_periodique.Checked
+                        ? "Veuillez saisir le nombre d'heures."
+                        : "Nombre de jours invalide.", "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (txt_nbrABS.Enabled) txt_nbrABS.Focus();
                 return;
             }
 
@@ -449,7 +520,7 @@ namespace DevPointageLite
                     query = @"UPDATE [ABS] SET 
                               C_CONGE = @c_conge, DATE2 = @date2, JOUR = @jour, HEURE = @heure, 
                               NATURE = @nature, OBS = @obs 
-                              WHERE MATRI = @matri AND DATE1 = @date1 AND NUM_BON = @num_bon";
+                              WHERE MATRI = @matri AND date(DATE1) = @date1 AND NUM_BON = @num_bon AND UPPER(COALESCE(CLOT, 'N')) <> 'O'";
                 }
 
                 var parameters = new[]
@@ -457,28 +528,54 @@ namespace DevPointageLite
                     new SqliteParameter("@matri", txt_matricule.Text.Trim()),
                     new SqliteParameter("@c_conge", cb_type.SelectedValue?.ToString() ?? ""),
                     new SqliteParameter("@date1", dt_du.Value.Date),
-                    new SqliteParameter("@date2",/* chk_periodique.Checked ? (object)DBNull.Value :*/ dt_au.Value.Date),
-                    new SqliteParameter("@jour", chk_periodique.Checked ? 0 : Convert.ToDecimal(txt_nbrABS.Text)),
-                    new SqliteParameter("@heure", chk_periodique.Checked ? Convert.ToDecimal(txt_nbrABS.Text) : 0),
+                    //new SqliteParameter("@date2",/* chk_periodique.Checked ? (object)DBNull.Value :*/ dt_au.Value.Date),
+                    new SqliteParameter("@date2", chk_periodique.Checked ? dt_du.Value.Date : dt_au.Value.Date),
+                    //new SqliteParameter("@jour", chk_periodique.Checked ? 0 : Convert.ToDecimal(txt_nbrABS.Text)),
+                    //new SqliteParameter("@heure", chk_periodique.Checked ? Convert.ToDecimal(txt_nbrABS.Text) : 0),
+                    new SqliteParameter("@jour",  chk_periodique.Checked ? 0m : nbr),
+                    new SqliteParameter("@heure", chk_periodique.Checked ? nbr : 0m),
                     new SqliteParameter("@nature", chk_periodique.Checked ? "S" : "C"),
                     new SqliteParameter("@obs", txt_observation.Text.Trim()),
                     new SqliteParameter("@num_bon", numBon)
                 };
 
-                int rowsAffected = ConnectSqlite.ExecuteNonQuery(query, parameters);
+                //int rowsAffected = ConnectSqlite.ExecuteNonQuery(query, parameters);
+
+                //if (rowsAffected > 0)
+                //{
+                //    XtraMessageBox.Show($"Enregistré avec succès ! Numéro de bon: {numBon}", "Succès",
+                //                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    LoadAllAbsences();
+                //    ResetUI();
+                //}
+                //else
+                //{
+                //    XtraMessageBox.Show("Échec de l'enregistrement.", "Erreur",
+                //                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
+
+
+                // ✅ استخدام TryExecuteNonQuery للتحقق من نجاح العملية والتقاط الأخطاء
+                if (!ConnectSqlite.TryExecuteNonQuery(query, parameters, out int rowsAffected, out string error))
+                {
+                    XtraMessageBox.Show("Erreur lors de l'enregistrement : " + error, "Erreur",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 if (rowsAffected > 0)
                 {
                     XtraMessageBox.Show($"Enregistré avec succès ! Numéro de bon: {numBon}", "Succès",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadAllAbsences();
                     ResetUI();
                 }
                 else
                 {
-                    XtraMessageBox.Show("Échec de l'enregistrement.", "Erreur",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XtraMessageBox.Show("Aucune ligne n'a été enregistrée (enregistrement introuvable).", "Information",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
             }
             catch (Exception ex)
             {
@@ -550,7 +647,7 @@ namespace DevPointageLite
                 if (row != null)
                 {
                     txt_matricule.Text = row["MATRI"]?.ToString() ?? "";
-                    load_personnel_details();
+                    load_personnel_details(false);
 
                     if (row["DATE1"] != DBNull.Value)
                         dt_du.Value = Convert.ToDateTime(row["DATE1"]);
@@ -577,6 +674,7 @@ namespace DevPointageLite
 
                     bt_ajouter.Enabled = true;
                     bt_modifier.Enabled = true;
+                    bt_supprimer.Enabled = true;
                     bt_enregistrer.Enabled = false;
                 }
             }
@@ -604,12 +702,63 @@ namespace DevPointageLite
 
             bt_ajouter.Enabled = true;
             bt_modifier.Enabled = false;
+            bt_supprimer.Enabled = false;
             bt_enregistrer.Enabled = false;
         }
 
 
 
-        private bool existe_absence(string matricule, DateTime date_debut, DateTime date_fin, string num_bon_actuel = "")
+        //private bool existe_absence(string matricule, DateTime date_debut, DateTime date_fin, string num_bon_actuel = "")
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(matricule)) return false;
+
+        //        // تحويل التواريخ لصيغة SQLite القياسية
+        //        string d1 = date_debut.ToString("yyyy-MM-dd");
+        //        string d2 = date_fin.ToString("yyyy-MM-dd");
+
+        //        // الاستعلام: نبحث عن أي سجل يبدأ قبل نهاية الفترة الجديدة وينتهي بعد بدايتها
+        //        string query = @"SELECT COUNT(*) FROM [ABS] 
+        //                WHERE MATRI = @matri 
+        //                AND date(DATE1) <= date(@d_fin) 
+        //                AND date(DATE2) >= date(@d_debut)";
+
+        //        // إذا كنا في وضع التعديل، نستثني السجل الحالي من الفحص
+        //        if (!string.IsNullOrEmpty(num_bon_actuel))
+        //        {
+        //            query += " AND NUM_BON <> @num_bon";
+        //        }
+
+        //        var parameters = new List<SqliteParameter>
+        //{
+        //    new SqliteParameter("@matri", matricule),
+        //    new SqliteParameter("@d_debut", d1),
+        //    new SqliteParameter("@d_fin", d2)
+        //};
+
+        //        if (!string.IsNullOrEmpty(num_bon_actuel))
+        //        {
+        //            parameters.Add(new SqliteParameter("@num_bon", num_bon_actuel));
+        //        }
+
+        //        DataTable dt = ConnectSqlite.ExecuteSelect(query, parameters.ToArray());
+
+        //        if (dt != null && dt.Rows.Count > 0)
+        //        {
+        //            int count = Convert.ToInt32(dt.Rows[0][0]);
+        //            return count > 0;
+        //        }
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        XtraMessageBox.Show("خطأ في فحص التداخل: " + ex.Message);
+        //        return false;
+        //    }
+        //}
+        private bool existe_absence(string matricule, DateTime date_debut, DateTime date_fin,
+                            string nature, string num_bon_actuel = "")
         {
             try
             {
@@ -621,9 +770,11 @@ namespace DevPointageLite
 
                 // الاستعلام: نبحث عن أي سجل يبدأ قبل نهاية الفترة الجديدة وينتهي بعد بدايتها
                 string query = @"SELECT COUNT(*) FROM [ABS] 
-                        WHERE MATRI = @matri 
-                        AND date(DATE1) <= date(@d_fin) 
-                        AND date(DATE2) >= date(@d_debut)";
+                WHERE MATRI = @matri 
+                AND date(DATE1) <= date(@d_fin) 
+                AND date(CASE WHEN NATURE = 'S' THEN DATE1 
+                              ELSE COALESCE(DATE2, DATE1) END) >= date(@d_debut)
+                AND NOT (@nature = 'S' AND COALESCE(NATURE, 'C') = 'S')";
 
                 // إذا كنا في وضع التعديل، نستثني السجل الحالي من الفحص
                 if (!string.IsNullOrEmpty(num_bon_actuel))
@@ -635,7 +786,8 @@ namespace DevPointageLite
         {
             new SqliteParameter("@matri", matricule),
             new SqliteParameter("@d_debut", d1),
-            new SqliteParameter("@d_fin", d2)
+            new SqliteParameter("@d_fin", d2),
+            new SqliteParameter("@nature", nature)
         };
 
                 if (!string.IsNullOrEmpty(num_bon_actuel))
@@ -647,8 +799,7 @@ namespace DevPointageLite
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    int count = Convert.ToInt32(dt.Rows[0][0]);
-                    return count > 0;
+                    return Convert.ToInt32(dt.Rows[0][0]) > 0;
                 }
                 return false;
             }
@@ -658,12 +809,12 @@ namespace DevPointageLite
                 return false;
             }
         }
-
+        // ✅ تصدير البيانات إلى Excel و PDF باستخدام DevExpress
         private void bt_exportexcel_Click(object sender, EventArgs e)
         {
             SaveFileDialog sd = new SaveFileDialog();
             sd.Filter = "xlsx files (*.xlsx)|*.xlsx";
-            sd.FilterIndex = 2;
+            sd.FilterIndex = 1;
             sd.RestoreDirectory = true;
             if (sd.ShowDialog() == DialogResult.OK)
             {
@@ -676,7 +827,7 @@ namespace DevPointageLite
         {
             SaveFileDialog sd = new SaveFileDialog();
             sd.Filter = "Pdf files (*.pdf)|*.pdf";
-            sd.FilterIndex = 2;
+            sd.FilterIndex = 1;
             sd.RestoreDirectory = true;
             if (sd.ShowDialog() == DialogResult.OK)
             {
@@ -684,5 +835,122 @@ namespace DevPointageLite
                 Process.Start(sd.FileName);
             }
         }
+
+        private void bt_supprimer_Click(object sender, EventArgs e)
+        {
+            if (gridView1.FocusedRowHandle < 0)
+            {
+                XtraMessageBox.Show("Veuillez sélectionner un enregistrement à supprimer.", "Information",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataRow row = gridView1.GetDataRow(gridView1.FocusedRowHandle);
+            if (row == null || row["DATE1"] == DBNull.Value) return;
+
+            if (absence_cloturee(row))
+            {
+                XtraMessageBox.Show("Cette absence est clôturée : suppression impossible.", "Information",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string matri = row["MATRI"]?.ToString() ?? "";
+            string numBon = row["NUM_BON"]?.ToString() ?? "";
+            string nom = row["Nom & Prénom"]?.ToString() ?? "";
+            DateTime date1 = Convert.ToDateTime(row["DATE1"]);
+
+            if (matri == "" || numBon == "") return;
+
+            DialogResult confirm = XtraMessageBox.Show(
+                $"Voulez-vous vraiment supprimer cette absence ?\n\n" +
+                $"Employé : {matri} - {nom}\n" +
+                $"Bon : {numBon}\n" +
+                $"Date : {date1:dd/MM/yyyy}\n\n" +
+                $"Cette action est définitive.",
+                "Confirmation de suppression",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (confirm != DialogResult.Yes) return;
+
+            string query = @"DELETE FROM [ABS] 
+                     WHERE MATRI = @matri AND NUM_BON = @num_bon 
+                     AND date(DATE1) = date(@date1) AND UPPER(COALESCE(CLOT, 'N')) <> 'O'";
+
+            var parameters = new[]
+            {
+        new SqliteParameter("@matri", matri),
+        new SqliteParameter("@num_bon", numBon),
+        new SqliteParameter("@date1", date1.ToString("yyyy-MM-dd"))
+    };
+
+            if (!ConnectSqlite.TryExecuteNonQuery(query, parameters, out int rows, out string error))
+            {
+                XtraMessageBox.Show("Erreur lors de la suppression : " + error, "Erreur",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (rows > 0)
+            {
+                LoadAllAbsences();
+                ResetUI();
+            }
+            else
+            {
+                XtraMessageBox.Show("Enregistrement introuvable (peut-être déjà supprimé).", "Information",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadAllAbsences();
+            }
+        }
+
+        private bool absence_cloturee(DataRow row)
+        {
+            if (row == null || row["DATE1"] == DBNull.Value) return false;
+
+            var parameters = new[]
+            {
+        new SqliteParameter("@matri", row["MATRI"]?.ToString() ?? ""),
+        new SqliteParameter("@num_bon", row["NUM_BON"]?.ToString() ?? ""),
+        new SqliteParameter("@date1", Convert.ToDateTime(row["DATE1"]).ToString("yyyy-MM-dd"))
+    };
+
+            DataTable dt = ConnectSqlite.ExecuteSelect(
+                @"SELECT COUNT(*) FROM [ABS] 
+          WHERE MATRI = @matri AND NUM_BON = @num_bon AND date(DATE1) = date(@date1)
+          AND UPPER(COALESCE(CLOT, 'N')) = 'O'", parameters);
+
+            return dt != null && dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0;
+        }
+
+        private const decimal MAX_HEURES_JOUR = 8m;
+
+        // مجموع ساعات Bon Sortie المسجلة لهذا الموظف في هذا اليوم
+        private decimal heures_deja_prises(string matricule, DateTime jour, string numBonActuel)
+        {
+            string query = @"SELECT IFNULL(SUM(HEURE), 0) FROM [ABS] 
+                     WHERE MATRI = @matri AND NATURE = 'S' 
+                     AND date(DATE1) = date(@jour)";
+
+            var parameters = new List<SqliteParameter>
+    {
+        new SqliteParameter("@matri", matricule),
+        new SqliteParameter("@jour", jour.ToString("yyyy-MM-dd"))
+    };
+
+            if (!string.IsNullOrEmpty(numBonActuel))
+            {
+                query += " AND NUM_BON <> @num_bon";
+                parameters.Add(new SqliteParameter("@num_bon", numBonActuel));
+            }
+
+            DataTable dt = ConnectSqlite.ExecuteSelect(query, parameters.ToArray());
+
+            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0][0] != DBNull.Value)
+                return Math.Round(Convert.ToDecimal(dt.Rows[0][0]), 2);
+
+            return 0m;
+        }
+
     }
 }

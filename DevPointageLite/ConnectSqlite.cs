@@ -90,7 +90,38 @@ namespace DevPointageLite
             }
             return rows;
         }
+        // نسخة لا تعرض رسالة، وترجع الخطأ للمستدعي
+        public static bool TryExecuteNonQuery(string query, SqliteParameter[] parameters,
+                                              out int rows, out string error)
+        {
+            rows = 0;
+            error = null;
+            try
+            {
+                using (var conn = GetConnection())
+                {
+                    conn.Open();
+                    using (var cmd = new SqliteCommand(query, conn))
+                    {
+                        if (parameters != null)
+                            cmd.Parameters.AddRange(parameters);
 
+                        rows = cmd.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (SqliteException ex) when (ex.SqliteErrorCode == 19) // خرق قيد (مفتاح مكرر...)
+            {
+                error = "Cet enregistrement existe déjà (numéro de bon en double). Veuillez réessayer.";
+                return false;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return false;
+            }
+        }
         // دالة موحدة لعرض الأخطاء
         private static void ShowError(string title, string message)
         {

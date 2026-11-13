@@ -15,6 +15,7 @@ namespace DevPointageLite
         [STAThread]
         static void Main()
         {
+            DevExpress.XtraEditors.WindowsFormsSettings.SetDPIAware();   // قبل أي شيء آخر
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
