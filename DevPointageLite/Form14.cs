@@ -242,78 +242,113 @@ namespace DevPointageLite
                 }
 
                 // ✅ نقطة الحضور اليومية
-                TimeSpan hr_pointage = TimeSpan.Zero;
                 int nbr_poitage = 0;
-
                 DataTable dtJ = chargement_pointage_journaliere(matri, d_jour, ref nbr_poitage);
 
-                int position = 5;
+                int position = 5;            // الخانتان 5 و 6 فقط للتمريرات الوسطية
+                bool entreeFaite = false;
 
-                if (nbr_poitage > 0 && dtJ != null && dtJ.Rows.Count > 0)
+                foreach (DataRow pr in dtJ.Rows)
                 {
-                    for (int j = 0; j < nbr_poitage && j < dtJ.Rows.Count; j++)
+                    if (!TimeSpan.TryParse(pr["heurs_pointage"]?.ToString()?.Trim(), out TimeSpan hr_pointage))
+                        continue;
+
+                    if (hr_pointage <= hr_entree)
                     {
-                        string heureStr = dtJ.Rows[j]["heurs_pointage"]?.ToString()?.Trim();
+                        // دخول في الوقت أو قبله: نحتفظ بأول تمريرة
+                        if (!entreeFaite)
+                        {
+                            row.Cells[2].Value = hr_pointage.ToString(@"hh\:mm");
+                            entreeFaite = true;
+                        }
+                    }
+                    else if (hr_sortie > TimeSpan.Zero && hr_pointage >= hr_sortie)
+                    {
+                        // خروج: آخر تمريرة هي التي تبقى
+                        row.Cells[8].Value = hr_pointage.ToString(@"hh\:mm");
 
-                        if (!TimeSpan.TryParse(heureStr, out hr_pointage))
-                        {
-                            continue;
-                        }
+                        double extra = (hr_pointage - hr_sortie).TotalMinutes;
+                        row.Cells[9].Value = extra >= RibbonForm1.plage_hrs
+                            ? TimeSpan.FromMinutes(extra).ToString(@"hh\:mm")
+                            : null;
+                    }
+                    else if (hr_entree > TimeSpan.Zero)
+                    {
+                        // بين الدخول و الخروج
+                        double retard = (hr_pointage - hr_entree).TotalMinutes;
 
-                        if (hr_pointage <= hr_entree)
+                        if (!entreeFaite && retard <= RibbonForm1.plage_retards)
                         {
-                            row.Cells[2].Value = hr_pointage.ToString();
+                            row.Cells[2].Value = hr_pointage.ToString(@"hh\:mm");
+                            row.Cells[4].Value = retard.ToString("0");
+                            entreeFaite = true;
                         }
-                        else if (hr_pointage >= hr_sortie && hr_sortie > TimeSpan.Zero)
+                        else if (position <= 6)
                         {
-                            row.Cells[8].Value = hr_pointage.ToString();
-                            if ((hr_pointage - hr_sortie).Minutes >= RibbonForm1.plage_hrs)
-                            {
-                                double heuresSupp = hr_pointage.TotalMinutes - hr_sortie.TotalMinutes;
-                                row.Cells[9].Value = TimeSpan.FromMinutes(heuresSupp).ToString();
-                            }
-                        }
-                        else if (hr_entree > TimeSpan.Zero && hr_pointage >= hr_entree && hr_pointage <= hr_sortie)
-                        {
-                            double retardMinutes = (hr_pointage - hr_entree).TotalMinutes;
-                            if (retardMinutes <= RibbonForm1.plage_retards)
-                            {
-                                row.Cells[2].Value = hr_pointage.ToString();
-                                row.Cells[4].Value = retardMinutes.ToString("0");
-                            }
-                            else
-                            {
-                                if (position < row.Cells.Count)
-                                {
-                                    row.Cells[position].Value = hr_pointage.ToString();
-                                    position++;
-                                }
-                            }
+                            row.Cells[position].Value = hr_pointage.ToString(@"hh\:mm");
+                            position++;
                         }
                     }
                 }
 
-                // ✅ الغيابات - معالجة آمنة
+
+                //// ✅ الغيابات - معالجة آمنة
+                //DataTable dtABS = new DataTable();
+                //LoadAbsences(matri, d_jour, dtABS);
+
+                //if (dtABS.Rows.Count > 0 && dtABS.Rows[0]["lib"] != null && dtABS.Rows[0]["lib"] != DBNull.Value)
+                //{
+                //    string lib_conge = dtABS.Rows[0]["lib"].ToString() + " " + dtABS.Rows[0]["OBS"].ToString();
+                //    if (!string.IsNullOrEmpty(lib_conge))
+                //    {
+                //        row.Cells[10].Value = lib_conge;
+                //    }
+                //    else
+                //    {
+                //        row.Cells[10].Value = null; // ✅ لا نستخدم DBNull
+                //    }
+                //}
+                //else
+                //{
+                //    row.Cells[10].Value = null; // ✅
+                //}
+                // ✅ الغيابات و الإذونات - عدة سجلات في نفس اليوم
                 DataTable dtABS = new DataTable();
                 LoadAbsences(matri, d_jour, dtABS);
 
-                if (dtABS.Rows.Count > 0 && dtABS.Rows[0]["lib"] != null && dtABS.Rows[0]["lib"] != DBNull.Value)
+                string obsJour = "";
+                foreach (DataRow ar in dtABS.Rows)
                 {
-                    string lib_conge = dtABS.Rows[0]["lib"].ToString() + " " + dtABS.Rows[0]["OBS"].ToString();
-                    if (!string.IsNullOrEmpty(lib_conge))
-                    {
-                        row.Cells[10].Value = lib_conge;
-                    }
-                    else
-                    {
-                        row.Cells[10].Value = null; // ✅ لا نستخدم DBNull
-                    }
+                    string lib = ar["lib"]?.ToString()?.Trim();
+                    if (string.IsNullOrEmpty(lib)) continue;
+
+                    string obs = ar["OBS"]?.ToString()?.Trim();
+                    string texte = string.IsNullOrEmpty(obs) ? lib : lib + " " + obs;
+
+                    obsJour = obsJour.Length == 0 ? texte : obsJour + " | " + texte;
+                }
+
+                // يوم عمل = له ساعات في الجدول و ليس الجمعة أو السبت (نفس قاعدة التلوين الرمادي)
+                bool jourTravaille = hr_entree > TimeSpan.Zero && hr_sortie > TimeSpan.Zero
+                                     && d_jour.DayOfWeek != DayOfWeek.Friday
+                                     && d_jour.DayOfWeek != DayOfWeek.Saturday;
+
+                if (obsJour.Length > 0)
+                {
+                    row.Cells[10].Value = obsJour;
+                }
+                else if (jourTravaille && d_jour.Date < DateTime.Today && nbr_poitage == 0)
+                {
+                    // يوم عمل مضى، بلا تمريرة و بلا غياب مبرَّر
+                    row.Cells[10].Value = "Sans pointage";
+                    row.Cells[10].Style.ForeColor = Color.Red;
                 }
                 else
                 {
-                    row.Cells[10].Value = null; // ✅
+                    row.Cells[10].Value = null;
                 }
             }
+            entet2.ClearSelection();
         }
 
         private DataTable get_horaire_travail(string code)
@@ -391,7 +426,8 @@ namespace DevPointageLite
                      FROM CHARGEMENT_POITEUSE  
                      WHERE MATRI = @matricule 
                        AND DATE_POINTAGE >= @date_debut 
-                       AND DATE_POINTAGE < @date_fin";
+                       AND DATE_POINTAGE < @date_fin
+                        ORDER BY DATE_POINTAGE, HEURS_POINTAGE";
 
             var parameters = new SqliteParameter[]
             {
@@ -477,11 +513,13 @@ namespace DevPointageLite
             {
                 if (string.IsNullOrEmpty(matricule)) return;
 
-                string query = @"SELECT A.C_CONGE, T.LIB,A.OBS
-                                FROM [ABS] A
-                                INNER JOIN [type_conge] T ON A.C_CONGE = T.CODE
-                                WHERE DATE(A.DATE1) <= @date_jr and DATE(A.DATE2) >= @date_jr 
-                                  AND A.MATRI = @matricule";
+                string query = @"SELECT A.C_CONGE, T.LIB, A.OBS
+                FROM [ABS] A
+                INNER JOIN [type_conge] T ON A.C_CONGE = T.CODE
+                WHERE A.MATRI = @matricule
+                  AND DATE(A.DATE1) <= @date_jr
+                  AND DATE(COALESCE(NULLIF(A.DATE2, ''), A.DATE1)) >= @date_jr
+                ORDER BY A.H_DEBUT";
 
                 var parameters = new SqliteParameter[]
                 {
