@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
 
 namespace DevPointageLite
 {
@@ -147,6 +148,7 @@ namespace DevPointageLite
             entet2.Rows.Clear();
 
             int nbr_jour = DateTime.DaysInMonth(Convert.ToInt32(txt_annee.Text.Trim()), liste_mois.SelectedIndex + 1);
+            var feries = ChargerJoursFeries(Convert.ToInt32(txt_annee.Text.Trim()), liste_mois.SelectedIndex + 1);
 
             for (int i = 1; i <= nbr_jour; i++)
             {
@@ -328,6 +330,15 @@ namespace DevPointageLite
                     obsJour = obsJour.Length == 0 ? texte : obsJour + " | " + texte;
                 }
 
+                // ✅ عطلة رسمية
+                string libFerie;
+                if (feries.TryGetValue(d_jour.ToString("yyyy-MM-dd"), out libFerie))
+                {
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(200, 230, 200);   // أخضر فاتح
+                    string texteFerie = "Férié : " + libFerie;
+                    obsJour = obsJour.Length == 0 ? texteFerie : texteFerie + " | " + obsJour;
+                }
+
                 // يوم عمل = له ساعات في الجدول و ليس الجمعة أو السبت (نفس قاعدة التلوين الرمادي)
                 bool jourTravaille = hr_entree > TimeSpan.Zero && hr_sortie > TimeSpan.Zero
                                      && d_jour.DayOfWeek != DayOfWeek.Friday
@@ -340,7 +351,7 @@ namespace DevPointageLite
                 else if (jourTravaille && d_jour.Date < DateTime.Today && nbr_poitage == 0)
                 {
                     // يوم عمل مضى، بلا تمريرة و بلا غياب مبرَّر
-                    row.Cells[10].Value = "Sans pointage";
+                    row.Cells[10].Value = "Absent";
                     row.Cells[10].Style.ForeColor = Color.Red;
                 }
                 else
@@ -359,6 +370,22 @@ namespace DevPointageLite
 
             var parameters = new SqliteParameter[] { new SqliteParameter("@code", code) };
             return ConnectSqlite.ExecuteSelect(query, parameters);
+        }
+
+        private Dictionary<string, string> ChargerJoursFeries(int annee, int mois)
+        {
+            var feries = new Dictionary<string, string>();
+            DateTime debut = new DateTime(annee, mois, 1);
+
+            DataTable dt = ConnectSqlite.ExecuteSelect(
+                "SELECT DATE_F, LIB FROM JOUR_FERIE WHERE DATE_F >= @d1 AND DATE_F < @d2",
+                new SqliteParameter("@d1", debut.ToString("yyyy-MM-dd")),
+                new SqliteParameter("@d2", debut.AddMonths(1).ToString("yyyy-MM-dd")));
+
+            foreach (DataRow r in dt.Rows)
+                feries[r["DATE_F"].ToString().Trim()] = r["LIB"].ToString().Trim();
+
+            return feries;
         }
 
         private string get_personnel_emploi_code(string matricule, DateTime date_jr)
