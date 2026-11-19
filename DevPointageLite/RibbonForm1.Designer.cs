@@ -47,6 +47,8 @@
             this.lbActive = new DevExpress.XtraBars.BarButtonItem();
             this.lbDActivation = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
+            this.bt_backup = new DevExpress.XtraBars.BarButtonItem();
+            this.bt_ferier = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -55,10 +57,9 @@
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.pn_continer = new System.Windows.Forms.Panel();
-            this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.bt_backup = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,9 +85,10 @@
             this.lbActive,
             this.lbDActivation,
             this.barStaticItem1,
-            this.bt_backup});
+            this.bt_backup,
+            this.bt_ferier});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 20;
+            this.ribbon.MaxItemId = 21;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -231,6 +233,22 @@
             this.barStaticItem1.Id = 18;
             this.barStaticItem1.Name = "barStaticItem1";
             // 
+            // bt_backup
+            // 
+            this.bt_backup.Caption = "BackUp BDD";
+            this.bt_backup.Id = 19;
+            this.bt_backup.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("bt_backup.ImageOptions.LargeImage")));
+            this.bt_backup.Name = "bt_backup";
+            this.bt_backup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bt_backup_ItemClick);
+            // 
+            // bt_ferier
+            // 
+            this.bt_ferier.Caption = "Jour Feriée";
+            this.bt_ferier.Id = 20;
+            this.bt_ferier.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("bt_ferier.ImageOptions.LargeImage")));
+            this.bt_ferier.Name = "bt_ferier";
+            this.bt_ferier.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bt_ferier_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -275,6 +293,7 @@
             // 
             this.ribbonPageGroup4.ItemLinks.Add(this.bt_stucture);
             this.ribbonPageGroup4.ItemLinks.Add(this.bt_fonction);
+            this.ribbonPageGroup4.ItemLinks.Add(this.bt_ferier);
             this.ribbonPageGroup4.Name = "ribbonPageGroup4";
             this.ribbonPageGroup4.Text = "Structure";
             // 
@@ -294,6 +313,12 @@
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
             this.ribbonPageGroup6.Text = "Administration";
             // 
+            // ribbonPageGroup7
+            // 
+            this.ribbonPageGroup7.ItemLinks.Add(this.bt_backup);
+            this.ribbonPageGroup7.Name = "ribbonPageGroup7";
+            this.ribbonPageGroup7.Text = "Sauvgarde ";
+            // 
             // ribbonStatusBar
             // 
             this.ribbonStatusBar.Location = new System.Drawing.Point(0, 717);
@@ -308,20 +333,6 @@
             this.pn_continer.Name = "pn_continer";
             this.pn_continer.Size = new System.Drawing.Size(1355, 524);
             this.pn_continer.TabIndex = 2;
-            // 
-            // ribbonPageGroup7
-            // 
-            this.ribbonPageGroup7.ItemLinks.Add(this.bt_backup);
-            this.ribbonPageGroup7.Name = "ribbonPageGroup7";
-            this.ribbonPageGroup7.Text = "Sauvgarde ";
-            // 
-            // bt_backup
-            // 
-            this.bt_backup.Caption = "BackUp BDD";
-            this.bt_backup.Id = 19;
-            this.bt_backup.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.LargeImage")));
-            this.bt_backup.Name = "bt_backup";
-            this.bt_backup.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bt_backup_ItemClick);
             // 
             // RibbonForm1
             // 
@@ -377,5 +388,6 @@
         private DevExpress.XtraBars.BarStaticItem barStaticItem1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private DevExpress.XtraBars.BarButtonItem bt_backup;
+        private DevExpress.XtraBars.BarButtonItem bt_ferier;
     }
 }

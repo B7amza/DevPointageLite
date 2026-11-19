@@ -122,6 +122,7 @@
             this.bt_supprimer.Size = new System.Drawing.Size(148, 83);
             this.bt_supprimer.TabIndex = 7;
             this.bt_supprimer.Text = "Supprimer";
+            this.bt_supprimer.Click += new System.EventHandler(this.bt_supprimer_Click);
             // 
             // bt_ajouter
             // 

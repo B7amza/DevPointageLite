@@ -152,5 +152,10 @@ namespace DevPointageLite
                 load_typeconge_data(); // ✅ تحديث البيانات بعد التعديل
             }
         }
+
+        private void bt_supprimer_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

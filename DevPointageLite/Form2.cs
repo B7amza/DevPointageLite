@@ -53,6 +53,7 @@ namespace DevPointageLite
         uc_typeconge uc_typeconge1 = new uc_typeconge();
         uc_utilisateur uc_utilisateur1 = new uc_utilisateur();
         uc_horairetravail uc_horairetravail1 = new uc_horairetravail(); 
+        uc_ferier uc_ferier1 = new uc_ferier();
 
 
 
@@ -293,6 +294,11 @@ namespace DevPointageLite
             Form25 fn_backup = new Form25();
             fn_backup.ShowDialog();
             fn_backup.Dispose();
+        }
+
+        private void bt_ferier_Click(object sender, EventArgs e)
+        {
+            LoadUC(uc_ferier1);
         }
     }
 }

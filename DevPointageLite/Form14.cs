@@ -150,6 +150,12 @@ namespace DevPointageLite
             int nbr_jour = DateTime.DaysInMonth(Convert.ToInt32(txt_annee.Text.Trim()), liste_mois.SelectedIndex + 1);
             var feries = ChargerJoursFeries(Convert.ToInt32(txt_annee.Text.Trim()), liste_mois.SelectedIndex + 1);
 
+            // آخر يوم تم تحميل تمريراته: لا نعلّم "Absent" بعده
+            DateTime derniereDate = DateTime.MinValue;
+            DataTable dtMax = ConnectSqlite.ExecuteSelect("SELECT MAX(DATE_POINTAGE) AS d FROM CHARGEMENT_POITEUSE");
+            if (dtMax.Rows.Count > 0 && DateTime.TryParse(dtMax.Rows[0]["d"]?.ToString(), out DateTime dm))
+                derniereDate = dm.Date;
+
             for (int i = 1; i <= nbr_jour; i++)
             {
                 int rowIndex = entet2.Rows.Add();
@@ -348,7 +354,7 @@ namespace DevPointageLite
                 {
                     row.Cells[10].Value = obsJour;
                 }
-                else if (jourTravaille && d_jour.Date < DateTime.Today && nbr_poitage == 0)
+                else if (jourTravaille && d_jour.Date < DateTime.Today && d_jour.Date <= derniereDate && nbr_poitage == 0)
                 {
                     // يوم عمل مضى، بلا تمريرة و بلا غياب مبرَّر
                     row.Cells[10].Value = "Absent";

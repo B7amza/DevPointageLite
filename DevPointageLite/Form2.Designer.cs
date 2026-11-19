@@ -42,6 +42,7 @@
             this.bt_HoraireTravail = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_gererPointeuse = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_gererUtilisateur = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.bt_saveBDD = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_impData = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.bt_employe = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlSeparator3 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
@@ -58,7 +59,7 @@
             this.lbDActivation = new DevExpress.XtraBars.BarButtonItem();
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
             this.fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(this.components);
-            this.bt_saveBDD = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.bt_ferier = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHypertextLabel1)).BeginInit();
@@ -122,7 +123,8 @@
             this.bt_gererPointeuse,
             this.bt_gererUtilisateur,
             this.bt_saveBDD,
-            this.bt_impData});
+            this.bt_impData,
+            this.bt_ferier});
             this.accordionControlElement1.Expanded = true;
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
@@ -191,6 +193,13 @@
             this.bt_gererUtilisateur.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.bt_gererUtilisateur.Text = "Gerer Utilisateurs";
             this.bt_gererUtilisateur.Click += new System.EventHandler(this.bt_gererUtilisateur_Click);
+            // 
+            // bt_saveBDD
+            // 
+            this.bt_saveBDD.Name = "bt_saveBDD";
+            this.bt_saveBDD.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_saveBDD.Text = "Save BDD";
+            this.bt_saveBDD.Click += new System.EventHandler(this.bt_saveBDD_Click);
             // 
             // bt_impData
             // 
@@ -326,12 +335,12 @@
             this.fluentFormDefaultManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemHypertextLabel1});
             // 
-            // bt_saveBDD
+            // bt_ferier
             // 
-            this.bt_saveBDD.Name = "bt_saveBDD";
-            this.bt_saveBDD.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.bt_saveBDD.Text = "Save BDD";
-            this.bt_saveBDD.Click += new System.EventHandler(this.bt_saveBDD_Click);
+            this.bt_ferier.Name = "bt_ferier";
+            this.bt_ferier.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.bt_ferier.Text = "Jour Ferier";
+            this.bt_ferier.Click += new System.EventHandler(this.bt_ferier_Click);
             // 
             // Form2
             // 
@@ -388,6 +397,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_TempsEmployee;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_HoraireTravail;
         private DevExpress.XtraBars.Navigation.AccordionControlElement bt_saveBDD;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement bt_ferier;
     }
 }
 

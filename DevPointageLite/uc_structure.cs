@@ -132,5 +132,10 @@ namespace DevPointageLite
         {
             load_affectation_data();
         }
+
+        private void bt_supprimer_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

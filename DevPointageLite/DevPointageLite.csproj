@@ -253,6 +253,12 @@
     <Compile Include="Form25.Designer.cs">
       <DependentUpon>Form25.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form26.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form26.Designer.cs">
+      <DependentUpon>Form26.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form4.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -309,6 +315,12 @@
     </Compile>
     <Compile Include="uc_employe.Designer.cs">
       <DependentUpon>uc_employe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uc_ferier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uc_ferier.Designer.cs">
+      <DependentUpon>uc_ferier.cs</DependentUpon>
     </Compile>
     <Compile Include="uc_fonction.cs">
       <SubType>UserControl</SubType>
@@ -398,6 +410,9 @@
     <EmbeddedResource Include="Form25.resx">
       <DependentUpon>Form25.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form26.resx">
+      <DependentUpon>Form26.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form4.resx">
       <DependentUpon>Form4.cs</DependentUpon>
     </EmbeddedResource>
@@ -435,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uc_employe.resx">
       <DependentUpon>uc_employe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uc_ferier.resx">
+      <DependentUpon>uc_ferier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uc_fonction.resx">
       <DependentUpon>uc_fonction.cs</DependentUpon>
