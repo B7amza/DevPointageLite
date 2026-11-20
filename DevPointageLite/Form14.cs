@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace DevPointageLite
 {
@@ -27,6 +28,7 @@ namespace DevPointageLite
 
             // ✅ تهيئة DataGridView entet2
             InitializeEntet2Grid();
+            AfficherDernierTelechargement();
         }
 
         // ✅ دالة لتهيئة شبكة entet2 (تجنب أخطاء القيود)
@@ -366,6 +368,27 @@ namespace DevPointageLite
                 }
             }
             entet2.ClearSelection();
+            AfficherDernierTelechargement();
+        }
+
+        // ✅ آخر تحميل للتمريرات (DATE_TELECHARGEMENT مخزَّنة بتوقيت UTC)
+        private void AfficherDernierTelechargement()
+        {
+            string texte = "—";
+
+            DataTable dt = ConnectSqlite.ExecuteSelect(
+                "SELECT MAX(DATE_TELECHARGEMENT) AS d FROM CHARGEMENT_POITEUSE");
+
+            if (dt.Rows.Count > 0 &&
+                DateTime.TryParseExact(dt.Rows[0]["d"]?.ToString(), "yyyy-MM-dd HH:mm:ss",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                    out DateTime utc))
+            {
+                texte = utc.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+            }
+
+            lb_max_date_telechargement.Text = "Dernier téléchargement : " + texte;
         }
 
         private DataTable get_horaire_travail(string code)
@@ -424,6 +447,7 @@ namespace DevPointageLite
                 return;
             }
             chargement_donnee_pointage_mensuelle(matricule);
+
         }
 
         //private void chargement_pointage_journaliere(string matricule, DateTime date_jr, ref int nb_pointage, DataTable dtJ)

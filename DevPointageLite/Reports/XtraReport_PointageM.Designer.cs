@@ -67,6 +67,7 @@
             this.xrTableCell9 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell10 = new DevExpress.XtraReports.UI.XRTableCell();
             this.dataSet11 = new DevPointageLite.DataSet1();
+            this.lb_dernier_tel = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrRichText1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrRichText2)).BeginInit();
@@ -79,6 +80,7 @@
             // TopMargin
             // 
             this.TopMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.lb_dernier_tel,
             this.xrPictureBox1,
             this.xrTable2,
             this.xrLabel6,
@@ -475,6 +477,14 @@
             this.dataSet11.DataSetName = "DataSet1";
             this.dataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // lb_dernier_tel
+            // 
+            this.lb_dernier_tel.LocationFloat = new DevExpress.Utils.PointFloat(420.5554F, 44.51659F);
+            this.lb_dernier_tel.Multiline = true;
+            this.lb_dernier_tel.Name = "lb_dernier_tel";
+            this.lb_dernier_tel.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
+            this.lb_dernier_tel.SizeF = new System.Drawing.SizeF(340F, 23F);
+            // 
             // XtraReport_PointageM
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -544,5 +554,6 @@
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell10;
         private DataSet1 dataSet11;
         private DevExpress.XtraReports.UI.XRPictureBox xrPictureBox1;
+        private DevExpress.XtraReports.UI.XRLabel lb_dernier_tel;
     }
 }

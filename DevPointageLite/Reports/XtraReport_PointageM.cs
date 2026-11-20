@@ -12,6 +12,10 @@ namespace DevPointageLite.Reports
         {
             InitializeComponent();
         }
-
+        public string DernierTelechargement
+        {
+            get { return lb_dernier_tel.Text; }
+            set { lb_dernier_tel.Text = value; }
+        }
     }
 }
