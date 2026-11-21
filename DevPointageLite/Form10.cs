@@ -157,7 +157,7 @@ namespace DevPointageLite
             if (etat == 2)
             {
                 cb_sexe.SelectedIndex = -1;
-                cb_type.SelectedIndex = -1;
+                cb_type.SelectedIndex = 0;      // Active افتراضياً
                 cb_pointage.SelectedIndex = -1;
                 cb_fonction.SelectedIndex = -1;
                 cb_affectation.SelectedIndex = -1;

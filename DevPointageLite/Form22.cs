@@ -169,7 +169,11 @@ namespace DevPointageLite
                         parameters.Add(new SqliteParameter("@tel", row["tel"]?.ToString().Trim()));
                         parameters.Add(new SqliteParameter("@l_fonct", row["lib_fonction"]?.ToString().Trim()));
                         parameters.Add(new SqliteParameter("@l_aff", row["lib_affect"]?.ToString().Trim()));
-                        parameters.Add(new SqliteParameter("@type", row["type_agent"]?.ToString().Trim()));
+
+                        string typeBrut = row["type_agent"]?.ToString().Trim() ?? "";
+                        string typeNorm = typeBrut.Equals("bloque", StringComparison.OrdinalIgnoreCase) ? "Bloque" : "Active";
+                        parameters.Add(new SqliteParameter("@type", typeNorm));
+
                         parameters.Add(new SqliteParameter("@poi", row["poinatge"]?.ToString().Trim()));
                         typeLabel = "موظفين";
                         // تنفيذ إضافة الموظف أولاً

@@ -56,7 +56,7 @@ namespace DevPointageLite
                 FROM Personnel p
                 INNER JOIN fonction f ON p.id_fonction = f.c_fonct
                 INNER JOIN affectation a ON p.id_affectation = a.c_affect
-                WHERE p.type_agent != 'Bloque' -- ✅ جلب فقط الموظفين النشطين
+                WHERE LOWER(TRIM(IFNULL(p.type_agent, ''))) != 'bloque' -- ✅ جلب فقط الموظفين النشطين
                 ORDER BY p.matricule";
 
             // ✅ تحميل البيانات باستخدام ConnectSqlite (بدون SqlDataAdapter)
@@ -210,7 +210,7 @@ namespace DevPointageLite
                 FROM Personnel p
                 INNER JOIN fonction f ON p.id_fonction = f.c_fonct
                 INNER JOIN affectation a ON p.id_affectation = a.c_affect
-                WHERE p.type_agent == 'Bloque' -- ✅ جلب فقط الموظفين غير النشطين
+                WHERE LOWER(TRIM(IFNULL(p.type_agent, ''))) = 'bloque' -- ✅ جلب فقط الموظفين غير النشطين
                 ORDER BY p.matricule";
 
             // ✅ تحميل البيانات باستخدام ConnectSqlite (بدون SqlDataAdapter)

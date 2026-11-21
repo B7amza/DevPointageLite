@@ -22,7 +22,8 @@ namespace DevPointageLite
             LoadHoraire_travail();
             load_affectation_data();
             cb_structure.SelectedIndex = -1;
-            cb_horaire_travail.SelectedIndex = 0;
+            if (cb_horaire_travail.Items.Count > 0)
+                cb_horaire_travail.SelectedIndex = 0;
             // ✅ تهيئة DataGridViews
             ConfigureDataGridView(tableau);
             ConfigureDataGridView(entet2);
@@ -181,7 +182,7 @@ namespace DevPointageLite
 
                 // ✅ SQLite: استخدام || للدمج و IFNULL بدلاً من ISNULL
                 string query = @"SELECT matricule, IFNULL(nom, '') || ' ' || IFNULL(prenom, '') as nom 
-                                FROM Personnel WHERE id_affectation = @c_affect and type_agent != 'Bloque' ORDER BY nom";
+                                FROM Personnel WHERE id_affectation = @c_affect and LOWER(TRIM(IFNULL(type_agent, ''))) != 'bloque' ORDER BY nom";
                 var parameters = new SqliteParameter[] { new SqliteParameter("@c_affect", c_affect) };
                 dtPersonnel = ConnectSqlite.ExecuteSelect(query, parameters);
             }
@@ -201,7 +202,7 @@ namespace DevPointageLite
             else if (ch_tous.Checked)
             {
                 string query = @"SELECT matricule, IFNULL(nom, '') || ' ' || IFNULL(prenom, '') as nom 
-                                FROM Personnel where type_agent != 'Bloque' ORDER BY nom";
+                                FROM Personnel where LOWER(TRIM(IFNULL(type_agent, ''))) != 'bloque' ORDER BY nom";
                 dtPersonnel = ConnectSqlite.ExecuteSelect(query);
             }
 
@@ -379,13 +380,10 @@ namespace DevPointageLite
             string query = "SELECT code, designation FROM HORAIRE_TRAVAIL ORDER BY designation";
             DataTable dt = ConnectSqlite.ExecuteSelect(query);
 
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                cb_horaire_travail.DisplayMember = "designation";
-                cb_horaire_travail.ValueMember = "code";
-                cb_horaire_travail.DataSource = dt;
-                cb_horaire_travail.SelectedIndex = -1;
-            }
+            cb_horaire_travail.DisplayMember = "designation";
+            cb_horaire_travail.ValueMember = "code";
+            cb_horaire_travail.DataSource = dt;      // حتى لو فارغ: يمسح "Oui/Non" الثابتين
+            cb_horaire_travail.SelectedIndex = -1;
         }
 
         private void cb_horaire_travail_SelectedIndexChanged(object sender, EventArgs e)
