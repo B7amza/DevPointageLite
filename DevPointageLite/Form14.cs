@@ -45,6 +45,28 @@ namespace DevPointageLite
             {
                 col.DefaultCellStyle.NullValue = null;
             }
+
+            // ✅ عناوين الأعمدة (بحسب الفهرس) + توضيحات عند تمرير الفأرة على العنوان
+            string[] titres =
+            {
+                "Emp.Temps", "Jour", "Entrée", "Entr. prév.", "Retard (m)",
+                "Pointage 1", "Pointage 2", "Sort. prév.", "Sortie",
+                "Heures supp.", "Observation"
+            };
+            string[] infos =
+            {
+                "Code de l'emploi du temps", null, "Premier pointage d'entrée", "Heure d'entrée prévue",
+                "Retard en minutes (dans la tolérance)",
+                "Pointage intermédiaire (retard hors tolérance, sortie/retour)", "Pointage intermédiaire",
+                "Heure de sortie prévue", "Dernier pointage de sortie",
+                "Heures supplémentaires (hh:mm)", null
+            };
+            for (int i = 0; i < titres.Length && i < entet2.Columns.Count; i++)
+            {
+                entet2.Columns[i].HeaderText = titres[i];
+                entet2.Columns[i].ToolTipText = infos[i];
+            }
+
         }
 
         private void load_personnel_details()
@@ -163,9 +185,13 @@ namespace DevPointageLite
                 int rowIndex = entet2.Rows.Add();
                 DataGridViewRow row = entet2.Rows[rowIndex];
 
-                row.Cells[1].Value = i.ToString();
+               // row.Cells[1].Value = i.ToString();
 
                 DateTime d_jour = new DateTime(Convert.ToInt32(txt_annee.Text.Trim()), liste_mois.SelectedIndex + 1, i);
+
+                // ✅ اسم اليوم بالفرنسية + رقمه (مثل: Dim 01)
+                string[] nomsJours = { "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam" };
+                row.Cells[1].Value = nomsJours[(int)d_jour.DayOfWeek] + " " + i.ToString("00");
 
                 var result = get_personnel_emploi_code(txt_matricule.Text, d_jour);
 
@@ -371,10 +397,11 @@ namespace DevPointageLite
             AfficherDernierTelechargement();
         }
 
-        // ✅ آخر تحميل للتمريرات (DATE_TELECHARGEMENT مخزَّنة بتوقيت UTC)
+        // ✅ آخر تحميل للتمريرات (DATE_TELECHARGEMENT مخزَّنة بتوقيت UTC) مع تلوين التنبيه
         private void AfficherDernierTelechargement()
         {
             string texte = "—";
+            int manques = int.MaxValue;     // لا توجد تاريخ = أقصى تنبيه
 
             DataTable dt = ConnectSqlite.ExecuteSelect(
                 "SELECT MAX(DATE_TELECHARGEMENT) AS d FROM CHARGEMENT_POITEUSE");
@@ -385,10 +412,38 @@ namespace DevPointageLite
                     DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
                     out DateTime utc))
             {
-                texte = utc.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+                DateTime local = utc.ToLocalTime();
+                texte = local.ToString("dd/MM/yyyy HH:mm");
+                manques = JoursOuvresSansTelechargement(local);
             }
 
             lb_max_date_telechargement.Text = "Dernier téléchargement : " + texte;
+
+            if (manques == 0)
+            {
+                lb_max_date_telechargement.Appearance.Options.UseForeColor = false;   // اللون الافتراضي
+                lb_max_date_telechargement.ToolTip = null;
+            }
+            else
+            {
+                lb_max_date_telechargement.Appearance.ForeColor = manques == 1 ? Color.DarkOrange : Color.Red;
+                lb_max_date_telechargement.Appearance.Options.UseForeColor = true;
+                lb_max_date_telechargement.ToolTip = manques == int.MaxValue
+                    ? "Aucun téléchargement enregistré."
+                    : manques + " jour(s) ouvré(s) sans téléchargement : les données peuvent être incomplètes.";
+            }
+        }
+
+        // عدد أيام العمل (غير الجمعة و السبت) التي مضت بين يوم آخر تحميل و اليوم، دون احتسابهما
+        private int JoursOuvresSansTelechargement(DateTime dernierLocal)
+        {
+            int manques = 0;
+            for (DateTime d = dernierLocal.Date.AddDays(1); d < DateTime.Today; d = d.AddDays(1))
+            {
+                if (d.DayOfWeek != DayOfWeek.Friday && d.DayOfWeek != DayOfWeek.Saturday)
+                    manques++;
+            }
+            return manques;
         }
 
         private DataTable get_horaire_travail(string code)
@@ -508,7 +563,7 @@ namespace DevPointageLite
 
         private void bt_imprimer_Click(object sender, EventArgs e)
         {
-            RibbonForm1.fn_imprission = new Form_imprission();
+            //RibbonForm1.fn_imprission = new Form_imprission();
             ds = new DataSet1();
             ds.Tables["dts_pointage"]?.Clear();
 
@@ -538,6 +593,7 @@ namespace DevPointageLite
             var report = new Reports.XtraReport_PointageM();
             report.DataSource = ds;
             report.RequestParameters = false;
+            report.DernierTelechargement = lb_max_date_telechargement.Text;
 
             // ✅ نافذة طباعة جديدة أيضًا
             using (var frm = new Form_imprission())
