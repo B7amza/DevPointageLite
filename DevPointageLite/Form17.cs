@@ -257,7 +257,7 @@ namespace DevPointageLite
                         else if (hr_pointage >= hr_sortie && hr_sortie > TimeSpan.Zero)
                         {
                             entetRow.Cells[6].Value = hr_pointage.ToString();
-                            if ((hr_pointage - hr_sortie).Minutes >= RibbonForm1.plage_hrs)
+                            if ((hr_pointage - hr_sortie).TotalMinutes >= RibbonForm1.plage_hrs)
                             {
                                 double heuresSupp = hr_pointage.TotalMinutes - hr_sortie.TotalMinutes;
                                 entetRow.Cells[7].Value = TimeSpan.FromMinutes(heuresSupp).ToString();

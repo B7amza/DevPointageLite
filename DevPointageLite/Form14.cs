@@ -72,23 +72,21 @@ namespace DevPointageLite
         private void load_personnel_details()
         {
             string matricule = txt_matricule.Text.Trim();
-            if (string.IsNullOrEmpty(matricule)) return;
+            if (string.IsNullOrEmpty(matricule))
+            {
+                lb_nom_prenom.Text = "";
+                lb_nom_prenom.Visible = false;
+                return;
+            }
 
-            string query = @"SELECT nom, prenom, fonction.lib_fonction, affectation.lib_affect 
-                            FROM Personnel 
-                            INNER JOIN fonction ON personnel.id_fonction = fonction.c_fonct 
-                            INNER JOIN affectation ON personnel.id_affectation = affectation.c_affect 
-                            WHERE matricule = @matricule";
-
+            string query = "SELECT nom, prenom FROM Personnel WHERE matricule = @matricule";
             var parameters = new SqliteParameter[] { new SqliteParameter("@matricule", matricule) };
             DataTable dt = ConnectSqlite.ExecuteSelect(query, parameters);
 
-            if (dt.Rows.Count > 0 && dt.Rows[0]["nom"] != DBNull.Value)
+            if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
-                string nom = row["nom"]?.ToString() ?? "";
-                string prenom = row["prenom"]?.ToString() ?? "";
-                lb_nom_prenom.Text = $"{nom} {prenom}";
+                lb_nom_prenom.Text = $"{row["nom"]} {row["prenom"]}".Trim();
                 lb_nom_prenom.Visible = true;
             }
             else
@@ -115,7 +113,8 @@ namespace DevPointageLite
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txt_matricule_Leave(sender, e);
+                e.SuppressKeyPress = true;   // بدون صوت التنبيه
+                bt_apercu.Focus();           // نقل التركيز => Leave مرة واحدة فقط
             }
         }
 
@@ -180,6 +179,15 @@ namespace DevPointageLite
             if (dtMax.Rows.Count > 0 && DateTime.TryParse(dtMax.Rows[0]["d"]?.ToString(), out DateTime dm))
                 derniereDate = dm.Date;
 
+
+            // ✅ الموظف غير الملزم بالتمرير (poinatge = Non) لا يُعلَّم عليه "Absent"
+            DataTable dtPoi = ConnectSqlite.ExecuteSelect(
+                "SELECT poinatge FROM Personnel WHERE matricule = @m",
+                new SqliteParameter("@m", matri.Trim()));
+            bool nonSoumis = dtPoi.Rows.Count > 0 &&
+                string.Equals(dtPoi.Rows[0]["poinatge"]?.ToString().Trim(), "non",
+                              StringComparison.OrdinalIgnoreCase);
+
             for (int i = 1; i <= nbr_jour; i++)
             {
                 int rowIndex = entet2.Rows.Add();
@@ -193,7 +201,7 @@ namespace DevPointageLite
                 string[] nomsJours = { "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam" };
                 row.Cells[1].Value = nomsJours[(int)d_jour.DayOfWeek] + " " + i.ToString("00");
 
-                var result = get_personnel_emploi_code(txt_matricule.Text, d_jour);
+                var result = get_personnel_emploi_code(matri, d_jour);
 
                 if (string.IsNullOrWhiteSpace(result?.ToString()))
                 {
@@ -328,26 +336,7 @@ namespace DevPointageLite
                 }
 
 
-                //// ✅ الغيابات - معالجة آمنة
-                //DataTable dtABS = new DataTable();
-                //LoadAbsences(matri, d_jour, dtABS);
-
-                //if (dtABS.Rows.Count > 0 && dtABS.Rows[0]["lib"] != null && dtABS.Rows[0]["lib"] != DBNull.Value)
-                //{
-                //    string lib_conge = dtABS.Rows[0]["lib"].ToString() + " " + dtABS.Rows[0]["OBS"].ToString();
-                //    if (!string.IsNullOrEmpty(lib_conge))
-                //    {
-                //        row.Cells[10].Value = lib_conge;
-                //    }
-                //    else
-                //    {
-                //        row.Cells[10].Value = null; // ✅ لا نستخدم DBNull
-                //    }
-                //}
-                //else
-                //{
-                //    row.Cells[10].Value = null; // ✅
-                //}
+                
                 // ✅ الغيابات و الإذونات - عدة سجلات في نفس اليوم
                 DataTable dtABS = new DataTable();
                 LoadAbsences(matri, d_jour, dtABS);
@@ -382,7 +371,7 @@ namespace DevPointageLite
                 {
                     row.Cells[10].Value = obsJour;
                 }
-                else if (jourTravaille && d_jour.Date < DateTime.Today && d_jour.Date <= derniereDate && nbr_poitage == 0)
+                else if (jourTravaille && !nonSoumis && d_jour.Date < DateTime.Today && d_jour.Date < derniereDate && nbr_poitage == 0)
                 {
                     // يوم عمل مضى، بلا تمريرة و بلا غياب مبرَّر
                     row.Cells[10].Value = "Absent";
