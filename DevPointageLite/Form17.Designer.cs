@@ -435,19 +435,6 @@
             this.cb_structure.Enabled = false;
             this.cb_structure.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_structure.FormattingEnabled = true;
-            this.cb_structure.Items.AddRange(new object[] {
-            "Janvier",
-            "Février",
-            "Mars",
-            "Avril",
-            "Mai",
-            "Juin",
-            "Juillet",
-            "Aout",
-            "Septembre",
-            "Ocrobre",
-            "Novembre",
-            "Décembre"});
             this.cb_structure.Location = new System.Drawing.Point(171, 81);
             this.cb_structure.Margin = new System.Windows.Forms.Padding(4);
             this.cb_structure.Name = "cb_structure";

@@ -29,19 +29,11 @@ namespace DevPointageLite
             ConfigureDataGridView(entet2);
         }
 
-        // ✅ دالة مساعدة لتهيئة DataGridView
+        // ✅ منع الفرز: الشبكتان مرتبطتان بالفهرس، و الفرز يفسد المطابقة بين الاسم و التمريرات
         private void ConfigureDataGridView(DataGridView dgv)
         {
-        //    dgv.AllowUserToAddRows = false;
-        //    dgv.AllowUserToDeleteRows = false;
-        //    dgv.ReadOnly = true;
-        //    dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        //    //dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-        //    foreach (DataGridViewColumn col in dgv.Columns)
-        //    {
-        //        col.DefaultCellStyle.NullValue = null;
-        //    }
+            foreach (DataGridViewColumn col in dgv.Columns)
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
@@ -214,6 +206,7 @@ namespace DevPointageLite
                     tableau.Columns["nom"].Width = 250;
                     tableau.Columns["nom"].HeaderText = "الاسم واللقب";
                 }
+                ConfigureDataGridView(tableau);
             }
 
             // ✅ معالجة بيانات الحضور لكل موظف
@@ -238,46 +231,96 @@ namespace DevPointageLite
                 int nbr_poitage = 0;
                 DataTable dtJ = chargement_pointage_journaliere(matricule, date_jour, ref nbr_poitage);
 
-                int position = 3;
+                //int position = 3;
 
-                // ✅ معالجة البصمات بأمان
-                if (nbr_poitage > 0 && dtJ != null && dtJ.Rows.Count > 0)
+                //// ✅ معالجة البصمات بأمان
+                //if (nbr_poitage > 0 && dtJ != null && dtJ.Rows.Count > 0)
+                //{
+                //    for (int j = 0; j < nbr_poitage && j < dtJ.Rows.Count; j++)
+                //    {
+                //        string heureStr = dtJ.Rows[j]["HEURS_POINTAGE"]?.ToString()?.Trim();
+
+                //        if (!TimeSpan.TryParse(heureStr, out TimeSpan hr_pointage))
+                //            continue;
+
+                //        if (hr_pointage <= hr_entree)
+                //        {
+                //            entetRow.Cells[0].Value = hr_pointage.ToString();
+                //        }
+                //        else if (hr_pointage >= hr_sortie && hr_sortie > TimeSpan.Zero)
+                //        {
+                //            entetRow.Cells[6].Value = hr_pointage.ToString();
+                //            if ((hr_pointage - hr_sortie).TotalMinutes >= RibbonForm1.plage_hrs)
+                //            {
+                //                double heuresSupp = hr_pointage.TotalMinutes - hr_sortie.TotalMinutes;
+                //                entetRow.Cells[7].Value = TimeSpan.FromMinutes(heuresSupp).ToString();
+                //            }
+                //        }
+                //        else if (hr_entree > TimeSpan.Zero && hr_pointage >= hr_entree && hr_pointage <= hr_sortie)
+                //        {
+                //            double retardMinutes = (hr_pointage - hr_entree).TotalMinutes;
+                //            if (retardMinutes <=    RibbonForm1.plage_retards)
+                //            {
+                //                entetRow.Cells[0].Value = hr_pointage.ToString();
+                //                entetRow.Cells[2].Value = retardMinutes.ToString("0");
+                //            }
+                //            else
+                //            {
+                //                if (position < entetRow.Cells.Count)
+                //                {
+                //                    entetRow.Cells[position].Value = hr_pointage.ToString();
+                //                    position++;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+
+                int position = 3;            // الخانتان 3 و 4 فقط للتمريرات الوسطية
+                bool entreeFaite = false;
+
+                // ✅ معالجة البصمات (مرتّبة حسب الساعة)
+                if (dtJ != null)
                 {
-                    for (int j = 0; j < nbr_poitage && j < dtJ.Rows.Count; j++)
+                    foreach (DataRow pr in dtJ.Rows)
                     {
-                        string heureStr = dtJ.Rows[j]["HEURS_POINTAGE"]?.ToString()?.Trim();
-
-                        if (!TimeSpan.TryParse(heureStr, out TimeSpan hr_pointage))
+                        if (!TimeSpan.TryParse(pr["HEURS_POINTAGE"]?.ToString()?.Trim(), out TimeSpan hr_pointage))
                             continue;
 
                         if (hr_pointage <= hr_entree)
                         {
-                            entetRow.Cells[0].Value = hr_pointage.ToString();
-                        }
-                        else if (hr_pointage >= hr_sortie && hr_sortie > TimeSpan.Zero)
-                        {
-                            entetRow.Cells[6].Value = hr_pointage.ToString();
-                            if ((hr_pointage - hr_sortie).TotalMinutes >= RibbonForm1.plage_hrs)
+                            // دخول في الوقت أو قبله: نحتفظ بأول تمريرة
+                            if (!entreeFaite)
                             {
-                                double heuresSupp = hr_pointage.TotalMinutes - hr_sortie.TotalMinutes;
-                                entetRow.Cells[7].Value = TimeSpan.FromMinutes(heuresSupp).ToString();
+                                entetRow.Cells[0].Value = hr_pointage.ToString(@"hh\:mm");
+                                entreeFaite = true;
                             }
                         }
-                        else if (hr_entree > TimeSpan.Zero && hr_pointage >= hr_entree && hr_pointage <= hr_sortie)
+                        else if (hr_sortie > TimeSpan.Zero && hr_pointage >= hr_sortie)
                         {
-                            double retardMinutes = (hr_pointage - hr_entree).TotalMinutes;
-                            if (retardMinutes <=    RibbonForm1.plage_retards)
+                            // خروج: آخر تمريرة هي التي تبقى
+                            entetRow.Cells[6].Value = hr_pointage.ToString(@"hh\:mm");
+
+                            double extra = (hr_pointage - hr_sortie).TotalMinutes;
+                            entetRow.Cells[7].Value = extra >= RibbonForm1.plage_hrs
+                                ? TimeSpan.FromMinutes(extra).ToString(@"hh\:mm")
+                                : null;
+                        }
+                        else if (hr_entree > TimeSpan.Zero)
+                        {
+                            // بين الدخول و الخروج
+                            double retard = (hr_pointage - hr_entree).TotalMinutes;
+
+                            if (!entreeFaite && retard <= RibbonForm1.plage_retards)
                             {
-                                entetRow.Cells[0].Value = hr_pointage.ToString();
-                                entetRow.Cells[2].Value = retardMinutes.ToString("0");
+                                entetRow.Cells[0].Value = hr_pointage.ToString(@"hh\:mm");
+                                entetRow.Cells[2].Value = retard.ToString("0");
+                                entreeFaite = true;
                             }
-                            else
+                            else if (position <= 4)
                             {
-                                if (position < entetRow.Cells.Count)
-                                {
-                                    entetRow.Cells[position].Value = hr_pointage.ToString();
-                                    position++;
-                                }
+                                entetRow.Cells[position].Value = hr_pointage.ToString(@"hh\:mm");
+                                position++;
                             }
                         }
                     }
@@ -341,7 +384,8 @@ namespace DevPointageLite
                              FROM CHARGEMENT_POITEUSE  
                              WHERE MATRI = @matricule 
                                AND DATE_POINTAGE >= @date_debut 
-                               AND DATE_POINTAGE < @date_fin";
+                               AND DATE_POINTAGE < @date_fin
+                                ORDER BY DATE_POINTAGE, HEURS_POINTAGE";
 
             var parameters = new SqliteParameter[]
             {
@@ -419,11 +463,10 @@ namespace DevPointageLite
         }
 
         public DataSet ds;
-        public Reports.XtraReport_PointageJR XtraReport_PointageJR1 = new Reports.XtraReport_PointageJR();
 
         private void bt_imprimer_Click(object sender, EventArgs e)
         {
-            RibbonForm1.fn_imprission = new Form_imprission();
+           
             ds = new DataSet1();
             ds.Tables["dts_pointage"]?.Clear();
 
@@ -440,13 +483,19 @@ namespace DevPointageLite
                 );
             }
 
-            XtraReport_PointageJR1.DataSource = ds;
-            XtraReport_PointageJR1.RequestParameters = false;
+            
+            // ✅ تقرير جديد في كل مرة
+            var report = new Reports.XtraReport_PointageJR();
+            report.DataSource = ds;
+            report.RequestParameters = false;
 
-            if (RibbonForm1.fn_imprission?.documentViewer1 != null)
+            // ✅ نافذة طباعة جديدة أيضاً
+            using (var frm = new Form_imprission())
             {
-                RibbonForm1.fn_imprission.documentViewer1.DocumentSource = XtraReport_PointageJR1;
-                RibbonForm1.fn_imprission.ShowDialog();
+                RibbonForm1.fn_imprission = frm;
+                frm.documentViewer1.DocumentSource = report;
+                report.CreateDocument();           // يفرض إعادة بناء المستند بالبيانات الحالية
+                frm.ShowDialog();
             }
         }
 
