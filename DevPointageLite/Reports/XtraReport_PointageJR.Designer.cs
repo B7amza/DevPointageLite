@@ -163,9 +163,12 @@
             // 
             // xrTableCell13
             // 
+            this.xrTableCell13.Font = new DevExpress.Drawing.DXFont("Arial", 9.75F, DevExpress.Drawing.DXFontStyle.Bold);
             this.xrTableCell13.Multiline = true;
             this.xrTableCell13.Name = "xrTableCell13";
-            this.xrTableCell13.Weight = 0.54273350022815281D;
+            this.xrTableCell13.StylePriority.UseFont = false;
+            this.xrTableCell13.Text = "Etr prv.";
+            this.xrTableCell13.Weight = 0.65100010078793147D;
             // 
             // xrTableCell14
             // 
@@ -178,25 +181,40 @@
             this.xrTableCell14.StylePriority.UseTextAlignment = false;
             this.xrTableCell14.Text = "Retard (m)";
             this.xrTableCell14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
-            this.xrTableCell14.Weight = 0.8127671886090867D;
+            this.xrTableCell14.Weight = 0.83081081668070089D;
             // 
             // xrTableCell15
             // 
+            this.xrTableCell15.Font = new DevExpress.Drawing.DXFont("Arial", 9.75F, DevExpress.Drawing.DXFontStyle.Bold);
             this.xrTableCell15.Multiline = true;
             this.xrTableCell15.Name = "xrTableCell15";
-            this.xrTableCell15.Weight = 0.6588490698119881D;
+            this.xrTableCell15.StylePriority.UseFont = false;
+            this.xrTableCell15.StylePriority.UseTextAlignment = false;
+            this.xrTableCell15.Text = "Pt 1";
+            this.xrTableCell15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
+            this.xrTableCell15.Weight = 0.64080519393883073D;
             // 
             // xrTableCell16
             // 
+            this.xrTableCell16.Font = new DevExpress.Drawing.DXFont("Arial", 9.75F, DevExpress.Drawing.DXFontStyle.Bold);
             this.xrTableCell16.Multiline = true;
             this.xrTableCell16.Name = "xrTableCell16";
-            this.xrTableCell16.Weight = 0.66727535426752915D;
+            this.xrTableCell16.StylePriority.UseFont = false;
+            this.xrTableCell16.StylePriority.UseTextAlignment = false;
+            this.xrTableCell16.Text = "Pt 2";
+            this.xrTableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
+            this.xrTableCell16.Weight = 0.55900900150929356D;
             // 
             // xrTableCell17
             // 
+            this.xrTableCell17.Font = new DevExpress.Drawing.DXFont("Arial", 9.75F, DevExpress.Drawing.DXFontStyle.Bold);
             this.xrTableCell17.Multiline = true;
             this.xrTableCell17.Name = "xrTableCell17";
-            this.xrTableCell17.Weight = 0.75690213215323654D;
+            this.xrTableCell17.StylePriority.UseFont = false;
+            this.xrTableCell17.StylePriority.UseTextAlignment = false;
+            this.xrTableCell17.Text = "Sort. prév.";
+            this.xrTableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
+            this.xrTableCell17.Weight = 0.88321227818411518D;
             // 
             // xrTableCell18
             // 
@@ -209,7 +227,7 @@
             this.xrTableCell18.StylePriority.UseTextAlignment = false;
             this.xrTableCell18.Text = "Sortie";
             this.xrTableCell18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
-            this.xrTableCell18.Weight = 0.79239790091125162D;
+            this.xrTableCell18.Weight = 0.666087754880373D;
             // 
             // xrTableCell19
             // 
@@ -365,7 +383,7 @@
             this.xrTableCell3.StylePriority.UseTextAlignment = false;
             this.xrTableCell3.Text = "xrTableCell3";
             this.xrTableCell3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell3.Weight = 0.54273367516662629D;
+            this.xrTableCell3.Weight = 0.65099983425216279D;
             // 
             // xrTableCell4
             // 
@@ -376,7 +394,7 @@
             this.xrTableCell4.StylePriority.UseTextAlignment = false;
             this.xrTableCell4.Text = "xrTableCell4";
             this.xrTableCell4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell4.Weight = 0.81276738854957165D;
+            this.xrTableCell4.Weight = 0.83081064705683827D;
             // 
             // xrTableCell5
             // 
@@ -387,7 +405,7 @@
             this.xrTableCell5.StylePriority.UseTextAlignment = false;
             this.xrTableCell5.Text = "xrTableCell5";
             this.xrTableCell5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell5.Weight = 0.6588485392400496D;
+            this.xrTableCell5.Weight = 0.64080528073278287D;
             // 
             // xrTableCell6
             // 
@@ -398,7 +416,7 @@
             this.xrTableCell6.StylePriority.UseTextAlignment = false;
             this.xrTableCell6.Text = "xrTableCell6";
             this.xrTableCell6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell6.Weight = 0.66727552579990124D;
+            this.xrTableCell6.Weight = 0.55900936671436474D;
             // 
             // xrTableCell7
             // 
@@ -409,7 +427,7 @@
             this.xrTableCell7.StylePriority.UseTextAlignment = false;
             this.xrTableCell7.Text = "xrTableCell7";
             this.xrTableCell7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell7.Weight = 0.75690359898045256D;
+            this.xrTableCell7.Weight = 0.8832123557690621D;
             // 
             // xrTableCell8
             // 
@@ -420,7 +438,7 @@
             this.xrTableCell8.StylePriority.UseTextAlignment = false;
             this.xrTableCell8.Text = "xrTableCell8";
             this.xrTableCell8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell8.Weight = 0.79239805112585615D;
+            this.xrTableCell8.Weight = 0.66608929433724673D;
             // 
             // xrTableCell9
             // 
