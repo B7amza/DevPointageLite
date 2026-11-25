@@ -743,8 +743,8 @@ namespace DevPointageLite
                     GetCellValue(entet2, i, 6), GetCellValue(entet2, i, 7), GetCellValue(entet2, i, 8),
                     structureApercu,
                     GetCellValue(tableau, i, 0), GetCellValue(tableau, i, 1),
-                    dateApercu.ToString("d"),
-                    dateApercu.ToString("MMMM", new System.Globalization.CultureInfo("ar-AR"))
+                    dateApercu.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture),
+                    dateApercu.ToString("MMMM", System.Globalization.CultureInfo.GetCultureInfo("fr-FR"))
                 );
             }
 
