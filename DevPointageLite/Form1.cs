@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Microsoft.Win32; // For accessing the registry
 
@@ -79,7 +80,7 @@ namespace DevPointageLite
             if (firstLaunch == null) // This means it's the first time the app is being launched
             {
                 // Store the current date and time as the first launch time
-                Registry.SetValue(registryKeyPath, firstLaunchKey, DateTime.Now.ToString());
+                Registry.SetValue(registryKeyPath, firstLaunchKey, DateTime.Now.ToString("o", CultureInfo.InvariantCulture));
                 //MessageBox.Show("Welcome to the trial version! You have 1 minute of usage.", "Trial Started");
                 using (TrialMessageForm msgBox = new TrialMessageForm("مرحبا في النسخة التجريبية مدتها 15 يوم ...", "مرحبا"))
                 {
@@ -90,7 +91,13 @@ namespace DevPointageLite
             else
             {
                 // Parse the stored launch time
-                DateTime firstLaunchTime = DateTime.Parse(firstLaunch.ToString());
+                string stored = firstLaunch.ToString();
+                DateTime firstLaunchTime = ParseFirstLaunch(stored);
+
+                // ✅ ترحيل القيمة القديمة (صيغة محلية) إلى الصيغة الثابتة
+                string iso = firstLaunchTime.ToString("o", CultureInfo.InvariantCulture);
+                if (stored != iso) Registry.SetValue(registryKeyPath, firstLaunchKey, iso);
+
                 TimeSpan timeElapsed = DateTime.Now - firstLaunchTime;
 
                 // Check if the trial period has expired
@@ -103,6 +110,34 @@ namespace DevPointageLite
                     StartTrialTimer(firstLaunchTime); // Start timer for ongoing use
                 }
             }
+        }
+
+        // ✅ قراءة تاريخ أول تشغيل بشكل لا يتأثر بالإعدادات الإقليمية لـ Windows
+        private static DateTime ParseFirstLaunch(string s)
+        {
+            DateTime dt;
+
+            // الصيغة الجديدة الثابتة
+            if (DateTime.TryParseExact(s, "o", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dt))
+                return dt;
+
+            // قيم قديمة بصيغة محلية: نجرب الثقافة الحالية أولاً (كما كان سابقاً) ثم بدائل شائعة،
+            // و نرفض أي تاريخ في المستقبل (أول تشغيل لا يمكن أن يكون بعد اليوم)
+            CultureInfo[] cultures =
+            {
+                CultureInfo.CurrentCulture,
+                new CultureInfo("fr-FR"),
+                new CultureInfo("en-US"),
+                CultureInfo.InvariantCulture
+            };
+            foreach (CultureInfo c in cultures)
+            {
+                if (DateTime.TryParse(s, c, DateTimeStyles.None, out dt) && dt <= DateTime.Now.AddDays(1))
+                    return dt;
+            }
+
+            // غير قابل للقراءة (تالف): نعتبر التجربة منتهية بدل أن يتعطل البرنامج عند الإقلاع
+            return DateTime.MinValue;
         }
 
         private void StartTrialTimer(DateTime firstLaunchTime)

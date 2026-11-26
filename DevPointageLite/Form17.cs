@@ -63,24 +63,21 @@ namespace DevPointageLite
         private void load_personnel_details()
         {
             string matricule = txt_matricule.Text.Trim();
-            if (string.IsNullOrEmpty(matricule)) return;
+            if (string.IsNullOrEmpty(matricule))
+            {
+                lb_nom_prenom.Text = "";
+                lb_nom_prenom.Visible = false;
+                return;
+            }
 
-            // ✅ SQLite: استخدام || للدمج بدلاً من CONCAT، وIFNULL بدلاً من ISNULL
-            string query = @"SELECT nom, prenom, fonction.lib_fonction, affectation.lib_affect 
-                            FROM Personnel 
-                            INNER JOIN fonction ON personnel.id_fonction = fonction.c_fonct 
-                            INNER JOIN affectation ON personnel.id_affectation = affectation.c_affect 
-                            WHERE matricule = @matricule";
-
+            string query = "SELECT nom, prenom FROM Personnel WHERE matricule = @matricule";
             var parameters = new SqliteParameter[] { new SqliteParameter("@matricule", matricule) };
             DataTable dt = ConnectSqlite.ExecuteSelect(query, parameters);
 
-            if (dt.Rows.Count > 0 && dt.Rows[0]["nom"] != DBNull.Value)
+            if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
-                string nom = row["nom"]?.ToString() ?? "";
-                string prenom = row["prenom"]?.ToString() ?? "";
-                lb_nom_prenom.Text = $"{nom} {prenom}";
+                lb_nom_prenom.Text = $"{row["nom"]} {row["prenom"]}".Trim();
                 lb_nom_prenom.Visible = true;
             }
             else
@@ -105,7 +102,8 @@ namespace DevPointageLite
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txt_matricule_Leave(sender, e);
+                e.SuppressKeyPress = true;   // بدون صوت التنبيه
+                bt_apercu.Focus();           // نقل التركيز => Leave مرة واحدة فقط
             }
         }
 
