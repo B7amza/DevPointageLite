@@ -26,6 +26,7 @@ namespace DevPointageLite
             loadListePointeuse();
         }
         CZKEM zkDevice = new CZKEM(); // كائن الاتصال بالجهاز
+        string ipSourceChargee = null; // IP de la pointeuse dont la grille a été chargée
         private void loadListePointeuse()
         {
             try
@@ -55,9 +56,24 @@ namespace DevPointageLite
                 MessageBox.Show("خطأ أثناء تحميل القائمة: " + ex.Message);
             }
         }
+        private void SafeDisconnect()
+        {
+            try { zkDevice.Disconnect(); } catch { }
+        }
+        private int CompterAdmins()
+        {
+            int n = 0;
+            zkDevice.ReadAllUserID(1);
+            while (zkDevice.SSR_GetAllUserInfo(1, out string id, out string nom,
+                                               out string pwd, out int priv, out bool actif))
+            {
+                if (priv != 0) n++;   // كل من له صلاحية غير عادية
+            }
+            return n;
+        }
         private void bt_connexionP_Click(object sender, EventArgs e)
         {
-            bool isConnected = false;
+            //bool isConnected = false;
             int machineNumber = 1; // غالباً الجهاز يكون رقم 1
             try
             {
@@ -72,14 +88,10 @@ namespace DevPointageLite
                 }
 
                 // قطع الاتصال إذا كان متصل مسبقاً
-                if (isConnected)
-                {
-                    zkDevice.Disconnect();
-                    isConnected = false;
-                }
+                SafeDisconnect();   // يغلق أي اتصال قديم بأمان
 
                 // محاولة الاتصال
-                isConnected = zkDevice.Connect_Net(ip, port);
+                bool isConnected = zkDevice.Connect_Net(ip, port);
 
                 if (isConnected)
                 {
@@ -108,6 +120,10 @@ namespace DevPointageLite
             catch (Exception ex)
             {
                 MessageBox.Show("خطأ: " + ex.Message);
+            }
+            finally   // ← جديد، في الدوال الأربع
+            {
+                SafeDisconnect();
             }
         }
 
@@ -162,6 +178,10 @@ namespace DevPointageLite
             {
                 MessageBox.Show("خطأ: " + ex.Message);
             }
+            finally   // ← جديد، في الدوال الأربع
+            {
+                SafeDisconnect();
+            }
         }
 
         private void bt_telechargerD_Click(object sender, EventArgs e)
@@ -213,6 +233,7 @@ namespace DevPointageLite
                     }
 
                     gridControl1.DataSource = dt;
+                    ipSourceChargee = ip;   // ← جديد
                     MessageBox.Show("تم تحميل بيانات المستخدمين بنجاح.");
                     gridView1.OptionsBehavior.Editable = false;
                 }
@@ -224,6 +245,10 @@ namespace DevPointageLite
             catch (Exception ex)
             {
                 MessageBox.Show("خطأ: " + ex.Message);
+            }
+            finally   // ← جديد، في الدوال الأربع
+            {
+                SafeDisconnect();
             }
         }
 
@@ -244,6 +269,13 @@ namespace DevPointageLite
                 // قلب الصلاحية: إذا كان 0 → 3 (مشرف)، إذا كان 3 → 0 (مستخدم)
                 int newPrivilege = (currentPrivilege == 0) ? 3 : 0;
 
+                if (newPrivilege == 0 && CompterAdmins() <= 1)   // ← جديد
+                {
+                    DialogResult dr = MessageBox.Show(
+                        "هذا هو المشرف الوحيد على الجهاز.\nإذا حوّلته إلى مستخدم عادي ستصبح قائمة الجهاز مفتوحة للجميع.\nهل تريد المتابعة؟",
+                        "تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dr == DialogResult.No) return;
+                }
                 string ip = cb_pointeuse_source.SelectedValue?.ToString();
                 if (string.IsNullOrEmpty(ip))
                 {
@@ -288,10 +320,15 @@ namespace DevPointageLite
             {
                 MessageBox.Show("خطأ: " + ex.Message);
             }
+            finally   // ← جديد، في الدوال الأربع
+            {
+                SafeDisconnect();
+            }
         }
 
         private void bt_transfert_Click(object sender, EventArgs e)
         {
+            int machineNumber = 1;   // ← انقله إلى هنا
             try
             {
                 string sourceIP = cb_pointeuse_source.SelectedValue?.ToString();
@@ -308,14 +345,18 @@ namespace DevPointageLite
                     MessageBox.Show("يرجى اختيار مستخدم.");
                     return;
                 }
-
+                if (sourceIP != ipSourceChargee)
+                {
+                    MessageBox.Show("الجدول محمّل من جهاز آخر.\nاضغط «Charger» من جديد بعد تغيير جهاز المصدر.");
+                    return;
+                }
                 string enrollNumber = gridView1.GetFocusedRowCellValue("Matricule").ToString();
                 string name = gridView1.GetFocusedRowCellValue("Nom").ToString();
                 int privilege = Convert.ToInt32(gridView1.GetFocusedRowCellValue("c_privilege"));
                 bool enabled = Convert.ToBoolean(gridView1.GetFocusedRowCellValue("c_enabled"));
 
                 int port = 4370;
-                int machineNumber = 1;
+                
 
                 progressBar1.Value = 0;
 
@@ -348,6 +389,11 @@ namespace DevPointageLite
                 zkDevice.EnableDevice(machineNumber, true);
                 zkDevice.Disconnect();
 
+                if (fingerprints.Count == 0)   // ← جديد
+                {
+                    MessageBox.Show("لم يتم العثور على أي بصمة لهذا المستخدم في الجهاز المصدر.\nلم يتم تغيير أي شيء في الجهاز الوجهة.");
+                    return;
+                }
                 // ===============================
                 // 2️⃣ الاتصال بالجهاز الهدف
                 // ===============================
@@ -435,6 +481,7 @@ namespace DevPointageLite
                 progressBar1.Value = 0;
 
                 int counter = 0;
+                int reussies = 0;   // ← جديد
 
                 foreach (var fp in fingerprints)
                 {
@@ -445,6 +492,9 @@ namespace DevPointageLite
                         fp.flag,
                         fp.tmpData
                     );
+                    {
+                        reussies++;        // ← جديد
+                    }                      
 
                     counter++;
                     if (counter <= progressBar1.Maximum)
@@ -459,115 +509,35 @@ namespace DevPointageLite
 
                 progressBar1.Value = 0;
 
-                MessageBox.Show("تم نقل المستخدم مع البصمات بنجاح.. ✅");
+                //MessageBox.Show("تم نقل المستخدم مع البصمات بنجاح.. ✅");
+                if (reussies == fingerprints.Count)
+                {
+                    MessageBox.Show("تم نقل المستخدم مع البصمات بنجاح.. ✅");
+                }
+                else
+                {
+                    MessageBox.Show(
+                        $"تم نقل {reussies} بصمة من أصل {fingerprints.Count}.\nراجع المستخدم في الجهاز الوجهة.",
+                        "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("خطأ: " + ex.Message);
             }
+            finally   // ← جديد
+            {
+                try { zkDevice.EnableDevice(machineNumber, true); } catch { }
+                try { zkDevice.Disconnect(); } catch { }
+                progressBar1.Value = 0;
+            }
         }
-        //private void bt_transfert_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        string sourceIP = cb_listepointeuse.SelectedValue?.ToString();
-        //        string destIP = cb_destination.SelectedValue?.ToString();
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            SafeDisconnect();
+            base.OnFormClosing(e);
+        }
 
-        //        if (string.IsNullOrEmpty(sourceIP) || string.IsNullOrEmpty(destIP))
-        //        {
-        //            MessageBox.Show("يرجى اختيار الجهازين.");
-        //            return;
-        //        }
-
-        //        if (gridView1.FocusedRowHandle < 0)
-        //        {
-        //            MessageBox.Show("يرجى اختيار مستخدم.");
-        //            return;
-        //        }
-
-        //        string enrollNumber = gridView1.GetFocusedRowCellValue("Matricule").ToString();
-        //        string name = gridView1.GetFocusedRowCellValue("Nom").ToString();
-        //        int privilege = Convert.ToInt32(gridView1.GetFocusedRowCellValue("c_privilege"));
-        //        bool enabled = Convert.ToBoolean(gridView1.GetFocusedRowCellValue("c_enabled"));
-
-        //        int port = 4370;
-
-        //        // 🔹 الاتصال بالجهاز المصدر
-        //        if (!zkDevice.Connect_Net(sourceIP, port))
-        //        {
-        //            MessageBox.Show("فشل الاتصال بالجهاز المصدر.");
-        //            return;
-        //        }
-
-        //        zkDevice.EnableDevice(1, false);
-
-        //        // قراءة البصمات
-        //        List<(int fingerIndex, int flag, string tmpData)> fingerprints = new List<(int, int, string)>();
-
-        //        for (int i = 0; i < 10; i++) // الجهاز يدعم حتى 10 بصمات
-        //        {
-        //            string tmpData = "";
-        //            int flag = 0;
-        //            int tmpLength = 0;
-
-        //            if (zkDevice.GetUserTmpExStr(1, enrollNumber, i, out flag, out tmpData, out tmpLength))
-        //            {
-        //                fingerprints.Add((i, flag, tmpData));
-        //            }
-        //        }
-
-        //        zkDevice.EnableDevice(1, true);
-        //        zkDevice.Disconnect();
-
-        //        // 🔹 الاتصال بالجهاز الهدف
-        //        if (!zkDevice.Connect_Net(destIP, port))
-        //        {
-        //            MessageBox.Show("فشل الاتصال بالجهاز الهدف.");
-        //            return;
-        //        }
-
-        //        zkDevice.EnableDevice(1, false);
-
-        //        // إنشاء المستخدم
-        //        bool userCreated = zkDevice.SSR_SetUserInfo(
-        //            1,
-        //            enrollNumber,
-        //            name,
-        //            "",
-        //            privilege,
-        //            enabled
-        //        );
-
-        //        if (!userCreated)
-        //        {
-        //            MessageBox.Show("فشل إنشاء المستخدم في الجهاز الهدف.");
-        //            zkDevice.EnableDevice(1, true);
-        //            zkDevice.Disconnect();
-        //            return;
-        //        }
-
-        //        // 🔹 نقل البصمات
-        //        foreach (var fp in fingerprints)
-        //        {
-        //            zkDevice.SetUserTmpExStr(
-        //                1,
-        //                enrollNumber,
-        //                fp.fingerIndex,
-        //                fp.flag,
-        //                fp.tmpData
-        //            );
-        //        }
-
-        //        zkDevice.RefreshData(1);
-        //        zkDevice.EnableDevice(1, true);
-        //        zkDevice.Disconnect();
-
-        //        MessageBox.Show("تم نقل المستخدم مع جميع البصمات بنجاح ✅");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("خطأ: " + ex.Message);
-        //    }
-        //}
+        
     }
 }
