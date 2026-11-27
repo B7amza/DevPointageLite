@@ -446,11 +446,11 @@
             // 
             this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl4.Appearance.Options.UseFont = true;
-            this.labelControl4.Location = new System.Drawing.Point(18, 39);
+            this.labelControl4.Location = new System.Drawing.Point(46, 37);
             this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(87, 24);
+            this.labelControl4.Size = new System.Drawing.Size(56, 24);
             this.labelControl4.TabIndex = 12;
-            this.labelControl4.Text = "Date Du :";
+            this.labelControl4.Text = "Date :";
             // 
             // Form17
             // 

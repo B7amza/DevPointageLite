@@ -691,8 +691,9 @@ namespace DevPointageLite
 
         private void entet2_Scroll(object sender, ScrollEventArgs e)
         {
-            if (tableau.Rows.Count > e.NewValue)
-                tableau.FirstDisplayedScrollingRowIndex = e.NewValue;
+            int idx = entet2.FirstDisplayedScrollingRowIndex;
+            if (idx >= 0 && idx < tableau.Rows.Count && tableau.FirstDisplayedScrollingRowIndex != idx)
+                tableau.FirstDisplayedScrollingRowIndex = idx;
         }
 
         private void entet2_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -712,8 +713,9 @@ namespace DevPointageLite
 
         private void tableau_Scroll(object sender, ScrollEventArgs e)
         {
-            if (entet2.Rows.Count > e.NewValue)
-                entet2.FirstDisplayedScrollingRowIndex = e.NewValue;
+            int idx = tableau.FirstDisplayedScrollingRowIndex;
+            if (idx >= 0 && idx < entet2.Rows.Count && entet2.FirstDisplayedScrollingRowIndex != idx)
+                entet2.FirstDisplayedScrollingRowIndex = idx;
         }
 
         public DataSet ds;

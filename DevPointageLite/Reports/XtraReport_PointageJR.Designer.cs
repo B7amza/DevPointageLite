@@ -157,7 +157,7 @@
             this.xrTableCell12.StylePriority.UseFont = false;
             this.xrTableCell12.StylePriority.UseForeColor = false;
             this.xrTableCell12.StylePriority.UseTextAlignment = false;
-            this.xrTableCell12.Text = "Entree";
+            this.xrTableCell12.Text = "Entrée";
             this.xrTableCell12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             this.xrTableCell12.Weight = 0.62621544740896573D;
             // 
@@ -167,7 +167,7 @@
             this.xrTableCell13.Multiline = true;
             this.xrTableCell13.Name = "xrTableCell13";
             this.xrTableCell13.StylePriority.UseFont = false;
-            this.xrTableCell13.Text = "Etr prv.";
+            this.xrTableCell13.Text = "Entr.prv";
             this.xrTableCell13.Weight = 0.65100010078793147D;
             // 
             // xrTableCell14
@@ -238,7 +238,7 @@
             this.xrTableCell19.StylePriority.UseFont = false;
             this.xrTableCell19.StylePriority.UseForeColor = false;
             this.xrTableCell19.StylePriority.UseTextAlignment = false;
-            this.xrTableCell19.Text = "Heurs Supp";
+            this.xrTableCell19.Text = "Heures Supp";
             this.xrTableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             this.xrTableCell19.Weight = 0.94279559537055269D;
             // 
